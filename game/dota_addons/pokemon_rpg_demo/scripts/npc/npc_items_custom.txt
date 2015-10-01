@@ -1,0 +1,54 @@
+"DOTAAbilities"
+{
+	"item_poke_ball"
+	{
+		"ID"           				"1836"
+		"AbilityBehavior"    	 	"DOTA_ABILITY_BEHAVIOR_POINT"
+		"Model"						"models/props_gameplay/red_box.vmdl"
+		"Effect"					"particles/generic_gameplay/dropped_item.vpcf"
+		"BaseClass"          		"item_datadriven"
+		"AbilityTextureName"     	"item_poke_ball"
+		
+		"AbilityCastRange"				"600"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"0.0"
+		"AbilityManaCost"				"0"
+		
+		"precache"
+		{
+			"particle"			"particles/econ/courier/courier_faceless_rex/cour_rex_ground_a.vpcf"
+		}
+		
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"			"scripts/vscripts/abilities/poke_balls/poke_ball.lua"
+				"Function"				"Activate"
+				"Target"				"POINT"
+			}
+		}
+		
+		"Modifiers"
+		{
+			"summoning_sickness"
+			{
+				"Duration"			"1.5"
+				"OverrideAnimation"	"ACT_DOTA_DISABLED"
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/econ/courier/courier_faceless_rex/cour_rex_ground_a.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+			}
+		}
+	}
+}

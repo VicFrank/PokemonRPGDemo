@@ -1,0 +1,568 @@
+"pokemon_table"
+{
+	"Pokemon"
+	{
+		"001"
+		{
+			"Name"					"bulbasaur"
+			
+			"Type1"					"GRASS"
+			"Type2"					"POISON"
+			
+			"BaseHP"				"60"
+			"BaseAttack"			"62"
+			"BaseDefense"			"63"
+			"BaseSpecialAttack"		"80"
+			"BaseSpecialDefense"	"80"
+			"BaseSpeed"				"60"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"ivysaur"
+				"Level"				"16"
+			}
+			
+			"LearnSet"
+			{
+				"0"					"tackle"
+				"3"					"growl"
+				"7"					"leech_seed"
+				"9"					"vine_whip"
+				"13"				"poison_powder"
+				"13"				"sleep_powder"
+				"15"				"take_down"
+				"19"				"razor_leaf"
+				"21"				"sweet_scent"
+				"25"				"growth"
+				"27"				"double_edge"
+				"31"				"worry_seed"
+				"33"				"synthesis"
+				"37"				"seet_bomb"
+			}
+			
+			"ExpYield"				"64"
+			"CatchRate"				"45"
+		}
+		
+		"002"
+		{
+			"Name"					"ivysaur"
+			
+			"Type1"					"GRASS"
+			"Type2"					"POISON"
+			
+			"BaseHP"				"60"
+			"BaseAttack"			"62"
+			"BaseDefense"			"63"
+			"BaseSpecialAttack"		"80"
+			"BaseSpecialDefense"	"80"
+			"BaseSpeed"				"60"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"venusaur"
+				"Level"				"32"
+			}
+			
+			"LearnSet"
+			{
+				"0"					"tackle"
+				"3"					"growl"
+				"7"					"leech_seed"
+				"9"					"vine_whip"
+				"13"				"poison_powder"
+				"13"				"sleep_powder"
+				"15"				"take_down"
+				"20"				"razor_leaf"
+				"23"				"sweet_scent"
+				"28"				"growth"
+				"31"				"double_edge"
+				"36"				"worry_seed"
+				"39"				"synthesis"
+				"44"				"solar_beam"
+			}
+			
+			"ExpYield"				"142"
+			"CatchRate"				"45"
+		}
+		"003"
+		{
+			"Name"					"venusaur"
+			
+			"Type1"					"GRASS"
+			"Type2"					"POISON"
+			
+			"BaseHP"				"80"
+			"BaseAttack"			"82"
+			"BaseDefense"			"83"
+			"BaseSpecialAttack"		"100"
+			"BaseSpecialDefense"	"100"
+			"BaseSpeed"				"80"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				"0"					"tackle"
+				"3"					"growl"
+				"7"					"leech_seed"
+				"9"					"vine_whip"
+				"13"				"poison_powder"
+				"13"				"sleep_powder"
+				"15"				"take_down"
+				"20"				"razor_leaf"
+				"23"				"sweet_scent"
+				"28"				"growth"
+				"31"				"double_edge"
+				"32"				"petal_dance"
+				"39"				"worry_seed"
+				"45"				"synthesis"
+				"50"				"petal_blizzard"
+				"53"				"solar_beam"
+			}
+			
+			"ExpYield"				"236"
+			"CatchRate"				"45"
+		}
+		"004"
+		{
+			"Name"					"charmander"
+			
+			"Type1"					"FIRE"
+			"Type2"					""
+			
+			"BaseHP"				"39"
+			"BaseAttack"			"52"
+			"BaseDefense"			"43"
+			"BaseSpecialAttack"		"60"
+			"BaseSpecialDefense"	"50"
+			"BaseSpeed"				"65"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"charmeleon"
+				"Level"				"16"
+			}
+			
+			"LearnSet"
+			{
+				"0"					"scratch"
+				"0"					"growl"
+				"7"					"ember"
+				"10"				"smokescreen"
+				"16"				"dragon_rage"
+				"19"				"scary_face"
+				"25"				"fire_fang"
+				"28"				"flame_burst"
+				"34"				"slash"
+				"37"				"flamethrower"
+				"43"				"fire_spin"
+				"46"				"inferno"
+			}
+			
+			"ExpYield"				"62"
+			"CatchRate"				"45"
+		}
+		"005"
+		{
+			"Name"					"charmeleon"
+			
+			"Type1"					"FIRE"
+			"Type2"					""
+			
+			"BaseHP"				"58"
+			"BaseAttack"			"64"
+			"BaseDefense"			"58"
+			"BaseSpecialAttack"		"80"
+			"BaseSpecialDefense"	"65"
+			"BaseSpeed"				"80"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"charizard"
+				"Level"				"36"
+			}
+			
+			"LearnSet"
+			{
+				"0"					"scratch"
+				"0"					"growl"
+				"7"					"ember"
+				"10"				"smokescreen"
+				"17"				"dragon_rage"
+				"21"				"scary_face"
+				"28"				"fire_fang"
+				"32"				"flame_burst"
+				"39"				"slash"
+				"43"				"flamethrower"
+				"50"				"fire_spin"
+				"54"				"inferno"
+			}
+			
+			"ExpYield"				"142"
+			"CatchRate"				"45"
+		}
+		"006"
+		{
+			"Name"					"charizard"
+			
+			"Type1"					"FIRE"
+			"Type2"					"FLYING"
+			
+			"BaseHP"				"78"
+			"BaseAttack"			"84"
+			"BaseDefense"			"78"
+			"BaseSpecialAttack"		"109"
+			"BaseSpecialDefense"	"85"
+			"BaseSpeed"				"100"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				"0"					"scratch"
+				"0"					"growl"
+				"7"					"ember"
+				"10"				"smokescreen"
+				"17"				"dragon_rage"
+				"21"				"scary_face"
+				"28"				"fire_fang"
+				"32"				"flame_burst"
+				"36"				"wing_attack"
+				"41"				"slash"
+				"47"				"flamethrower"
+				"56"				"fire_spin"
+				"62"				"inferno"
+				"71"				"heat_wave"
+				"77"				"flare_blitz"
+			}
+			
+			"ExpYield"				"240"
+			"CatchRate"				"45"
+		}
+		"007"
+		{
+			"Name"					"squirtle"
+			
+			"Type1"					"WATER"
+			"Type2"					""
+			
+			"BaseHP"				"44"
+			"BaseAttack"			"48"
+			"BaseDefense"			"65"
+			"BaseSpecialAttack"		"50"
+			"BaseSpecialDefense"	"64"
+			"BaseSpeed"				"43"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"wartortle"
+				"Level"				"16"
+			}
+			
+			"LearnSet"
+			{
+				"0"					"tackle"
+				"4"					"tail_whip"
+				"7"					"water_gun"
+				"10"				"withdraw"
+				"13"				"bubble"
+				"16"				"bite"
+				"19"				"rapid_spin"
+				"22"				"protect"
+				"25"				"water_pulse"
+				"28"				"aqua_tail"
+				"31"				"skull_bash"
+				"34"				"iron_defense"
+				"37"				"rain_dance"
+				"40"				"hydro_pump"
+			}
+			
+			"ExpYield"				"63"
+		}
+		"008"
+		{
+			"Name"					"wartortle"
+			
+			"Type1"					"WATER"
+			"Type2"					""
+			
+			"BaseHP"				"59"
+			"BaseAttack"			"63"
+			"BaseDefense"			"80"
+			"BaseSpecialAttack"		"65"
+			"BaseSpecialDefense"	"80"
+			"BaseSpeed"				"58"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"blastoise"
+				"Level"				"32"
+			}
+			
+			"LearnSet"
+			{
+				"0"					"tackle"
+				"4"					"tail_whip"
+				"7"					"water_gun"
+				"10"				"withdraw"
+				"13"				"bubble"
+				"16"				"bite"
+				"20"				"rapid_spin"
+				"24"				"protect"
+				"28"				"water_pulse"
+				"32"				"aqua_tail"
+				"36"				"skull_bash"
+				"40"				"iron_defense"
+				"44"				"rain_dance"
+				"48"				"hydro_pump"
+			}
+			
+			"ExpYield"				"142"
+			"CatchRate"				"45"
+		}
+		"009"
+		{
+			"Name"					"blastoise"
+			
+			"Type1"					"WATER"
+			"Type2"					""
+			
+			"BaseHP"				"79"
+			"BaseAttack"			"83"
+			"BaseDefense"			"100"
+			"BaseSpecialAttack"		"85"
+			"BaseSpecialDefense"	"105"
+			"BaseSpeed"				"78"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				"0"					"tackle"
+				"4"					"tail_whip"
+				"7"					"water_gun"
+				"10"				"withdraw"
+				"13"				"bubble"
+				"16"				"bite"
+				"20"				"rapid_spin"
+				"24"				"protect"
+				"28"				"water_pulse"
+				"32"				"aqua_tail"
+				"39"				"skull_bash"
+				"46"				"iron_defense"
+				"53"				"rain_dance"
+				"60"				"hydro_pump"
+			}
+			
+			"ExpYield"				"239"
+			"CatchRate"				"45"
+		}
+		"016"
+		{
+			"Name"					"pidgey"
+			
+			"Type1"					"NORMAL"
+			"Type2"					"FLYING"
+			
+			"BaseHP"				"40"
+			"BaseAttack"			"45"
+			"BaseDefense"			"40"
+			"BaseSpecialAttack"		"35"
+			"BaseSpecialDefense"	"35"
+			"BaseSpeed"				"56"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"pidgeotto"
+				"Level"				"18"
+			}
+			
+			"LearnSet"
+			{
+				"0"					"tackle"
+				"5"					"sand_attack"
+				"9"					"gust"
+				"13"				"quick_attack"
+				"17"				"whirlwind"
+				"21"				"twister"
+				"25"				"feather_dance"
+				"29"				"agility"
+				"33"				"wing_attack"
+				"37"				"roost"
+				"41"				"tailwind"
+				"45"				"mirror_move"
+				"49"				"air_slash"
+				"53"				"hurricane"
+			}
+			
+			"ExpYield"				"50"
+			"CatchRate"				"255"
+		}
+		"017"
+		{
+			"Name"					"pidgeotto"
+			
+			"Type1"					"NORMAL"
+			"Type2"					"FLYING"
+			
+			"BaseHP"				"63"
+			"BaseAttack"			"60"
+			"BaseDefense"			"55"
+			"BaseSpecialAttack"		"50"
+			"BaseSpecialDefense"	"50"
+			"BaseSpeed"				"70"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"pidgeot"
+				"Level"				"36"
+			}
+			
+			"LearnSet"
+			{
+				"0"					"tackle"
+				"5"					"sand_attack"
+				"9"					"gust"
+				"13"				"quick_attack"
+				"17"				"whirlwind"
+				"22"				"twister"
+				"27"				"feather_dance"
+				"32"				"agility"
+				"37"				"wing_attack"
+				"42"				"roost"
+				"47"				"tailwind"
+				"52"				"mirror_move"
+				"57"				"air_slash"
+				"62"				"hurricane"
+			}
+			
+			"ExpYield"				"122"
+			"CatchRate"				"120"
+		}
+		"016"
+		{
+			"Name"					"pidgeot"
+			
+			"Type1"					"NORMAL"
+			"Type2"					"FLYING"
+			
+			"BaseHP"				"83"
+			"BaseAttack"			"80"
+			"BaseDefense"			"75"
+			"BaseSpecialAttack"		"70"
+			"BaseSpecialDefense"	"70"
+			"BaseSpeed"				"91"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				"0"					"tackle"
+				"5"					"sand_attack"
+				"9"					"gust"
+				"13"				"quick_attack"
+				"17"				"whirlwind"
+				"21"				"twister"
+				"25"				"feather_dance"
+				"32"				"agility"
+				"38"				"wing_attack"
+				"44"				"roost"
+				"50"				"tailwind"
+				"56"				"mirror_move"
+				"62"				"air_slash"
+				"68"				"hurricane"
+			}
+			
+			"ExpYield"				"211"
+			"CatchRate"				"45"
+		}
+		"019"
+		{
+			"Name"					"rattata"
+			
+			"Type1"					"NORMAL"
+			"Type2"					""
+			
+			"BaseHP"				"30"
+			"BaseAttack"			"56"
+			"BaseDefense"			"35"
+			"BaseSpecialAttack"		"25"
+			"BaseSpecialDefense"	"35"
+			"BaseSpeed"				"72"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"raticate"
+				"Level"				"20"
+			}
+			
+			"LearnSet"
+			{
+				"0"					"tackle"
+				"0"					"tail_whip"
+				"4"					"quick_attack"
+				"7"					"focus_energy"
+				"10"				"bite"
+				"13"				"pursuit"
+				"16"				"hyper_fang"
+				"19"				"sucker_punch"
+				"22"				"crunch"
+				"25"				"assurance"
+				"28"				"super_fang"
+				"31"				"double_edge"
+				"34"				"endeavor"
+			}
+			
+			"ExpYield"				"51"
+			"CatchRate"				"255"
+		}
+		"019"
+		{
+			"Name"					"raticate"
+			
+			"Type1"					"NORMAL"
+			"Type2"					""
+			
+			"BaseHP"				"55"
+			"BaseAttack"			"81"
+			"BaseDefense"			"60"
+			"BaseSpecialAttack"		"50"
+			"BaseSpecialDefense"	"70"
+			"BaseSpeed"				"97"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				"0"					"tackle"
+				"0"					"tail_whip"
+				"4"					"quick_attack"
+				"7"					"focus_energy"
+				"10"				"bite"
+				"13"				"pursuit"
+				"16"				"hyper_fang"
+				"19"				"sucker_punch"
+				"20"				"scary_face"
+				"24"				"crunch"
+				"29"				"assurance"
+				"34"				"super_fang"
+				"39"				"double_edge"
+				"44"				"endeavor"
+			}
+			
+			"ExpYield"				"145"
+			"CatchRate"				"127"
+		}
+	}
+}

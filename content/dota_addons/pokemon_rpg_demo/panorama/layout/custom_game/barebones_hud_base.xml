@@ -1,0 +1,21 @@
+<root>
+  <styles>
+    <include src="s2r://panorama/styles/dotastyles.vcss_c" />
+    <include src="file://{resources}/styles/custom_game/barebones_hud_base.css" />
+  </styles>
+  <scripts>
+    <include src="file://{resources}/scripts/custom_game/barebones_hud_base.js" /> 
+  </scripts>
+  <Panel hittest="false" class="BarebonesBaseHud">
+	<Panel hittest="false" id="RPGBox">
+		<Label text="Which move should be forgotten?" id="DialogueText"/>
+		<Button class="Button" id="ButtonYes" onactivate="ButtonPressed( 'yes' )" onmouseover="AddStyleToEachChild( ButtonHover )" onmouseout="RemoveStyleFromEachChild( ButtonHover )">
+			<Label text="Yes" class="ButtonLabel" id="YesButtonText"/>
+		</Button>
+		<Button class="Button" id="ButtonNo"  onactivate="ButtonPressed( 'no' )" onmouseover="AddStyleToEachChild( ButtonHover )" onmouseout="RemoveStyleFromEachChild( ButtonHover )">
+			<Label text="No" class="ButtonLabel" id="NoButtonText"/>
+		</Button>
+	</Panel>
+	<Panel id="ability_list" />
+  </Panel>
+</root>
