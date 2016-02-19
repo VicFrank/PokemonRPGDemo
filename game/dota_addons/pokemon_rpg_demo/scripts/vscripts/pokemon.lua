@@ -28,9 +28,9 @@ function Pokemon.new(name, unitName, type1, type2, baseAttack, baseDefense, base
 	self.specialDefenseBuffLevel = 0
 	self.speedBuffLevel = 0
 
-	self.currentHP = (((baseHP * self.level) + 50) / 50) + 10
+	self.currentHP = math.floor(((2 * baseHP) * self.level) / 100) + self.level + 10
 	
-	self.isWild = isWild or true
+	self.isWild = isWild
 	
 	self.abilityList = abilityList or {}
 
@@ -50,7 +50,11 @@ function Pokemon:Evolve(unitName, type1, type2, baseAttack, baseDefense, baseSpe
 	self.baseSpecialDefense = baseSpecialDefense
 	self.baseSpeed = baseSpeed
 	self.baseHP = baseHP
-	self.currentHP = (((baseHP * level) + 50) / 50) + 10
+end
+
+function Pokemon:CalculateStat( base )
+	--health has a different equation
+	return math.floor(((2 * base) * self.level) / 100) + 5
 end
 
 function Pokemon:GetAttack()
@@ -58,19 +62,19 @@ function Pokemon:GetAttack()
 	if self.status == "BURNED" then
 		statusMod = .5
 	end
-	return (((self.baseAttack * self.level) / 50) + 5) * Pokemon:BuffLevelToPercent(self.attackBuffLevel) * statusMod
+	return self:CalculateStat(self.baseAttack) * Pokemon:BuffLevelToPercent(self.attackBuffLevel) * statusMod
 end
 
 function Pokemon:GetDefense()
-	return (((self.baseAttack * self.level) / 50) + 5) * Pokemon:BuffLevelToPercent(self.defenseBuffLevel)
+	return self:CalculateStat(self.baseDefense) * Pokemon:BuffLevelToPercent(self.defenseBuffLevel)
 end
 
 function Pokemon:GetSpecialAttack()
-	return (((self.baseAttack * self.level) / 50) + 5) * Pokemon:BuffLevelToPercent(self.specialAttackBuffLevel)
+	return self:CalculateStat(self.baseSpecialAttack) * Pokemon:BuffLevelToPercent(self.specialAttackBuffLevel)
 end
 
 function Pokemon:GetSpecialDefense()
-	return (((self.baseAttack * self.level) / 50) + 5) * Pokemon:BuffLevelToPercent(self.specialDefenseBuffLevel)
+	return self:CalculateStat(self.baseSpecialDefense) * Pokemon:BuffLevelToPercent(self.specialDefenseBuffLevel)
 end
 
 function Pokemon:GetSpeed()
@@ -78,11 +82,11 @@ function Pokemon:GetSpeed()
 	if self.status == "PARALYZED" then
 		statusMod = .5
 	end
-	return (((self.baseAttack * self.level) / 50) + 5) * Pokemon:BuffLevelToPercent(self.speedBuffLevel) * statusMod
+	return self:CalculateStat(self.baseSpeed) * Pokemon:BuffLevelToPercent(self.speedBuffLevel) * statusMod
 end
 
 function Pokemon:GetMaxHP()
-	return (((self.baseHP * self.level) + 50) / 50) + 10
+	return math.floor(((2 * self.baseHP) * self.level) / 100) + self.level + 10
 end
 
 function Pokemon:BuffLevelToPercent( buffLevel )
@@ -121,7 +125,7 @@ end
 function Pokemon:BuffLevelBinding( x )
 	if x > 6 then
 		return 6
-	elseif x -6 then
+	elseif x < -6 then
 		return -6
 	else
 		return x
@@ -141,14 +145,18 @@ function Pokemon:GetExperience()
 end
 
 function Pokemon:GetExpToNextLevel()
-	return (self.level ^ 3) - self.totalExperience
+	return ((self.level + 1) ^ 3) - self.totalExperience
 end
 
 --returns true if the pokemon gained a level
 function Pokemon:AddExperience( experience )
 	self.totalExperience = self.totalExperience + experience
 	if math.floor(self.totalExperience ^ (1/3)) > self.level then
+		--level up
+		--add the gained max HP to the current HP
+		local previousMaxHP = self:GetMaxHP()
 		self.level = math.floor(self.totalExperience ^ (1/3))
+		self.currentHP = self.currentHP + self:GetMaxHP() - previousMaxHP
 		return true
 	end
 end
@@ -180,12 +188,12 @@ function Pokemon:GetCurrentHP()
 end
 
 function Pokemon:SetCurrentHP( hp )
-	if hp > ((((self.baseHP * self.level) + 50) / 50) + 10) then
-		hp = ((((self.baseHP * self.level) + 50) / 50) + 10)
+	if hp > self:GetMaxHP() then
+		hp = self:GetMaxHP()
 	elseif hp < 0 then
 		hp = 0
 	end
-	self.currentHP = hp
+	self.currentHP =  math.floor(hp)
 end
 
 function Pokemon:GetName()
@@ -226,7 +234,7 @@ end
 
 function Pokemon:InflictStatus( status )
 	--status should be BURNED, PARALYZED, FROZEN, SLEEP, POISONED, NORMAL
-	--status only changes when the current status is normal
+	
 	--steel types cannot be poisoned
 	if status == "POISONED" then
 		if self.type1 == "STEEL" or self.type2 == "STEEL" then
@@ -234,8 +242,12 @@ function Pokemon:InflictStatus( status )
 			return
 		end
 	end
-	if status == "NORMAL" then
+	--status only changes when the current status is normal
+	if self.status == "NORMAL" then
 		self.status = status
+	else
+		print("POKEMON is already afflicted by a status ailment!")
+		return
 	end
 end
 

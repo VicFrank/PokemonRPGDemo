@@ -5,19 +5,20 @@
 --Category Physical
 function Scratch( keys )
 	local caster = keys.caster
+	local target = keys.target
+	local pokemon = caster.pokemon
 	local ability = keys.ability
 	local damage_radius = ability:GetLevelSpecialValueFor("damage_radius", (ability:GetLevel() - 1))
 	local direction = caster:GetForwardVector()
 	local center = caster:GetAbsOrigin() + direction * damage_radius
 
-	caster:Stop()
-	caster:StartGesture(ACT_DOTA_ATTACK)
-	
-	Timers:CreateTimer(.5, function()
-		local searchArea = FindUnitsInRadius( caster:GetTeam(), center, nil, damage_radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_ALL, 0, 0, false )
-		for _,v in pairs(searchArea) do
-			EmitSoundOn("Hero_NyxAssassin.attack", v)
-			PokeHelper:CalculatePokemonDamage(ability, caster, v, "NORMAL")
-		end
-	end)
+	if pokemon ~= nil then
+		caster:Stop()
+		caster:StartGesture(ACT_DOTA_ATTACK)
+		
+		Timers:CreateTimer(.3, function()
+			EmitSoundOn("Hero_NyxAssassin.attack", target)
+			PokeHelper:CalculatePokemonDamage(ability, caster, target, "NORMAL")
+		end)
+	end
 end

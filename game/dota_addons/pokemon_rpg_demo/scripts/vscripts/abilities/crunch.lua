@@ -10,11 +10,12 @@ function Crunch( keys )
 	local target_location = target:GetAbsOrigin()
 	local ability = keys.ability
 	local debuffChance = ability:GetLevelSpecialValueFor("debuffChance", (ability:GetLevel() - 1))
+	local debuff = ability:GetLevelSpecialValueFor("debuff", (ability:GetLevel() - 1))
 	local pokemon = target.pokemon
 
 	if pokemon ~= nil then
 		PokeHelper:CalculatePokemonDamage(ability, caster, target, "DARK")
-		if RandomFloat(0,1) < debuffChance then
+		if RandomFloat(0,100) < debuffChance then
 			pokemon:IncrementDefenseBuffLevel( debuff )
 		end
 	end

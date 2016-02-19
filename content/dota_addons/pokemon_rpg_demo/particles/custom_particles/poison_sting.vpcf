@@ -14,23 +14,6 @@
 			m_nOpEndCapState = 1
 		},
 		{
-			_class = "C_OP_CPOffsetToPercentageBetweenCPs"
-			m_bScaleOffset = true
-			m_vecOffset =
-			[
-				0.000000,
-				0.000000,
-				0.300000,
-			]
-			m_nOffsetCP = 1
-			m_flInputMax = 0.000000
-			m_flInputMin = 1.000000
-		},
-		{
-			_class = "C_OP_MaxVelocity"
-			m_nOverrideCP = 2
-		},
-		{
 			_class = "C_OP_SetControlPointsToParticle"
 			m_bSetOrientation = true
 			m_nFirstControlPoint = 3
@@ -74,6 +57,10 @@
 		},
 		{
 			_class = "C_INIT_CreateWithinSphere"
+		},
+		{
+			_class = "C_INIT_VelocityFromCP"
+			m_nControlPoint = 1
 		},
 	]
 	m_Emitters =

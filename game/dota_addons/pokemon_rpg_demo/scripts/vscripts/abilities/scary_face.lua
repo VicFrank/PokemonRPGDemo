@@ -20,20 +20,20 @@ function ScaryFace( keys )
 	local vision_cone = ability:GetLevelSpecialValueFor("vision_cone", (ability:GetLevel() - 1))
 	
 	if pokemon ~= nil then
-			local check = false
-			-- Check if its a target from before
-			for _,v in ipairs(caster.scary_face_table) do
-				if v == target then
-					check = true
-				end
+		local check = false
+		-- Check if its a target from before
+		for _,v in ipairs(caster.scary_face_table) do
+			if v == target then
+				check = true
 			end
+		end
 
-			if not check then
-				-- If its a new target then add it to the table
-				print("scary face")
-				table.insert(caster.scary_face_table, target)
-				-- Apply the debuff
-				pokemon:IncrementSpeedBuffLevel( debuff )
-			end
+		if not check then
+			-- If its a new target then add it to the table
+			print("scary face")
+			table.insert(caster.scary_face_table, target)
+			-- Apply the debuff
+			pokemon:IncrementSpeedBuffLevel( debuff )
+		end
 	end
 end

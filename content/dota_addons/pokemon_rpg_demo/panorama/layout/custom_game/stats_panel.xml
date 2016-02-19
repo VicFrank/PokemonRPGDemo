@@ -1,0 +1,80 @@
+<root>
+  <styles>
+    <include src="file://{resources}/styles/custom_game/stats_panel.css" />
+  </styles>
+  <scripts>
+    <include src="file://{resources}/scripts/custom_game/stats_panel.js" /> 
+  </scripts>
+  <Panel hittest="false" class="StatsPanel">
+	<Panel id="StatsBox">
+		<Panel id="StatsLabels">
+			<Label text="Pikachu"  id="name" class="StatsLabel"/>
+			<Label text="Health:"  		class="StatsLabel"/>
+			<Label text="Attack:"  		class="StatsLabel"/>
+			<Label text="Defense:" 		class="StatsLabel"/>
+			<Label text="Sp. Atk:" 		class="StatsLabel"/>
+			<Label text="Sp. Def:" 		class="StatsLabel"/>
+			<Label text="Speed:"   		class="StatsLabel"/>
+			<Label text="Exp. Points:"  class="StatsLabel"/>
+			<Label text="Next Level:"   class="StatsLabel"/>
+		</Panel>
+		<Panel id="StatsValues">
+			<Label text="Lv. 12" id="lvl" class="Stats"/>
+			<Label text="255/255" id="hp" class="Stats"/>
+			<Label text="999" id="atk" class="Stats"/>
+			<Label text="999" id="def" class="Stats"/>
+			<Label text="999" id="satk" class="Stats"/>
+			<Label text="999" id="sdef" class="Stats"/>
+			<Label text="999" id="spd" class="Stats"/>
+			<Label text="1234567" id="xp" class="Stats"/>
+			<Label text="9876543" id="nextLevel" class="Stats"/>
+		</Panel>
+		<Panel id="PartyPokemonLeft">
+			<Label text="HAUNTER" 	 id="partyName1" class="NameLabel"/>
+			<Label text="DRAGONITE"  id="partyName2" class="NameLabel"/>
+			<Label text="GYARADOS"	 id="partyName3" class="NameLabel"/>
+			<Label text="ROCKY"		 id="partyName4" class="NameLabel"/>
+			<Label text="ELECTABUZZ" id="partyName5" class="NameLabel"/>
+			<Label text="TYPHLOSION" id="partyName6" class="NameLabel"/>
+		</Panel>
+		<Panel id="PartyPokemonRight">
+			<Label text="84/123"  id="partyHealth1" class="Health"/>
+			<Panel id="expAndHealth1">
+				<Label text="Lv.5"  id="level"  class="Level"/>
+				<Panel id="healthBar" class="ProgressLeft">
+				</Panel>
+			</Panel>
+			<Label text="190/190" id="partyHealth2" class="Health"/>
+			<Panel id="expAndHealth2">
+				<Label text="Lv.51"  id="level"  class="Level"/>
+				<Panel id="healthBar" class="ProgressLeft">
+				</Panel>
+			</Panel>
+			<Label text="167/167" id="partyHealth3" class="Health"/>
+			<Panel id="expAndHealth3">
+				<Label text="Lv.100"  id="level"  class="Level"/>
+				<Panel id="healthBar" class="ProgressLeft">
+				</Panel>
+			</Panel>
+			<Label text="116/116" id="partyHealth4" class="Health"/>
+			<Panel id="expAndHealth4">
+				<Label text="Lv.51"  id="level"  class="Level"/>
+				<Panel id="healthBar" class="ProgressLeft">
+				</Panel>
+			</Panel>
+			<Label text="143/143" id="partyHealth5" class="Health"/>
+			<Panel id="expAndHealth5">
+				<Label text="Lv.51"  id="level"  class="Level"/>
+				<Panel id="healthBar" class="ProgressLeft">
+				</Panel>
+			</Panel>
+			<Label text="157/157" id="partyHealth6" class="Health"/>
+			<Panel id="expAndHealth6">
+				<Label text="Lv.51"  id="level"  class="Level"/>
+				<Panel id="healthBar" class="ProgressLeft">
+				</Panel>
+			</Panel>
+		</Panel>
+	  </Panel>
+  </Panel>
+</root>

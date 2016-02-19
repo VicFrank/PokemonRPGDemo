@@ -8,6 +8,7 @@
 		"Effect"					"particles/generic_gameplay/dropped_item.vpcf"
 		"BaseClass"          		"item_datadriven"
 		"AbilityTextureName"     	"item_poke_ball"
+		"ItemDroppable" 			"0"
 		
 		"AbilityCastRange"				"600"
 		"AbilityCastPoint"				"0.0"
@@ -48,6 +49,300 @@
 						"Target"			"TARGET"
 					}
 				}
+			}
+		}
+	}
+	
+	"item_apply_modifiers"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"BaseClass"						"item_datadriven"
+		
+		"precache"
+		{
+			"particle"			"particles/status_fx/status_effect_frost_lich.vpcf"
+			"particle"			"particles\status_fx\status_effect_electrical.vpcf"
+			"particle"			"particles/status_fx/status_effect_burn.vpcf"
+			"particle"			"particles/status_fx/status_effect_poison_viper.vpcf"
+			"particle"			"particles/generic_gameplay/generic_sleep.vpcf"
+			"particle"			"particles/econ/items/zeus/arcana_chariot/zeus_arcana_electricimage_ring.vpcf"
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_zuus.vsndevts"
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_huskar.vsndevts"
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_crystalmaiden.vsndevts"
+		}
+
+		"Modifiers"
+		{
+			"modifier_hidden"
+			{
+				"IsHidden"				"1"  
+
+				"States"
+				{
+					"MODIFIER_STATE_NO_UNIT_COLLISION"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_INVULNERABLE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_ROOTED"			"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_DISARMED"		"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NOT_ON_MINIMAP"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_HEALTH_BAR"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+
+			"modifier_hide"
+			{
+				"IsHidden"              "1"  
+
+				"States"
+				{
+					"MODIFIER_STATE_NO_UNIT_COLLISION"  "MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_INVULNERABLE"   "MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_ROOTED"         "MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_DISARMED"       "MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NOT_ON_MINIMAP" "MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_HEALTH_BAR"  "MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_COMMAND_RESTRICTED"   "MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_UNSELECTABLE" "MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+
+			"modifier_invulnerability_layer"
+			{
+				"Attributes"		"MODIFIER_ATTRIBUTE_MULTIPLE | MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"TextureName"       "modifier_invulnerable"
+				"States"
+				{
+					"MODIFIER_STATE_INVULNERABLE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_HEALTH_BAR"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+
+			"modifier_attackable"
+			{
+				"IsHidden"	"1"
+
+				"States"
+				{
+					"MODIFIER_STATE_SPECIALLY_DENIABLE"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+
+			"modifier_no_health_bar"
+			{
+				"IsHidden"          "1"
+				
+				"States"
+				{
+					"MODIFIER_STATE_NO_HEALTH_BAR"  "MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+
+			"modifier_show_health_bar"
+			{
+				"IsHidden"          "1"
+				"Priority"          "MODIFIER_PRIORITY_ULTRA"
+				"Attributes"        "MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"States"
+				{
+					"MODIFIER_STATE_NO_HEALTH_BAR"  "MODIFIER_STATE_VALUE_DISABLED"
+				}
+			}
+			
+			"modifier_silence_after_spell"
+			{
+				"IsHidden"          "1"
+				
+				"OnAbilityExecuted"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"		"modifier_silenced_after_spell"
+						"Target"			"CASTER"
+					}
+				}
+			}
+			
+			"modifier_silenced_after_spell"
+			{
+				"IsHidden"          "1"
+				"Duration"			"3"
+				
+				"States"
+				{
+					"MODIFIER_STATE_SILENCED"  "MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+			
+			//permanent modifiers
+			"modifier_burned"
+			{
+				"IsDebuff"			"1"
+				"ThinkInterval"		"4.0"
+				"TextureName"		"dragon_knight_breathe_fire"
+				
+				"StatusEffectName"     "particles/status_fx/status_effect_burn.vpcf"
+				"StatusEffectPriority" "10"
+				
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/status.lua"
+						"Function"		"Burn"
+					}
+					
+					"OnCreated"
+					{
+						"FireSound"
+						{
+							"EffectName"			"Hero_Huskar.Burning_Spear.Cast"
+							"Target"				"TARGET"
+						}
+					}
+				}
+			}
+			
+			"modifier_paralysis"
+			{
+				"IsDebuff"			"1"
+				"ThinkInterval"		"3.0"
+				"TextureName"		"zuus_arc_lightning"
+				
+				"StatusEffectName"     "particles\status_fx\status_effect_electrical.vpcf"
+				"StatusEffectPriority" "10"
+				
+				"OnIntervalThink"
+				{			
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/status.lua"
+						"Function"		"Paralyze"
+					}
+				}
+			}
+			
+			"modifier_paralyzed"
+			{
+				"IsDebuff"			"1"
+				"Duration"			"2"
+				"TextureName"		"zuus_arc_lightning"
+				
+				"EffectName"		"particles/econ/items/zeus/arcana_chariot/zeus_arcana_electricimage_ring.vpcf"
+				"EffectAttachType"	"follow_origin"
+				
+				"OnCreated"
+				{
+					"FireSound"
+					{
+						"EffectName"			"Hero_Zuus.LightningBolt.Cast"
+						"Target"				"TARGET"
+					}
+				}
+				
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"         "MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+			
+			"modifier_frozen"
+			{
+				"IsDebuff"			"1"
+				"ThinkInterval"		"3.0"
+				"TextureName"		"crystal_maiden_frostbite"
+				
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/status.lua"
+						"Function"		"Freeze"
+					}
+					
+					"FireSound"
+					{
+						"EffectName"			"Hero_Crystal.Death"
+						"Target"				"TARGET"
+					}
+				}
+				
+				"StatusEffectName"     "particles/status_fx/status_effect_frost_lich.vpcf"
+				"StatusEffectPriority" "10"
+				
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"         "MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+			
+			"modifier_sleep"
+			{
+				"IsDebuff"			"1"
+				"ThinkInterval"		"3.0"
+				"TextureName"		"bane_nightmare"
+				
+				"EffectName"		"particles/generic_gameplay/generic_sleep.vpcf"
+				"EffectAttachType"	"follow_overhead"
+				
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/status.lua"
+						"Function"		"Sleep"
+					}
+				}
+				
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"         "MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+			
+			"modifier_poisoned"
+			{
+				"IsDebuff"			"1"
+				"ThinkInterval"		"4.0"
+				"TextureName"		"venomancer_poison_sting"
+				
+				"StatusEffectName"     "particles/status_fx/status_effect_poison_viper.vpcf"
+				"StatusEffectPriority" "10"
+				
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/status.lua"
+						"Function"		"Poison"
+					}
+				}
+			}
+			
+			//temporary modifiers
+			
+			"modifier_confusion"
+			{
+				"IsDebuff"			"1"
+				"ThinkInterval"		"4.0"
+				"TextureName"		"templar_assassin_trap"
+				
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/status.lua"
+						"Function"		"Confusion"
+					}
+				}
+			}
+			
+			"modifier_curse"
+			{
+			
+			}
+			
+			"modifier_flinch"
+			{
+			
 			}
 		}
 	}

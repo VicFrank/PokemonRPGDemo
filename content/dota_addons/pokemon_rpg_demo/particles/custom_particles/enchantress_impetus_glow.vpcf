@@ -64,6 +64,11 @@
 		{
 			_class = "C_OP_SpinUpdate"
 		},
+		{
+			_class = "C_OP_SetControlPointsToParticle"
+			m_nFirstControlPoint = 3
+			m_bSetOrientation = true
+		},
 	]
 	m_Initializers =
 	[

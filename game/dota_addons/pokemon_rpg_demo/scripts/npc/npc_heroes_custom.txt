@@ -12,7 +12,7 @@
 		"ModelScale"		"1.000000"
 		"HeroGlowColor"		"222 60 36"
 		"HeroSelectSoundEffect"		"Hero_Axe.Pick"
-		"Ability1"		"throw_poke_ball"
+		"Ability1"		""
 		"Ability2"		""
 		"Ability3"		""
 		"Ability4"		""

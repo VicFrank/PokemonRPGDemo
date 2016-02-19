@@ -10,8 +10,8 @@
 function RapidSpinStart( keys )
 	--remove the relevant debuffs
 	local caster = keys.caster
-	caster.isLeeched = false
 	
+	caster:RemoveModifierByName("modifier_leech_seed")
 	caster.rapid_spin_table = {}
 end
 

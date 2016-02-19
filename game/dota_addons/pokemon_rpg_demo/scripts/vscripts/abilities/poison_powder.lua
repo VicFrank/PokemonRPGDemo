@@ -11,6 +11,6 @@ function PoisonPowder( keys )
 	local pokemon = target.pokemon
 
 	if pokemon ~= nil then
-		pokemon:InflictStatus( "POISONED" )
+		PokeHelper:InflictStatus( target, "POISONED" )
 	end
 end

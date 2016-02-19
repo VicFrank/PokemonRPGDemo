@@ -13,9 +13,16 @@ function Notifications:RPGTextBox(player, table)
     player = PlayerResource:GetPlayer(player)
   end
 
-  if table.abilityList ~= nil then
-    CustomGameEventManager:Send_ServerToPlayer(player, "rpg_textbox", {text=table.text, duration=table.duration, buttons=table.buttons, code=table.code, dialogueTree=table.dialogueTree, abilityList=table.abilityList} )
+  if table.unit ~= nil then
+    CustomGameEventManager:Send_ServerToPlayer(player, "rpg_textbox", {text=table.text, duration=table.duration, buttons=table.buttons, code=table.code, dialogueTree=table.dialogueTree, unit=table.unit} )
   else
 	CustomGameEventManager:Send_ServerToPlayer(player, "rpg_textbox", {text=table.text, duration=table.duration, buttons=table.buttons, code=table.code, dialogueTree=table.dialogueTree} )
+  end
+end
+
+function Notifications:DisplayError(pid, message)
+  local player = PlayerResource:GetPlayer(pid)
+  if player then
+    CustomGameEventManager:Send_ServerToPlayer(player, "cont_create_error_message", {message=message})
   end
 end

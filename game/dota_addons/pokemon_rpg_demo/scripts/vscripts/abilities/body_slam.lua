@@ -59,8 +59,8 @@ function BodySlam( keys )
 			caster:FollowNavMesh(true)
 			caster:SetPhysicsFriction(.05)
 			PokeHelper:CalculatePokemonDamage(ability, caster, target, "NORMAL")
-			if RandomFloat(0,1) < debuffChance then
-				target.pokemon:InflictStatus( "PARALYZED" )
+			if RandomFloat(0,100) < debuffChance then
+				PokeHelper:InflictStatus( target, "PARALYZED" )
 			end
 			return nil
 		end

@@ -14,7 +14,7 @@ function Bubble( keys )
 
 	if pokemon ~= nil then
 		PokeHelper:CalculatePokemonDamage(ability, caster, target, "WATER")
-		if RandomFloat(0,1) < debuffChance then
+		if RandomFloat(0,100) < debuffChance then
 			pokemon:IncrementSpeedBuffLevel( debuff )
 		end
 	end

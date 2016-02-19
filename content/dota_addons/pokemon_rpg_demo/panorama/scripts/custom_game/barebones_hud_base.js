@@ -5,10 +5,10 @@ var buttonSelection = "";
 var m_AbilityPanels = []; // created up to a high-water mark, but reused when selection changes
 
 function AddTextBox(msg) {
-	var thisTextBox = {text:msg.text, duration:msg.duration, buttons:msg.buttons, code:msg.code, dialogueTree:msg.dialogueTree, nextTextBox:null, abilityList:null}
-	if(msg.abilityList != null)
-		thisTextBox.abilityList = msg.abilityList;
-	$.Msg ( thisTextBox.text );
+	var thisTextBox = {text:msg.text, duration:msg.duration, buttons:msg.buttons, code:msg.code, dialogueTree:msg.dialogueTree, nextTextBox:null, unit:null}
+	if(msg.unit != null)
+		thisTextBox.unit = msg.unit;
+	$.Msg( thisTextBox.text );
 	//add this text box to the queue
 	//if there is currently no text box, make this the current textbox and activate it
 	if (currentTextBox == null){
@@ -36,6 +36,7 @@ function UpdateTextBox(msg) {
 		HideButtons();
 	
 	//some codes have a unique state, check docs for information
+	//this is the code for learning a new ability
 	if(msg.code == 104)
 		ShowAbilityPanel();
 	else
@@ -74,6 +75,13 @@ function ButtonPressed( button ){
 	//button is 'yes' or 'no'
 	buttonSelection = button;
 	GoToNextTextBox();
+	//this is a pretty hacky fix, but if they don't want to learn an ability, you need to delete the ability they're trying to learn
+	if(currentTextBox.code == 106){
+		var ability = Entities.GetAbility( currentTextBox.unit, 4 );
+		var abilityName = Abilities.GetAbilityName( ability );
+		$.Msg ( abilityName );
+		GameEvents.SendCustomGameEventToServer( "delete_ability", { "player_id" : Game.GetLocalPlayerInfo().player_id, "ability_to_delete" : abilityName } );
+	}
 }
 
 function ShowTextBox( ){
@@ -121,14 +129,13 @@ function UpdateAbilityPanel( ){
 	if ( !abilityListPanel )
 		return;
 
-	var abilityList = currentTextBox.abilityList;
+	var queryUnit = currentTextBox.unit
 
 	// update all the panels
 	var nUsedPanels = 0;
-	for ( var i = 0; i < abilityList.length; ++i )
+	for ( var i = 0; i < Entities.GetAbilityCount( queryUnit ); ++i )
 	{
-		var ability = abilityList[i];
-		
+		var ability = Entities.GetAbility( queryUnit, i );		
 		if ( ability == -1 )
 			continue;
 
@@ -145,7 +152,7 @@ function UpdateAbilityPanel( ){
 
 		// update the panel for the current unit / ability
 		var abilityPanel = m_AbilityPanels[ nUsedPanels ];
-		abilityPanel.data().SetAbility( ability );
+		abilityPanel.SetAbility( ability );
 		
 		nUsedPanels++;
 	}
@@ -154,24 +161,36 @@ function UpdateAbilityPanel( ){
 	for ( var i = nUsedPanels; i < m_AbilityPanels.length; ++i )
 	{
 		var abilityPanel = m_AbilityPanels[ i ];
-		abilityPanel.data().SetAbility( -1, -1 );
+		abilityPanel.SetAbility( -1, -1 );
 	}
 }
+
+function CreateErrorMessage( msg )
+{
+  var reason = msg.reason || 80;
+  if (msg.message){
+    GameEvents.SendEventClientSide("dota_hud_error_message", {"splitscreenplayer":0,"reason":reason ,"message":msg.message} );
+  }
+  else{
+    GameEvents.SendEventClientSide("dota_hud_error_message", {"splitscreenplayer":0,"reason":reason} );
+  }
+}
  
-function InitializePanels(){
-	HideTextBox();
-	HideButtons();
-	HideAbilityPanel();
+function InitializePanels( ){
+	HideTextBox( );
+	HideButtons( );
+	HideAbilityPanel( );
 }
 
-//ShowAbilityPanel();
-//HideButtons();
+//ShowAbilityPanel( );
+//HideButtons( );
 
-(function () {
+(function ( ) {
   GameEvents.Subscribe( "rpg_textbox", AddTextBox );
-  $.GetContextPanel().data().GoToNextTextBox = GoToNextTextBox;
+  GameEvents.Subscribe( "go_to_next_text_box", GoToNextTextBox );
+  GameEvents.Subscribe( "cont_create_error_message", CreateErrorMessage );
   
-  InitializePanels(); // initial update
+  InitializePanels( ); // initial update
 })();
 
 

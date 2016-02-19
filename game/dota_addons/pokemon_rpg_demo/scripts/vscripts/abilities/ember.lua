@@ -14,8 +14,8 @@ function Ember( keys )
 
 	if pokemon ~= nil then
 		PokeHelper:CalculatePokemonDamage(ability, caster, target, "FIRE")
-		if RandomFloat(0,1) < debuffChance then
-			pokemon:InflictStatus( "BURNED" )
+		if RandomFloat(0,100) < debuffChance then
+			PokeHelper:InflictStatus( target, "BURNED" )
 		end
 	end
 end

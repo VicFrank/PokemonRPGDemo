@@ -20,7 +20,7 @@ function IceFang( keys )
 			ability:ApplyDataDrivenModifier(caster, target, "flinch", {})
 		end
 		if RandomFloat(0,1) < freezeChance then
-			pokemon:InflictStatus( "FROZEN" )
+			PokeHelper:InflictStatus( target, "FROZEN" )
 		end
 	end
 end

@@ -31,6 +31,7 @@ require('libraries/projectiles')
 require('libraries/notifications')
 -- This library can be used for starting customized animations on units from lua
 require('libraries/animations')
+require('libraries/selection')
 
 -- These internal libraries set up barebones's events and processes.  Feel free to inspect them/change them if you need to.
 require('internal/gamemode')
@@ -43,6 +44,7 @@ require('events')
 
 require('pokemon')
 require('libraries/pokehelper')
+require( "rpg_example_spawning" )
 
 -- Perry said this works
 --LinkLuaModifier( "modifier_ignore_cast_angle", "LuaModifiers/modifier_ignore_cast_angle.lua", LUA_MODIFIER_MOTION_NONE )
@@ -81,20 +83,49 @@ end
 function GameMode:OnHeroInGame(hero)
 	DebugPrint("[BAREBONES] Hero spawned in game for first time -- " .. hero:GetUnitName())
 
+	local starters = {"bulbasaur","squirtle","charmander"}
+	local starter = starters[RandomInt(1,3)]
+	
 	-- These lines will create an item and add it to the player, effectively ensuring they start with the item
 	local item = CreateItem("item_poke_ball", hero, hero)
-	local item2 = CreateItem("item_poke_ball", hero, hero)
-	--look up this pokemon's metadata, variable name is short to keep the intialization length reasonable
-	local metadata = self.pokemon_table["bulbasaur"]
-	local level = 5
-	local abilityList = { "body_slam", "fury_attack", "leer", "bug_bite" }
-	item.pokemon = PokeHelper:CreatePokemonFromMetadata(metadata, level, abilityList)
-	metadata = self.pokemon_table["squirtle"]
-	item2.pokemon = PokeHelper:CreatePokemonFromMetadata(metadata, level, abilityList)
+	--look up this pokemon's metadata
+	local metadata = self.pokemon_table[starter]
+	local level = 6
+	--local abilityList = { "thunder_shock", "leech_seed", "whirlwind", "string_shot" }
+	--item.pokemon = PokeHelper:CreatePokemonFromMetadata(metadata, level, false, abilityList)
+	item.pokemon = PokeHelper:CreatePokemonFromMetadata(metadata, level, false)
 	hero:AddItem(item)
-	hero:AddItem(item2)
 	
+	hero:SetAbilityPoints(0)
+	hero:AddAbility("throw_poke_ball")
+	local ability = hero:FindAbilityByName("throw_poke_ball")
+	ability:UpgradeAbility(true)
+	
+	PokeHelper:ApplyModifier( hero, "modifier_no_health_bar" )
+	
+	--currently the player has three states "Normal" "Battle" "PostBattle"
 	hero.state = "Normal"
+	--you start in pallet_town
+	hero.location = "pallet_town"
+	hero.respawn = "pallet_town"
+	
+	--initialize the party screen
+	CustomGameEventManager:Send_ServerToPlayer(hero:GetPlayerOwner(), "update_party_panel_response", PokeHelper:GetPartyData( hero ) )
+	
+	-- level a pokemon up periodically
+	--[[
+	Timers:CreateTimer(5, 
+    function()
+		if hero.pokemonAvatar ~= nil then
+			local pokemon = hero.pokemonAvatar.pokemon
+			local currentLevel = pokemon:GetLevel()
+			if pokemon:AddExperience( pokemon:GetExpToNextLevel() + 1 ) then
+				GameMode:LevelUp( hero.pokemonAvatar, currentLevel )
+			end
+		end
+      return 5
+    end)
+	]]
 end
 
 function GameMode:_ReadGameConfiguration()
@@ -126,16 +157,7 @@ function GameMode:_ReadGameConfiguration()
 		self.pokemon_table[v.Name] = pokemonMetaData
 	end
 	
-	--initialize wild pokemon
-	local metadata = self.pokemon_table["bulbasaur"]
-	local level = 5
-	local abilityList = { "bubble", "bite", "tail_whip", "withdraw" }
-	
-	for i=1,6 do
-		local pokemon = PokeHelper:CreatePokemonFromMetadata(metadata, level, abilityList)
-		local position = Entities:FindByName( nil, "spawner" .. i ):GetAbsOrigin()
-		PokeHelper:CreatePokemonAtPosition( pokemon, position )
-	end
+	GameMode:SetupSpawners()
 end
 
 function GameMode:BattleEnded( pokemonAvatar, defeatedPokemon, attackers, numAttackers )
@@ -144,35 +166,43 @@ function GameMode:BattleEnded( pokemonAvatar, defeatedPokemon, attackers, numAtt
 	local position = pokemonAvatar:GetAbsOrigin()
 	local trainer = pokemonAvatar.trainer
 	local team = trainer:GetTeam()
+	local player = trainer:GetPlayerID()
 	experience = math.floor(experience / numAttackers)
-	Notifications:RPGTextBox(0, {text="Enemy " .. defeatedPokemon:GetName() .. " was defeated!", duration=2, buttons=false, code=100, dialogueTree=""})
+	
+	PokeHelper:Withdraw( trainer )
+	
+	trainer.state = "PostBattle"
+	Notifications:RPGTextBox(player, {text="Enemy " .. defeatedPokemon:GetName() .. " was defeated!", duration=2, buttons=false, code=100, dialogueTree=""})
+	
 	--assign exp split evenly between contributing pokemon
-	for k,_ in pairs( attackers ) do
+	for contributingPokemon,_ in pairs( attackers ) do
 		--check to see if any pokemon leveled up
-		Notifications:RPGTextBox(0, {text=k:GetName() .. " gained " .. experience .. " experience.", duration=2, buttons=false, code=100, dialogueTree=""})
-		local currentLevel = k:GetLevel()
-		if k:AddExperience( experience ) then
-			if k ~= pokemon then
-				pokemonAvatar = PokeHelper:CreatePokemonAtPosition( k, position, trainer, team )
-			end
+		Notifications:RPGTextBox(player, {text=contributingPokemon:GetName() .. " gained " .. experience .. " experience.", duration=2, buttons=false, code=100, dialogueTree=""})
+		local currentLevel = contributingPokemon:GetLevel()
+		if contributingPokemon:AddExperience( experience ) then
+			--create an avatar we can extract information from (like ability entindexes)
+			pokemonAvatar = PokeHelper:CreatePokemonAtPosition( contributingPokemon, position, trainer, team )
 			GameMode:LevelUp( pokemonAvatar, currentLevel )
+			PokeHelper:Withdraw( trainer )
 		end
-		--withdraw the current pokemon
-		PokeHelper:Withdraw( pokemonAvatar.trainer )
 	end
+	
+	PokeHelper:EndBattleState( trainer )
 end
 
 function GameMode:LevelUp( pokemonAvatar, previousLevel )
 	local pokemon = pokemonAvatar.pokemon
 	local currentLevel = pokemon:GetLevel()
+	local trainer = pokemonAvatar.trainer
+	local player = trainer:GetPlayerID()
 	local metaData = self.pokemon_table[pokemon:GetUnitName()]
-	pokemonAvatar:CreatureLevelUp(1)
-	Notifications:RPGTextBox(0, {text=pokemon:GetName() .. " grew to level " .. currentLevel .. "!", duration=2, buttons=false, code=100, dialogueTree=""})
-	--check to see if learned a new move
+	
+	Notifications:RPGTextBox(player, {text=pokemon:GetName() .. " grew to level " .. currentLevel .. "!", duration=2, buttons=false, code=100, dialogueTree=""})
+	--check to see if we learned a new move
 	local newAbilityList = {}
-	for i=previousLevel,currentLevel do
+	for i=previousLevel+1,currentLevel do
 		local newAbility = metaData.learnSet[tostring(i)]
-		if newAbility ~= nil then
+		if newAbility ~= nil and pokemonAvatar:FindAbilityByName(newAbility) == nil then
 			table.insert(newAbilityList, newAbility)
 		end
 	end
@@ -190,33 +220,37 @@ end
 
 function GameMode:Evolve( pokemonAvatar )
 	local pokemon = pokemonAvatar.pokemon
+	local player = pokemonAvatar.trainer:GetPlayerID()
 	local currentPMetaData = self.pokemon_table[pokemon:GetUnitName()]
 	local p = self.pokemon_table[currentPMetaData.evolution.NextEvolution]
+	
 	Notifications:RPGTextBox(0, {text=pokemon:GetName() .. " is evolving!", duration=2, buttons=false, code=101, dialogueTree=""})
 	pokemon:Evolve(p.unitName, p.type1, p.type2, p.baseAttack, p.baseDefense, p.baseSpecialAttack, p.baseSpecialDefense, p.baseSpeed, p.baseHP, p.baseExpYield)
 end
 
 function GameMode:LearnNewMove( pokemonAvatar, newAbilityName )
 	local pokemon = pokemonAvatar.pokemon
-	local metaData = self.pokemon_table[pokemon:GetUnitName()]
+	local player = pokemonAvatar.trainer:GetPlayerID()
+	
 	pokemon:AddAbility(newAbilityName)
 	pokemonAvatar:AddAbility(newAbilityName)
-	local abilityList = {}
-	for i=0,3 do
+	local abilityCount = 0
+	for i=0,4 do
 		if pokemonAvatar:GetAbilityByIndex(i) ~= nil then
-			print(pokemonAvatar:GetAbilityByIndex(i):entindex())
-			abilityList[i] = pokemonAvatar:GetAbilityByIndex(i):entindex()
+			abilityCount = abilityCount + 1
 		else
 			break
 		end
 	end
 	--if the pokemon already knows 4 moves
-	if i == 3 then
-		Notifications:RPGTextBox(0, {text=pokemon:GetName() .. " wants to learn " .. newAbilityName .. " but " .. pokemon:GetName() .. " already knows 4 moves!", duration=2, buttons=false, code=102, dialogueTree=""})
-		Notifications:RPGTextBox(0, {text="Should a move be forgotten to make space for " .. newAbilityName .. "?", duration=-1, buttons=true, code=103, dialogueTree=""})
-		Notifications:RPGTextBox(0, {text="Which move should be forgotten?", duration=-1, buttons=false, code=104, dialogueTree="yes", abilityList=abilityList}) --this is the new ability code
-		Notifications:RPGTextBox(0, {text="1, 2 and... Poof! " .. pokemon:GetName() .. " forgot an old move and... " .. pokemon:GetName() .. " learned " .. newAbilityName .. "!", duration=2, buttons=false, code=105, dialogueTree="yes"})
-		Notifications:RPGTextBox(0, {text=pokemon:GetName() .. " did not learn " .. newAbilityName .. ".", duration=2, buttons=false, code=106, dialogueTree="no"})		
+	if abilityCount > 4 then
+		Notifications:RPGTextBox(player, {text=pokemon:GetName() .. " wants to learn " .. newAbilityName .. " but " .. pokemon:GetName() .. " already knows 4 moves!", duration=2, buttons=false, code=102, dialogueTree=""})
+		Notifications:RPGTextBox(player, {text="Should a move be forgotten to make space for " .. newAbilityName .. "?", duration=-1, buttons=true, code=103, dialogueTree=""})
+		Notifications:RPGTextBox(player, {text="Which move should be forgotten?", duration=-1, buttons=false, code=104, dialogueTree="yes", unit=pokemonAvatar:entindex()}) --this is the new ability code
+		Notifications:RPGTextBox(player, {text="1, 2 and... Poof! " .. pokemon:GetName() .. " forgot an old move and... " .. pokemon:GetName() .. " learned " .. newAbilityName .. "!", duration=2, buttons=false, code=105, dialogueTree="yes"})
+		Notifications:RPGTextBox(player, {text=pokemon:GetName() .. " did not learn " .. newAbilityName .. ".", duration=2, buttons=false, code=106, dialogueTree="no", unit=pokemonAvatar:entindex()})	
+	else
+		Notifications:RPGTextBox(player, {text=pokemon:GetName() .. " learned " .. newAbilityName .. "!", duration=2, buttons=false, code=107, dialogueTree=""})
 	end
 end
 
@@ -224,15 +258,20 @@ function GameMode:DeleteAbility( args )
 	local playerID = args['player_id']
 	local abilityName = args['ability_to_delete']
 	local player = PlayerResource:GetPlayer(playerID)
-	local pokemonAvatar = player.currentAvatar
-	local pokemon = player.currentAvatar.pokemon
+	local hero = player:GetAssignedHero()
+	local pokemonAvatar = hero.pokemonAvatar
+	local pokemon = hero.pokemonAvatar.pokemon
 	pokemon:RemoveAbility(abilityName)
 	pokemonAvatar:RemoveAbility(abilityName)
+	CustomGameEventManager:Send_ServerToPlayer(player, "go_to_next_text_box", {})
 end
 
---helper function that generates the abilityID for JS by creating a dummy unit
-function GameMode:GetAbilityIDByName( abilityName )
+function GameMode:UpdatePartyPanelResponse( args )
+	local playerID = args['player_id']
+	local player = PlayerResource:GetPlayer(playerID)
+	local trainer = player:GetAssignedHero()
 	
+	CustomGameEventManager:Send_ServerToPlayer(player, "update_party_panel_response", PokeHelper:GetPartyData( trainer ) )
 end
 
 --[[
@@ -263,8 +302,11 @@ function GameMode:InitGameMode()
   -- Check out internals/gamemode to see/modify the exact code
   GameMode:_InitGameMode()
   
-  -- custom listeners from panorama are here, because I'm not sure where BMD would put them
+  GameRules.APPLIER = CreateItem("item_apply_modifiers", nil, nil)
+  
+  -- custom listeners from panorama are here
   CustomGameEventManager:RegisterListener( "delete_ability", Dynamic_Wrap(GameMode, "DeleteAbility") )
+  CustomGameEventManager:RegisterListener( "update_party_panel_request", Dynamic_Wrap(GameMode, "UpdatePartyPanelResponse") )
 
   DebugPrint('[BAREBONES] Done loading Barebones gamemode!\n\n')
 end

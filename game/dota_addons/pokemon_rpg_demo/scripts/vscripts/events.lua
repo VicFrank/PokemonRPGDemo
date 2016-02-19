@@ -96,12 +96,6 @@ function GameMode:OnAbilityUsed(keys)
 
   local player = PlayerResource:GetPlayer(keys.PlayerID)
   local abilityname = keys.abilityname
-  local hero = player:GetAssignedHero()
-  local pokemonAvatar = hero.pokemonAvatar
-  
-  if pokemonAvatar ~= nil then
-	pokemonAvatar:AddNewModifier(pokemonAvatar,nil,"modifier_silence",{duration = 3})
-  end
 end
 
 -- A non-player entity (necro-book, chen creep, etc) used an ability
@@ -229,10 +223,7 @@ function GameMode:OnEntityKilled( keys )
 
   GameMode:_OnEntityKilled( keys )
   
-
-  -- The Unit that was Killed
   local killedUnit = EntIndexToHScript( keys.entindex_killed )
-  -- The Killing entity
   local killerEntity = nil
 
   if keys.entindex_attacker ~= nil then
@@ -247,11 +238,44 @@ function GameMode:OnEntityKilled( keys )
   end
 
   local damagebits = keys.damagebits -- This might always be 0 and therefore useless
-
-  -- Put code here to handle when an entity gets killed
+  
+  --consider putting this code in pokeHelper OnPokemonAvatarKilled( keys )
   local killedPokemon = killedUnit.pokemon
-  if killedPokemon:GetCurrentHP() <= 0 then
-	GameMode:BattleEnded( killerEntity, killedPokemon, killedUnit.attackers, killedUnit.numAttackers )
+  
+  --if the pokemon is really dead, it didn't just get withdrawn or deleted itself
+  if killedPokemon:GetCurrentHP() < 1 then
+    if killedPokemon:IsWild() then
+      GameMode:BattleEnded( killerEntity, killedPokemon, killedUnit.attackers, killedUnit.numAttackers )
+	else
+	  --if it was a trainer's pokemon, set its current pokemonAvatar to nil
+	  local trainer = killedUnit.trainer
+	  trainer.pokemonAvatar = nil
+	  --send out the next pokemon in line
+	  local pokemon = PokeHelper:GetNextUseablePokemon( trainer )
+	  if pokemon ~= nil then
+		local position = trainer:GetAbsOrigin() + RandomVector( RandomFloat( 50, 100 ) )
+		local pokemonAvatar = PokeHelper:CreatePokemonAtPosition( pokemon, position, trainer, trainer:GetTeam() )
+		local healthData = {
+			health = pokemon:GetCurrentHP(),
+			maxHealth = pokemon:GetMaxHP()
+		}
+		CustomGameEventManager:Send_ServerToPlayer(trainer:GetPlayerOwner(), "update_health", healthData )
+		Selection:NewSelection( pokemonAvatar )
+	  else
+	    --if there are no more useable pokemon, wipe out
+		PokeHelper:WipeOut( trainer )
+	  end
+    end
+  elseif killedPokemon:IsWild() then
+    --a wild pokemon deleted itself (it wasn't killed)
+	--trainer table is a list of trainers this pokemon is engaged in combat with, as defined in rpg_example_spawning.lua
+	--currently the trainer table only contains the initial trainer
+	trainer = killedUnit.trainerTable
+	--If the trainer was defeated, their state will be normal. Otherwise, they'll still be in battle
+	if trainer.state ~= "Normal" then
+		Notifications:RPGTextBox(trainer:GetPlayerID(), {text="Got away safely!", duration=2, buttons=false, code=0, dialogueTree=""})
+	end
+    PokeHelper:EndBattleState( trainer )
   end
 end
 

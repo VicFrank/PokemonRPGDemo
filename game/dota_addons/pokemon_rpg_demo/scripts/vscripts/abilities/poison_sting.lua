@@ -13,8 +13,8 @@ function PoisonSting( keys )
 
 	if pokemon ~= nil then
 		PokeHelper:CalculatePokemonDamage(ability, caster, target, "POISON")
-		if RandomFloat(0,1) < debuffChance then
-			pokemon:InflictStatus( "POISONED" )
+		if RandomFloat(0,100) < debuffChance then
+			PokeHelper:InflictStatus( target, "POISONED" )
 		end
 	end
 end

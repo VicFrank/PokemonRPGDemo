@@ -21,7 +21,7 @@ function BeginCapture( keys )
 		local modifiedCatchRate = targetPokemon:GetCatchRate()
 		local statusBonus = 1
 		--a is the modified catch rate
-		local a = (( 3*  targetPokemon:GetMaxHP() - 2 * targetPokemon:GetCurrentHP() ) * modifiedCatchRate * statusBonus ) / ( 3 * targetPokemon:GetMaxHP() )
+		local a = (( 3 *  targetPokemon:GetMaxHP() - 2 * targetPokemon:GetCurrentHP() ) * modifiedCatchRate * statusBonus ) / ( 3 * targetPokemon:GetMaxHP() )
 		--b is the probability that a single shake check passes
 		local b = 1048560 / math.sqrt(math.sqrt(16711680/a)) --game freak pls
 		if a > 255 then
@@ -48,6 +48,8 @@ function BeginCapture( keys )
 						--we caught the pokemon!
 						Notifications:RPGTextBox(0, {text=targetPokemon:GetName() .. " was caught!", duration=2, buttons=false, code=200, dialogueTree=""})
 						Notifications:RPGTextBox(0, {text="Give " .. targetPokemon:GetName() .. " a nickname?", duration=2, buttons=true, code=200, dialogueTree=""})
+						
+						PokeHelper:EndBattleState( caster )
 						
 						local item = CreateItem("item_poke_ball", caster, caster)
 						targetPokemon:SetIsWild( false )

@@ -20,7 +20,7 @@ function ThunderFang( keys )
 			ability:ApplyDataDrivenModifier(caster, target, "flinch", {})
 		end
 		if RandomFloat(0,1) < paralyzeChance then
-			pokemon:InflictStatus( "PARALYZED" )
+			PokeHelper:InflictStatus( target, "PARALYZED" )
 		end
 	end
 end

@@ -20,7 +20,7 @@ function FireFang( keys )
 			ability:ApplyDataDrivenModifier(caster, target, "flinch", {})
 		end
 		if RandomFloat(0,1) < burnChance then
-			pokemon:InflictStatus( "BURNED" )
+			PokeHelper:InflictStatus( target, "BURNED" )
 		end
 	end
 end

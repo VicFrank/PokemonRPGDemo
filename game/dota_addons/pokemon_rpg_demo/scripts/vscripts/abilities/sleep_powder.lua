@@ -11,6 +11,6 @@ function SleepPowder( keys )
 	local pokemon = target.pokemon
 
 	if pokemon ~= nil then
-		pokemon:InflictStatus( "SLEEP" )
+		PokeHelper:InflictStatus( target, "SLEEP" )
 	end
 end

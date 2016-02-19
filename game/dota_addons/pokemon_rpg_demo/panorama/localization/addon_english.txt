@@ -1,5 +1,17 @@
 "addon"
 {
+	"Language"        "English"
+	
+	"Tokens"
+    {
+		"addon_game_name"     						"Pokemon RPG Demo"
+		 
+		// Error Messages
+		"error_cant_withdraw_during_battle"        	"You must have a pokemon out during battle!"
+		"error_no_will_to_fight"					"This pokemon does not have the will to fight."
+		"error_test"								"Test"
+	}
+	
 	"Unassigned"      								"Unassigned Team"
 	"Spectator"       								"Spectator Team"
 	"Neutrals"        								"Neutral Team"
@@ -16,5 +28,5 @@
 	"DOTA_Custom7"    								"Olive Snake"
 	"DOTA_Custom8"    								"Purple Horse"
 	
-	"addonname"										"Barebones"
+	"addonname"										"Pokemon RPG Demo"
 }

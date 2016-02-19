@@ -52,5 +52,5 @@ function DeleteAbility()
 
 (function()
 {
-	$.GetContextPanel().data().SetAbility = SetAbility;
+	$.GetContextPanel().SetAbility = SetAbility;
 })();
