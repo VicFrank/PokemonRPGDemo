@@ -6,77 +6,76 @@
 --Type NORMAL
 --Category Physical
 --30% chance to paralyze
-function BodySlam( keys )
+function Tackle( keys )	
 	local caster = keys.caster
 	local ability = keys.ability
-	local tackle_distance = ability:GetLevelSpecialValueFor("tackle_distance", (ability:GetLevel() - 1))
-	local tackle_speed = ability:GetLevelSpecialValueFor("tackle_speed", (ability:GetLevel() - 1))
-	local tackle_radius = ability:GetLevelSpecialValueFor("tackle_radius", (ability:GetLevel() - 1))
-	local debuffChance = ability:GetLevelSpecialValueFor("debuff_chance", (ability:GetLevel() - 1))
+	local ability_level = ability:GetLevel() - 1	
 
-	-- Clears any current command
+	-- Clears any current command and disjoints projectiles
 	caster:Stop()
-	-- Physics
-	local direction = caster:GetForwardVector()
-	local velocity = tackle_speed * 1.4
-	local end_time = tackle_distance / tackle_speed
-	local time_elapsed = 0
-	local time = end_time/2
-	local jump = end_time/0.02
+	ProjectileManager:ProjectileDodge(caster)
 
-	Physics:Unit(caster)
+	-- Ability variables
+	ability.tackle_direction = caster:GetForwardVector()
+	ability.tackle_distance = ability:GetLevelSpecialValueFor("tackle_distance", ability_level)
+	ability.tackle_speed = ability:GetLevelSpecialValueFor("tackle_speed", ability_level) * 1/30
+	ability.tackle_radius = ability:GetLevelSpecialValueFor("tackle_radius", (ability:GetLevel() - 1))
+	ability.tackle_traveled = 0
+	ability.tackle_z = 0
+	
+end
 
-	caster:PreventDI(true)
-	caster:SetAutoUnstuck(true)
-	caster:SetNavCollisionType(PHYSICS_NAV_NOTHING)
-	caster:FollowNavMesh(true)	
-	caster:SetPhysicsVelocity(direction * velocity)
+--[[Moves the caster on the horizontal axis until it has traveled the distance]]
+function TackleHorizonal( keys )
+	local caster = keys.target
+	local ability = keys.ability
+	local ground_position = GetGroundPosition(caster:GetAbsOrigin() , caster)
 
-
-	-- Move the unit
-	Timers:CreateTimer(0, function()
-		local ground_position = GetGroundPosition(caster:GetAbsOrigin() , caster)
-		time_elapsed = time_elapsed + 0.03
-		if time_elapsed < time then
-			caster:SetAbsOrigin(caster:GetAbsOrigin() + Vector(0,0,jump)) -- Going up
-		else
-			caster:SetAbsOrigin(caster:GetAbsOrigin() - Vector(0,0,jump)) -- Going down
-		end
-		--check to see if we hit something
-		local searchArea = FindUnitsInRadius( caster:GetTeam(), ground_position, nil, tackle_radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_ALL, 0, 0, false )
-		local target
-		for _,v in pairs(searchArea) do
-			target = v
-		end
-		if target ~= nil and target.pokemon ~= nil then
-			caster:SetAbsOrigin(Vector(caster:GetAbsOrigin().x,caster:GetAbsOrigin().y,129))
-			caster:SetPhysicsAcceleration(Vector(0,0,0))
-			caster:SetPhysicsVelocity(Vector(0,0,0))
-			caster:OnPhysicsFrame(nil)
-			caster:PreventDI(false)
-			caster:SetNavCollisionType(PHYSICS_NAV_SLIDE)
-			caster:SetAutoUnstuck(true)
-			caster:FollowNavMesh(true)
-			caster:SetPhysicsFriction(.05)
-			PokeHelper:CalculatePokemonDamage(ability, caster, target, "NORMAL")
-			if RandomFloat(0,100) < debuffChance then
-				PokeHelper:InflictStatus( target, "PARALYZED" )
-			end
+	if ability.tackle_traveled < ability.tackle_distance then
+		local nextPosition = caster:GetAbsOrigin() + ability.tackle_direction * ability.tackle_speed
+		--if we hit unpathable terrain, stop
+		if not GridNav:IsTraversable(GetGroundPosition(nextPosition,caster)) or GridNav:IsBlocked(GetGroundPosition(nextPosition,caster)) then
+			caster:InterruptMotionControllers(true)
 			return nil
 		end
-		-- If the target reached the ground then remove physics
-		if caster:GetAbsOrigin().z - ground_position.z <= 0 then
-			caster:SetPhysicsAcceleration(Vector(0,0,0))
-			caster:SetPhysicsVelocity(Vector(0,0,0))
-			caster:OnPhysicsFrame(nil)
-			caster:PreventDI(false)
-			caster:SetNavCollisionType(PHYSICS_NAV_SLIDE)
-			caster:SetAutoUnstuck(true)
-			caster:FollowNavMesh(true)
-			caster:SetPhysicsFriction(.05)
-			return nil
+		caster:SetAbsOrigin(nextPosition)
+		ability.tackle_traveled = ability.tackle_traveled + ability.tackle_speed
+	else
+		caster:InterruptMotionControllers(true)
+	end
+	
+	--check to see if we hit something
+	local searchArea = FindUnitsInRadius( caster:GetTeam(), ground_position, nil, ability.tackle_radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_ALL, 0, 0, false )
+	local target
+	for _,v in pairs(searchArea) do
+		target = v
+	end
+	if target ~= nil and target.pokemon ~= nil then
+		caster:InterruptMotionControllers(true)
+		EmitSoundOn("Hero_Slark.Pounce.Impact", target)
+		PokeHelper:CalculatePokemonDamage(ability, caster, target, "NORMAL")
+		if RandomFloat(0,100) < ability:GetLevelSpecialValueFor("debuff_chance", ability_level) then
+			PokeHelper:InflictStatus( target, "PARALYZED" )
 		end
+		return nil
+	end
+end
 
-		return 0.03
-	end)
+--[[Moves the caster on the vertical axis until movement is interrupted]]
+function TackleVertical( keys )
+	local caster = keys.target
+	local ability = keys.ability
+
+	-- For the first half of the distance the unit goes up and for the second half it goes down
+	if ability.tackle_traveled < ability.tackle_distance/2 then
+		-- Go up
+		-- This is to memorize the z point when it comes to cliffs and such although the division of speed by 2 isnt necessary, its more of a cosmetic thing
+		ability.tackle_z = ability.tackle_z + ability.tackle_speed/3
+		-- Set the new location to the current ground location + the memorized z point
+		caster:SetAbsOrigin(GetGroundPosition(caster:GetAbsOrigin(), caster) + Vector(0,0,ability.tackle_z))
+	else
+		-- Go down
+		ability.tackle_z = ability.tackle_z - ability.tackle_speed/3
+		caster:SetAbsOrigin(GetGroundPosition(caster:GetAbsOrigin(), caster) + Vector(0,0,ability.tackle_z))
+	end
 end

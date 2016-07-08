@@ -1,7 +1,6 @@
 function Activate(keys)
 	local caster = keys.caster
 	local ability = keys.ability
-	local target_point = keys.target_points[1]
 	local currentAvatar = caster.pokemonAvatar
 	local currentPokemon
 	if currentAvatar ~= nil then
@@ -14,7 +13,7 @@ function Activate(keys)
 	--if it's the pokemon associated with this ball, return the pokemon
 	if currentPokemon == pokemon then
 		if caster.state == "Battle" then
-			Notifications:DisplayError(playerID, "#error_cant_withdraw_during_battle")
+			Notifications:DisplayError(playerID, "#dota_hud_error_unit_command_restricted")
 		elseif caster.state == "PostBattle" then
 			--you shouldn't be in a position where you CAN withdraw during PostBattle
 			print("ERROR: Attempting to Withdraw during PostBattle. PokemonAvatar shouldn't even exist in this state. Something has gone terribly wrong.")

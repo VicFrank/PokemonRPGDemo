@@ -58,16 +58,11 @@ function PokeHelper:CalculatePokemonDamage( ability, attacker, target, damageTyp
 end
 
 --record that the attacker did damage to the target, to show that it was involved in the battle
-
 function PokeHelper:AddKillCredit(target, attackingPokemon)
 	if target.attackers == nil then
 		target.attackers = {}
-		target.numAttackers = 0
 	end
-	--if this attacker hasn't attacked this target before
-	if target.attackers[attackingPokemon] == nil then
-		target.numAttackers = target.numAttackers + 1
-	end
+
 	target.attackers[attackingPokemon] = true
 end
 
@@ -102,7 +97,6 @@ function PokeHelper:DealDamage( target, damage, attacker )
 		CustomGameEventManager:Send_ServerToPlayer(target.trainer:GetPlayerOwner(), "update_health", healthData )
 	end
 	
-	--make sure we use the metadata HP for the pokemon's health
 	if target:IsAlive() then
 		target:SetHealth(defendingPokemon:GetCurrentHP())
 		if defendingPokemon:GetCurrentHP() <= 0 then
@@ -282,7 +276,7 @@ function PokeHelper:CreatePokemonAtPosition( pokemon, position, owner, team )
 	
 	--create the avatar, the physicial in game unit
 	local pokemonAvatar = CreateUnitByName(pokemon:GetUnitName(), position, true, player, owner, team)
-	if owner ~= nil then
+	if owner ~= nil and team ~= DOTA_TEAM_NEUTRALS then
 		pokemonAvatar:SetControllableByPlayer(owner:GetPlayerID(), true)
 		owner.pokemonAvatar = pokemonAvatar
 		local statsData = 
@@ -300,6 +294,12 @@ function PokeHelper:CreatePokemonAtPosition( pokemon, position, owner, team )
 			toNextLevel = pokemon:GetExpToNextLevel()
 		}
 		CustomGameEventManager:Send_ServerToPlayer(player, "create_pokemon", statsData )
+
+		local healthData = {
+			health = pokemon:GetCurrentHP(),
+			maxHealth = pokemon:GetMaxHP()
+		}
+  		CustomGameEventManager:Send_ServerToPlayer(player, "update_health", healthData )
 	end
 	--assign the pokemon metadata to the avatar
 	pokemonAvatar.pokemon = pokemon
@@ -309,7 +309,8 @@ function PokeHelper:CreatePokemonAtPosition( pokemon, position, owner, team )
 	pokemonAvatar:SetMaxHealth(pokemon:GetMaxHP())
 	pokemonAvatar:SetBaseMaxHealth(pokemon:GetMaxHP())
 	pokemonAvatar:SetHealth(pokemon:GetCurrentHP())
-	--pokemonAvatar:SetBaseMoveSpeed(pokemon:GetSpeed())
+	pokemonAvatar:SetMana(pokemon:GetMana())
+
 	--pokemon are silenced for 3 seconds whenever they use an ability
 	PokeHelper:ApplyModifier( pokemonAvatar, "modifier_silence_after_spell" )
 	--give the avatar its abilities
@@ -321,6 +322,8 @@ function PokeHelper:CreatePokemonAtPosition( pokemon, position, owner, team )
 	--if the pokemon is afflicted by a status, apply the relevant modifier
 	local status = pokemon:GetStatus()
 	PokeHelper:InflictStatus( pokemonAvatar, status )
+
+	pokemonAvatar:SetCustomHealthLabel(pokemon:GetName() .. "  Lv. " .. pokemon:GetLevel(), 255, 255, 255)
 	
 	return pokemonAvatar
 end
@@ -392,15 +395,17 @@ function PokeHelper:StartBattle( trainer )
 	trainer.state = "Battle"
 	trainer:AddNewModifier(trainer,nil,"modifier_rooted",{})
 	trainer:AddNewModifier(trainer,nil,"modifier_invulnerable",{})
-	--send out the first pokemon in your inventory
-	local pokemon = PokeHelper:GetNextUseablePokemon( trainer )
-	if pokemon ~= nil then
-		local position = trainer:GetAbsOrigin() + RandomVector( RandomFloat( 200, 300 ) )
-		local pokemonAvatar = PokeHelper:CreatePokemonAtPosition( pokemon, position, trainer, trainer:GetTeam() )
-		Selection:NewSelection( pokemonAvatar )
+end
+
+--send out the first useable pokemon in the trainer's inventory
+function PokeHelper:SendOutFirstPokemon( trainer )
+	local nextPokemon = PokeHelper:GetNextUseablePokemon( trainer )
+	if nextPokemon == nil then
+		PokeHelper:WipeOut( trainer )
 	else
-		print("ERROR: Tried to start a battle with no useable pokemon. This should not be possible")
-		PokeHelper:EndBattleState( trainer )
+		local position = PokeHelper:FindSpaceWithinRange( trainer:GetAbsOrigin(), 200, 300 )
+		local pokemonAvatar = PokeHelper:CreatePokemonAtPosition( nextPokemon, position, trainer, trainer:GetTeam() )
+		Selection:NewSelection( pokemonAvatar )
 	end
 end
 
@@ -412,6 +417,20 @@ function PokeHelper:EndBattleState( trainer )
 	PokeHelper:Withdraw( trainer )
 	
 	CustomGameEventManager:Send_ServerToPlayer(trainer:GetPlayerOwner(), "battle_ended", PokeHelper:GetPartyData( trainer ) )
+end
+
+--finds a space that's within a pathable range between innerRadius and outerRadius
+function PokeHelper:FindSpaceWithinRange( center, innerRadius, outerRadius )
+	local position = nil
+	while position == nil do
+		position = center + RandomVector( RandomFloat( innerRadius, outerRadius ) )
+	    local pathLength = GridNav:FindPathLength( center, position )
+	    if not ( pathLength >= 0 and pathLength < outerRadius ) then
+	        position = nil
+	    end
+	end
+
+	return position
 end
 
 function PokeHelper:GetPartyData( trainer )
@@ -554,33 +573,73 @@ function PokeHelper:GetPartyData( trainer )
 end
 ]]
 
-function PokeHelper:WipeOut( trainer )
-	local teleportLocation = Entities:FindByName( nil, "pokemon_center_teleport" ):GetAbsOrigin()
-	FindClearSpaceForUnit(trainer, teleportLocation, false)
-	trainer:Stop()
-	
-	PokeHelper:EndBattleState( trainer )
-	
-	--move the camera to where the player warped
-	PlayerResource:SetCameraTarget(trainer:GetPlayerID(), trainer)
-	Timers:CreateTimer(0.1, function()
-		PlayerResource:SetCameraTarget(trainer:GetPlayerID(), nil)
-		--heal pokemon
-		--this is in the timer, because it doesn't seem to be working
-		for i=0,5 do
-			if trainer:GetItemInSlot(i) ~= nil then
-				local item = trainer:GetItemInSlot(i)
-				local pokemon = item.pokemon
-				if pokemon ~= nil then
-					pokemon:ClearStatus()
-					pokemon:SetCurrentHP(pokemon:GetMaxHP())
-				end
+function PokeHelper:PokemonCenterHeal( trainer )
+	PlayerResource:SetCameraTarget(trainer:GetPlayerID(), nil)
+	--heal pokemon
+	--this code is duplicated in triggers.lua for the pokemon center heal
+	for i=0,5 do
+		if trainer:GetItemInSlot(i) ~= nil then
+			local item = trainer:GetItemInSlot(i)
+			local pokemon = item.pokemon
+			if pokemon ~= nil then
+				pokemon:ClearStatus()
+				pokemon:SetCurrentHP(pokemon:GetMaxHP())
+				pokemon:SetMana(100)
 			end
 		end
-		CustomGameEventManager:Send_ServerToPlayer(trainer:GetPlayerOwner(), "update_health", {} )
+	end
+	CustomGameEventManager:Send_ServerToPlayer(trainer:GetPlayerOwner(), "update_health", {} )
+end
+
+function PokeHelper:WildPokemonBattleEnded( defeatedPokemon, attackers, trainer )
+	Notifications:RPGTextBox(player, {text="Enemy " .. defeatedPokemon:GetName() .. " was defeated!", duration=2, buttons=false, code=0, dialogueTree=""})
+	GameMode:RewardExp(trainer, GameMode:DistributeExp(defeatedPokemon, attackers))
+	PokeHelper:EndBattleState( trainer )
+end
+
+function PokeHelper:TrainerBattleEnded( playerTrainer, enemyTrainer )
+	--update enemyTrainer state and particles
+	GameMode:RewardExp(playerTrainer, enemyTrainer.experienceTable)
+	ParticleManager:DestroyParticle(enemyTrainer.particle, true)
+	enemyTrainer.defeated = true
+	enemyTrainer.experienceTable = {}
+
+	Notifications:RPGTextBox(playerTrainer:GetPlayerID(), {text=enemyTrainer.name .. " was defeated!", duration=2, buttons=false, code=0, dialogueTree=""})
+	Notifications:RPGTextBox(playerTrainer:GetPlayerID(), {text=PlayerResource:GetPlayerName(playerTrainer:GetPlayerID()) .. " got p" .. enemyTrainer.reward .. " for winning!", duration=2, buttons=false, code=0, dialogueTree=""})
+	for i=1,#(enemyTrainer.postBattleTable) do
+		Notifications:RPGTextBox(playerTrainer:GetPlayerID(), {text=enemyTrainer.postBattleTable[i], duration=2, buttons=false, code=0, dialogueTree=""})
+	end
+
+	playerTrainer.money = playerTrainer.money + enemyTrainer.reward
+
+	local delay = #(enemyTrainer.postBattleTable) * 2 + 4
+	Timers:CreateTimer(delay, function()
+		PokeHelper:EndBattleState( playerTrainer )
 	end)
-	
-	Notifications:RPGTextBox(trainer:GetPlayerID(), {text="You blacked out...", duration=3, buttons=false, code=200, dialogueTree=""})
+end
+
+
+function PokeHelper:WipeOut( trainer )
+	if trainer:GetTeam() == DOTA_TEAM_NEUTRALS then
+		--in this case, trainer is the defeated AI trainer and trainer.target is the player trainer
+		PokeHelper:TrainerBattleEnded( trainer.target, trainer )
+	else
+		--when a player is defeated, teleport them to a pokemon center and heal their pokemon
+		trainer.pokemonAvatar = nil
+		local teleportLocation = Entities:FindByName( nil, "pokemon_center_teleport" ):GetAbsOrigin()
+		FindClearSpaceForUnit(trainer, teleportLocation, false)
+		trainer:Stop()
+		
+		PokeHelper:EndBattleState( trainer )
+		
+		--move the camera to where the player warped
+		PlayerResource:SetCameraTarget(trainer:GetPlayerID(), trainer)
+		Timers:CreateTimer(0.1, function()
+			PokeHelper:PokemonCenterHeal( trainer )
+		end)
+		
+		Notifications:RPGTextBox(trainer:GetPlayerID(), {text="You blacked out...", duration=3, buttons=false, code=200, dialogueTree=""})
+	end
 end
 
 ------------------------------------------------

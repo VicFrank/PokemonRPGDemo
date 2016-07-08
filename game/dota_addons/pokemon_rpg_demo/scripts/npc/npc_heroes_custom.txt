@@ -31,5 +31,10 @@
 		"MovementTurnRate"		"0.600000"
 		"BoundsHullName"		"DOTA_HULL_SIZE_HERO"
 		"HealthBarOffset"		"160"
+
+		"StatusHealth"		"200"
+		"StatusHealthRegen"		"0"
+		"StatusMana"		"100"
+		"StatusManaRegen"		"0"
 	}
 }

@@ -11,6 +11,7 @@ function Pokemon.new(name, unitName, type1, type2, baseAttack, baseDefense, base
 	self.baseExpYield = baseExpYield
 	self.catchRate = catchRate
 	self.status = "NORMAL"
+	self.mana = 100
 	
 	self.totalExperience = totalExperience
 	self.level = math.floor(self.totalExperience ^ (1/3))
@@ -193,7 +194,20 @@ function Pokemon:SetCurrentHP( hp )
 	elseif hp < 0 then
 		hp = 0
 	end
-	self.currentHP =  math.floor(hp)
+	self.currentHP = math.floor(hp)
+end
+
+function Pokemon:SetMana( mana )
+	if mana > 100 then
+		mana = 100
+	elseif mana < 0 then
+		mana = 0
+	end
+	self.mana = mana
+end
+
+function Pokemon:GetMana()
+	return self.mana
 end
 
 function Pokemon:GetName()

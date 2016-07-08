@@ -12,7 +12,7 @@ function Confusion( keys )
 	local radius = ability:GetLevelSpecialValueFor("radius", (ability:GetLevel() - 1))
 	local pokemon = target.pokemon
 	
-	local particle = CreateParticle("particles/units/heroes/hero_enigma/enigma_midnight_pulse.vpcf", PATTACH_WORLDORIGIN, caster)
+	local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_enigma/enigma_midnight_pulse.vpcf", PATTACH_WORLDORIGIN, caster)
 	ParticleManager:SetParticleControl(particle, 0, target:GetAbsOrigin()) 
 	ParticleManager:SetParticleControl(particle, 1, Vector(radius,0,0))
 	

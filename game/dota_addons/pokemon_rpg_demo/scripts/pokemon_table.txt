@@ -836,6 +836,79 @@
 			"ExpYield"				"155"
 			"CatchRate"				"90"
 		}
+		"023"
+		{
+			"Name"					"ekans"
+			
+			"Type1"					"POISON"
+			"Type2"					""
+			
+			"BaseHP"				"35"
+			"BaseAttack"			"60"
+			"BaseDefense"			"44"
+			"BaseSpecialAttack"		"40"
+			"BaseSpecialDefense"	"54"
+			"BaseSpeed"				"55"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"arbok"
+				"Level"				"22"
+			}
+			
+			"LearnSet"
+			{
+				//"0"					"wrap"
+				"1"					"leer"
+				"4"					"poison_sting"
+				"9"					"bite"
+				//"12"				"glare"
+				"17"				"screech"
+				//"20"				"acid"
+				//"28"				"acid_spray"
+				//"33"				"mud_bomb"
+			}
+			
+			"ExpYield"				"58"
+			"CatchRate"				"255"
+		}
+		"024"
+		{
+			"Name"					"arbok"
+			
+			"Type1"					"POISON"
+			"Type2"					""
+			
+			"BaseHP"				"60"
+			"BaseAttack"			"85"
+			"BaseDefense"			"69"
+			"BaseSpecialAttack"		"65"
+			"BaseSpecialDefense"	"79"
+			"BaseSpeed"				"80"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				"0"					"ice_fang"
+				"1"					"thunder_fang"
+				"2"					"fire_fang"
+				//"3"					"wrap"
+				"4"					"poison_sting"
+				"9"					"bite"
+				"17"				"screech"
+				//"20"				"acid"
+				"22"				"crunch"
+				//"32"				"acid_spray"
+				//"39"				"mud_bomb"
+				//"63"				"gunk_shot"
+			}
+			
+			"ExpYield"				"153"
+			"CatchRate"				"90"
+		}
 		"025"
 		{
 			"Name"					"pikachu"
@@ -852,6 +925,8 @@
 			
 			"Evolution"
 			{
+				"NextEvolution"		"nidoqueen"
+				"Item"				"thunder_stone"
 			}
 			
 			"LearnSet"
@@ -876,6 +951,35 @@
 			
 			"ExpYield"				"105"
 			"CatchRate"				"190"
+		}
+		"026"
+		{
+			"Name"					"raichu"
+			
+			"Type1"					"ELECTRIC"
+			"Type2"					""
+			
+			"BaseHP"				"60"
+			"BaseAttack"			"90"
+			"BaseDefense"			"55"
+			"BaseSpecialAttack"		"90"
+			"BaseSpecialDefense"	"80"
+			"BaseSpeed"				"100"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				"0"					"thunder_shock"
+				"1"					"tail_whip"
+				"2"					"quick_attack"
+				"3"					"thunderbolt"
+			}
+			
+			"ExpYield"				"214"
+			"CatchRate"				"75"
 		}
 		"027"
 		{
@@ -902,11 +1006,11 @@
 				"0"					"defense_curl"
 				"1"					"scratch"
 				"3"					"sand_attack"
-				"7"					"rollout"
+				//"7"					"rollout"
 				"9"					"rapid_spin"
 				"11"				"swift"
 				//"14"				"fury_cutter"
-				"17"				"magnitude"
+				//"17"				"magnitude"
 				"20"				"fury_swipes"
 				//"23"				"sand_tomb"
 				"26"				"slash"
@@ -946,11 +1050,11 @@
 				"3"					"scratch"
 				"3"					"sand_attack"
 				"5"					"poison_sting"
-				"7"					"rollout"
+				//"7"					"rollout"
 				"9"					"rapid_spin"
 				"11"				"swift"
 				//"14"				"fury_cutter"
-				"17"				"magnitude"
+				//"17"				"magnitude"
 				"20"				"fury_swipes"
 				//"23"				"sand_tomb"
 				"26"				"slash"
@@ -966,7 +1070,7 @@
 		}
 		"029"
 		{
-			"Name"					"nidoran_female"
+			"Name"					"nidoran_f"
 			
 			"Type1"					"POISON"
 			"Type2"					""
@@ -1020,6 +1124,8 @@
 			
 			"Evolution"
 			{
+				"NextEvolution"		"nidoqueen"
+				"Item"				"moon_stone"
 			}
 			
 			"LearnSet"
@@ -1043,9 +1149,44 @@
 			"ExpYield"				"128"
 			"CatchRate"				"120"
 		}
+		"031"
+		{
+			"Name"					"nidoqueen"
+			
+			"Type1"					"POISON"
+			"Type2"					"GROUND"
+			
+			"BaseHP"				"90"
+			"BaseAttack"			"82"
+			"BaseDefense"			"87"
+			"BaseSpecialAttack"		"75"
+			"BaseSpecialDefense"	"85"
+			"BaseSpeed"				"76"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				"0"					"superpower"
+				"1"					"scratch"
+				"2"					"tail_whip"
+				"3" 				"double_kick"
+				"4"					"poison_sting"
+				//"23"				"chip_away"
+				"35"				"body_slam"
+				//"43"				"earth_power"
+				//"58"				"superpower"
+			}
+			
+			
+			"ExpYield"				"223"
+			"CatchRate"				"45"
+		}
 		"032"
 		{
-			"Name"					"nidoran_male"
+			"Name"					"nidoran_m"
 			
 			"Type1"					"POISON"
 			"Type2"					""
@@ -1099,6 +1240,8 @@
 			
 			"Evolution"
 			{
+				"NextEvolution"		"nidoking"
+				"Item"				"moon_stone"
 			}
 			
 			"LearnSet"
@@ -1121,6 +1264,246 @@
 			
 			"ExpYield"				"128"
 			"CatchRate"				"120"
+		}
+		"034"
+		{
+			"Name"					"nidoking"
+			
+			"Type1"					"POISON"
+			"Type2"					"GROUND"
+			
+			"BaseHP"				"81"
+			"BaseAttack"			"92"
+			"BaseDefense"			"77"
+			"BaseSpecialAttack"		"85"
+			"BaseSpecialDefense"	"75"
+			"BaseSpeed"				"85"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				"0"					"megahorn"
+				"1"					"peck"
+				"2"					"focus_energy"
+				"3" 				"double_kick"
+				"4"					"poison_sting"
+				//"23"				"chip_away"
+				//"35"				"thrash"
+				//"43"				"earth_power"
+				//"58"				"megahorn"
+			}
+			
+			
+			"ExpYield"				"223"
+			"CatchRate"				"45"
+		}
+		"035"
+		{
+			"Name"					"clefairy"
+			
+			"Type1"					"FAIRY"
+			"Type2"					""
+			
+			"BaseHP"				"70"
+			"BaseAttack"			"45"
+			"BaseDefense"			"48"
+			"BaseSpecialAttack"		"60"
+			"BaseSpecialDefense"	"65"
+			"BaseSpeed"				"35"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"clefable"
+				"Item"				"moon_stone"
+			}
+			
+			"LearnSet"
+			{
+				//"1"				"disarming_voice"
+				//"5"				"pound"
+				"8"					"growl"
+				//"13"				"sing"
+				//"18"				"double_slap"
+				"39"				"defense_curl"
+				//"31"				"metronome"
+			}
+			
+			"ExpYield"				"113"
+			"CatchRate"				"150"
+		}
+		"036"
+		{
+			"Name"					"clefable"
+			
+			"Type1"					"FAIRY"
+			"Type2"					""
+			
+			"BaseHP"				"95"
+			"BaseAttack"			"70"
+			"BaseDefense"			"73"
+			"BaseSpecialAttack"		"95"
+			"BaseSpecialDefense"	"90"
+			"BaseSpeed"				"60"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				//"0"				"sing"
+				//"1"				"metronome"
+				//"2"				"disarming_voice"
+				//"3" 				"minimize"
+				//"4"				"double_slap"
+			}
+			
+			"ExpYield"				"213"
+			"CatchRate"				"25"
+		}
+		"037"
+		{
+			"Name"					"vulpix"
+			
+			"Type1"					"FIRE"
+			"Type2"					""
+			
+			"BaseHP"				"38"
+			"BaseAttack"			"41"
+			"BaseDefense"			"40"
+			"BaseSpecialAttack"		"50"
+			"BaseSpecialDefense"	"65"
+			"BaseSpeed"				"65"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"ninetales"
+				"Item"				"fire_stone"
+			}
+			
+			"LearnSet"
+			{
+				"1"					"ember"
+				"4"					"tail_whip"
+				"10"				"quick_attack"
+				//"12"				"confuse_ray"
+				//"20"				"will_o_wisp"
+				//"23"				"feint_attack"
+				//"26"				"hex"
+				//"28"				"flame_burst"
+				//"31"				"extrasensory"
+				//"36"				"flamethrower"
+				//"42"				"fire_blast"
+				//"50"				"inferno"
+			}
+			
+			"ExpYield"				"60"
+			"CatchRate"				"190"
+		}
+		"038"
+		{
+			"Name"					"ninetales"
+			
+			"Type1"					"FIRE"
+			"Type2"					""
+			
+			"BaseHP"				"73"
+			"BaseAttack"			"76"
+			"BaseDefense"			"75"
+			"BaseSpecialAttack"		"81"
+			"BaseSpecialDefense"	"100"
+			"BaseSpeed"				"100"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				//"0"				"imprison"
+				//"1"				"nasty_plot"
+				//"2"				"flamethrower"
+				//"3" 				"quick_attack"
+				//"4"				"confuse_ray"
+			}
+			
+			"ExpYield"				"177"
+			"CatchRate"				"75"
+		}
+		"039"
+		{
+			"Name"					"jigglypuff"
+			
+			"Type1"					"NORMAL"
+			"Type2"					"FAIRY"
+			
+			"BaseHP"				"115"
+			"BaseAttack"			"45"
+			"BaseDefense"			"20"
+			"BaseSpecialAttack"		"45"
+			"BaseSpecialDefense"	"25"
+			"BaseSpeed"				"20"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"wigglytuff"
+				"Item"				"moon_stone"
+			}
+			
+			"LearnSet"
+			{
+				//"0"				"sing"
+				"0"					"tackle"
+				"3"					"defense_curl"
+				//"5"				"pound"
+				//"11" 				"disarming_voice"
+				//"15"				"disable"
+				//"18"				"double_slap"
+				//"21"				"rollout"
+				//"24"				"round"
+				//"32"				"rest"
+				"35"				"body_slam"
+				//"37"				"mimic"
+				//"40"				"gyro_ball"
+				//"44"				"hyper_voice"
+				"49"				"double_edge"
+			}
+			
+			"ExpYield"				"76"
+			"CatchRate"				"170"
+		}
+		"040"
+		{
+			"Name"					"wigglytuff"
+			
+			"Type1"					"NORMAL"
+			"Type2"					"FAIRY"
+			
+			"BaseHP"				"140"
+			"BaseAttack"			"70"
+			"BaseDefense"			"45"
+			"BaseSpecialAttack"		"85"
+			"BaseSpecialDefense"	"50"
+			"BaseSpeed"				"45"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				//"0"				"sing"
+				"1"					"double_edge"
+				//"2"				"disable"
+				"3" 				"defense_curl"
+				//"4"				"double_slap"
+			}
+			
+			"ExpYield"				"191"
+			"CatchRate"				"50"
 		}
 		"041"
 		{
@@ -1201,6 +1584,387 @@
 			"ExpYield"				"159"
 			"CatchRate"				"90"
 		}
+		"043"
+		{
+			"Name"					"oddish"
+			
+			"Type1"					"GRASS"
+			"Type2"					"POISON"
+			
+			"BaseHP"				"45"
+			"BaseAttack"			"50"
+			"BaseDefense"			"55"
+			"BaseSpecialAttack"		"75"
+			"BaseSpecialDefense"	"65"
+			"BaseSpeed"				"30"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"gloom"
+				"Level"				"21"
+			}
+			
+			"LearnSet"
+			{
+				//"1"				"absorb"
+				//"5"				"sweet_scent"
+				//"9"				"acid"
+				"13" 				"poison_powder"
+				"14"				"stun_spore"
+				"15"				"sleep_powder"
+				//"19"				"mega_drain"
+				"27"				"moonlight"
+				//"31"				"giga_drain"
+				//"35"				"toxic"
+				//"51"				"petal_dance"
+			}
+			
+			"ExpYield"				"64"
+			"CatchRate"				"255"
+		}
+		"044"
+		{
+			"Name"					"gloom"
+			
+			"Type1"					"GRASS"
+			"Type2"					"POISON"
+			
+			"BaseHP"				"60"
+			"BaseAttack"			"65"
+			"BaseDefense"			"70"
+			"BaseSpecialAttack"		"85"
+			"BaseSpecialDefense"	"75"
+			"BaseSpeed"				"40"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"vileplume"
+				"Item"				"leaf_stone"
+			}
+			
+			"LearnSet"
+			{
+				//"1"				"absorb"
+				//"2"				"sweet_scent"
+				//"3"				"acid"
+				"13" 				"poison_powder"
+				"14"				"stun_spore"
+				"15"				"sleep_powder"
+				//"19"				"mega_drain"
+				"29"				"moonlight"
+				//"34"				"giga_drain"
+				//"39"				"toxic"
+				//"49"				"petal_blizzard"
+				//"59"				"petal_dance"
+			}
+			
+			"ExpYield"				"138"
+			"CatchRate"				"120"
+		}
+		"045"
+		{
+			"Name"					"vileplume"
+			
+			"Type1"					"GRASS"
+			"Type2"					"POISON"
+			
+			"BaseHP"				"75"
+			"BaseAttack"			"80"
+			"BaseDefense"			"85"
+			"BaseSpecialAttack"		"100"
+			"BaseSpecialDefense"	"90"
+			"BaseSpeed"				"50"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				//"0"				"mega_drain"
+				//"1"					"aromatherapy"
+				"2"					"poison_powder"
+				//"3"				"stun_spore"
+				//"49"				"petal_blizzard"
+				//"59"				"petal_dance"
+				//"64"				"solar_beam"
+			}
+			
+			"ExpYield"				"216"
+			"CatchRate"				"45"
+		}
+		"046"
+		{
+			"Name"					"paras"
+			
+			"Type1"					"BUG"
+			"Type2"					"GRASS"
+			
+			"BaseHP"				"35"
+			"BaseAttack"			"70"
+			"BaseDefense"			"55"
+			"BaseSpecialAttack"		"45"
+			"BaseSpecialDefense"	"55"
+			"BaseSpeed"				"25"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"parasect"
+				"Level"				"24"
+			}
+			
+			"LearnSet"
+			{
+				"1"					"scratch"
+				"6"					"stun_spore"
+				"7"					"poison_powder"
+				//"11" 				"leech_life"
+				//"17"				"fury_cutter"
+				//"22"				"spore"
+				"27"				"slash"
+				"33"				"growth"
+				//"38"				"giga_drain"
+			}
+			
+			"ExpYield"				"57"
+			"CatchRate"				"190"
+		}
+		"047"
+		{
+			"Name"					"parasect"
+			
+			"Type1"					"BUG"
+			"Type2"					"GRASS"
+			
+			"BaseHP"				"60"
+			"BaseAttack"			"95"
+			"BaseDefense"			"80"
+			"BaseSpecialAttack"		"60"
+			"BaseSpecialDefense"	"80"
+			"BaseSpeed"				"30"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				"1"					"scratch"
+				"2"					"stun_spore"
+				"3"					"poison_powder"
+				//"4" 				"leech_life"
+				"6"					"stun_spore"
+				"7"					"poison_powder"
+				//"17"				"fury_cutter"
+				//"22"				"spore"
+				"29"				"slash"
+				"37"				"growth"
+				//"44"				"giga_drain"
+			}
+			
+			"ExpYield"				"142"
+			"CatchRate"				"75"
+		}
+		"069"
+		{
+			"Name"					"bellsprout"
+			
+			"Type1"					"GRASS"
+			"Type2"					"POISON"
+			
+			"BaseHP"				"50"
+			"BaseAttack"			"75"
+			"BaseDefense"			"35"
+			"BaseSpecialAttack"		"70"
+			"BaseSpecialDefense"	"30"
+			"BaseSpeed"				"40"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"weepinbell"
+				"Level"				"21"
+			}
+			
+			"LearnSet"
+			{
+				"1"					"vine_whip"
+				"7"					"growth"
+				//"11" 				"wrap"
+				"13"				"sleep_powder"
+				"15"				"poison_powder"
+				"17"				"stun_spore"
+				//"23"				"acid"
+				//"27"				"knock_off"
+				//"29"				"sweet_scent"
+				//"35"				"gastro_acid"
+				"39"				"razor_leaf"
+				//"41"				"slam"
+				"47"				"wring_out"
+			}
+			
+			"ExpYield"				"60"
+			"CatchRate"				"255"
+		}
+		"070"
+		{
+			"Name"					"weepinbell"
+			
+			"Type1"					"GRASS"
+			"Type2"					"POISON"
+			
+			"BaseHP"				"65"
+			"BaseAttack"			"90"
+			"BaseDefense"			"50"
+			"BaseSpecialAttack"		"85"
+			"BaseSpecialDefense"	"45"
+			"BaseSpeed"				"55"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"victreebel"
+				"Item"				"leaf_stone"
+			}
+			
+			"LearnSet"
+			{
+				"0"					"vine_whip"
+				"1"					"growth"
+				//"2" 				"wrap"
+				"13"				"sleep_powder"
+				"15"				"poison_powder"
+				"17"				"stun_spore"
+				//"23"				"acid"
+				//"27"				"knock_off"
+				//"29"				"sweet_scent"
+				//"35"				"gastro_acid"
+				"39"				"razor_leaf"
+				//"41"				"slam"
+				"47"				"wring_out"
+			}
+			
+			"ExpYield"				"137"
+			"CatchRate"				"120"
+		}
+		"071"
+		{
+			"Name"					"victreebel"
+			
+			"Type1"					"GRASS"
+			"Type2"					"POISON"
+			
+			"BaseHP"				"80"
+			"BaseAttack"			"105"
+			"BaseDefense"			"65"
+			"BaseSpecialAttack"		"100"
+			"BaseSpecialDefense"	"70"
+			"BaseSpeed"				"70"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				"0"					"vine_whip"
+				"1"					"sleep_powder"
+				"2"					"razor_leaf"
+				//"3" 				"sweet_scent"
+				//"27"				"leaf_tornado"
+				//"46"				"leaf_storm"
+				//"47"				"leaf_blade"
+			}
+			
+			"ExpYield"				"216"
+			"CatchRate"				"45"
+		}
+		"072"
+		{
+			"Name"					"tentacool"
+			
+			"Type1"					"WATER"
+			"Type2"					"POISON"
+			
+			"BaseHP"				"40"
+			"BaseAttack"			"40"
+			"BaseDefense"			"35"
+			"BaseSpecialAttack"		"50"
+			"BaseSpecialDefense"	"100"
+			"BaseSpeed"				"70"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"tentacruel"
+				"Level"				"30"
+			}
+			
+			"LearnSet"
+			{
+				"1"					"poison_sting"
+				//"4" 				"supersonic"
+				//"7"					"constrict"
+				//"10"				"acid"
+				//"13"				"toxic_spikes"
+				"16"				"water_pulse"
+				//"19"				"wrap"
+				//"22"				"acid_spray"
+				//"25"				"bubble_beam"
+				//"28"				"barrier"
+				//"31"				"poison_jab"
+				//"34"				"brine"
+				"37"				"screech"
+				//"40"				"hex"
+				//"43"				"sludge_wave"
+				//"46"				"hydro_pump"
+				//"49"				"wring_out"
+			}
+			
+			"ExpYield"				"67"
+			"CatchRate"				"190"
+		}
+		"073"
+		{
+			"Name"					"tentacruel"
+			
+			"Type1"					"WATER"
+			"Type2"					"POISON"
+			
+			"BaseHP"				"80"
+			"BaseAttack"			"70"
+			"BaseDefense"			"65"
+			"BaseSpecialAttack"		"80"
+			"BaseSpecialDefense"	"120"
+			"BaseSpeed"				"100"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				//"0"				"supersonic"
+				"1"					"poison_sting"
+				"2"					"acid"
+				//"4" 				"supersonic"
+				//"7"					"constrict"
+				//"10"				"acid"
+				//"13"				"toxic_spikes"
+				"16"				"water_pulse"
+				//"19"				"wrap"
+				//"22"				"acid_spray"
+				//"25"				"bubble_beam"
+				//"28"				"barrier"
+				//"32"				"poison_jab"
+				//"36"				"brine"
+				"40"				"screech"
+				//"44"				"hex"
+				//"48"				"sludge_wave"
+				//"52"				"hydro_pump"
+				//"56"				"wring_out"
+			}
+			
+			"ExpYield"				"180"
+			"CatchRate"				"60"
+		}
 		"074"
 		{
 			"Name"					"geodude"
@@ -1223,13 +1987,13 @@
 			
 			"LearnSet"
 			{
-				"1"					"tackle"
+				"0"					"tackle"
 				"1"					"defense_curl"
 				//"4"				"mud_sport"
 				//"8" 				"rock_polish"
-				"10"				"rollout"
-				"15"				"magnitude"
-				//"18"				"rock_throw"
+				//"10"				"rollout"
+				//"15"				"magnitude"
+				"18"				"rock_throw"
 				//"25"				"smack_down"
 				//"29"				"self_destruct"
 				//"32"				"bulldoze"
@@ -1242,6 +2006,250 @@
 			
 			"ExpYield"				"60"
 			"CatchRate"				"255"
+		}
+		"075"
+		{
+			"Name"					"graveler"
+			
+			"Type1"					"ROCK"
+			"Type2"					"GROUND"
+			
+			"BaseHP"				"55"
+			"BaseAttack"			"95"
+			"BaseDefense"			"115"
+			"BaseSpecialAttack"		"45"
+			"BaseSpecialDefense"	"45"
+			"BaseSpeed"				"35"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"golem"
+				"Type"				"Trade"
+			}
+			
+			"LearnSet"
+			{
+				"0"					"tackle"
+				"1"					"defense_curl"
+				//"4"				"mud_sport"
+				//"8" 				"rock_polish"
+				//"10"				"rollout"
+				//"15"				"magnitude"
+				"18"				"rock_throw"
+				//"24"				"self_destruct"
+				//"30"				"stealth_rock"
+				//"34"				"rock_blast"
+				//"40"				"earthquake"
+				//"44"				"explosion"
+				"50"				"double_edge"
+				//"54"				"stone_edge"
+			}
+			
+			"ExpYield"				"137"
+			"CatchRate"				"120"
+		}
+		"076"
+		{
+			"Name"					"golem"
+			
+			"Type1"					"ROCK"
+			"Type2"					"GROUND"
+			
+			"BaseHP"				"80"
+			"BaseAttack"			"110"
+			"BaseDefense"			"130"
+			"BaseSpecialAttack"		"55"
+			"BaseSpecialDefense"	"65"
+			"BaseSpeed"				"45"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				"0"					"tackle"
+				"1"					"defense_curl"
+				//"4"				"mud_sport"
+				//"8" 				"rock_polish"
+				//"10"				"rollout"
+				//"12"				"magnitude"
+				"16"				"rock_throw"
+				//"24"				"self_destruct"
+				//"30"				"stealth_rock"
+				//"34"				"rock_blast"
+				//"40"				"earthquake"
+				//"44"				"explosion"
+				"50"				"double_edge"
+				//"54"				"stone_edge"
+				//"60"				"heavy_slam"
+			}
+			
+			"ExpYield"				"218"
+			"CatchRate"				"45"
+		}
+		"081"
+		{
+			"Name"					"magnemite"
+			
+			"Type1"					"ELECTRIC"
+			"Type2"					"STEEL"
+			
+			"BaseHP"				"25"
+			"BaseAttack"			"35"
+			"BaseDefense"			"70"
+			"BaseSpecialAttack"		"95"
+			"BaseSpecialDefense"	"55"
+			"BaseSpeed"				"45"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"magneton"
+				"Level"				"30"
+			}
+			
+			"LearnSet"
+			{
+				"1"					"tackle"
+				"5"					"supersonic"
+				"7"					"thunder_shock"
+				//"11" 				"sonic_boom"
+				"13"				"thunder_wave"
+				//"17"				"magnet_bomb"
+				"19"				"spark"
+				//"23"				"mirror_shot"
+				//"29"				"electro_ball"
+				//"31"				"flash_cannon"
+				"35"				"screech"
+				//"37"				"discharge"
+				//"43"				"magnet_rise"
+				"47"				"gyro_ball"
+				//"49"				"zap_cannon"
+			}
+			
+			"ExpYield"				"65"
+			"CatchRate"				"190"
+		}
+		"082"
+		{
+			"Name"					"magneton"
+			
+			"Type1"					"ELECTRIC"
+			"Type2"					"STEEL"
+			
+			"BaseHP"				"50"
+			"BaseAttack"			"60"
+			"BaseDefense"			"95"
+			"BaseSpecialAttack"		"120"
+			"BaseSpecialDefense"	"70"
+			"BaseSpeed"				"70"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				//"0"					"zap_cannon"
+				"1"					"tackle"
+				"2"					"supersonic"
+				"3" 				"thunder_shock"
+				//"11"				"sonic_boom"
+				//"13"				"thunder_wave"
+				//"17"				"magnet_bomb"
+				//"19"				"spark"
+				//"23"				"mirror_shot"
+				//"25"				"metal_sound"
+				//"29"				"electro_ball"
+				//"30"				"tri_attack"
+				//"33"				"flash_cannon"
+				"39"				"screech"
+				//"43"				"discharge"
+				//"53"				"magnet_rise"
+				"59"				"gyro_ball"
+				//"63"				"zap_cannon"
+			}
+			
+			"ExpYield"				"163"
+			"CatchRate"				"60"
+		}
+		"088"
+		{
+			"Name"					"grimer"
+			
+			"Type1"					"POISON"
+			"Type2"					""
+			
+			"BaseHP"				"80"
+			"BaseAttack"			"80"
+			"BaseDefense"			"50"
+			"BaseSpecialAttack"		"40"
+			"BaseSpecialDefense"	"50"
+			"BaseSpeed"				"25"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"muk"
+				"Level"				"38"
+			}
+			
+			"LearnSet"
+			{
+				//"1"					"pound"
+				//"5"					"poison_gas"
+				"4"					"harden"
+				//"7" 				"mud_slap"
+				//"12"				"disable"
+				//"15"				"sludge"
+				//"18"				"mud_bomb"
+				//"21"				"minimize"
+				//"29"				"sludge_bomb"
+				//"32"				"sludge_wave"
+				"37"				"screech"
+				//"40"				"gunk_shot"
+				//"43"				"acid_armor"
+			}
+			
+			"ExpYield"				"65"
+			"CatchRate"				"190"
+		}
+		"089"
+		{
+			"Name"					"muk"
+			
+			"Type1"					"POISON"
+			"Type2"					""
+			
+			"BaseHP"				"105"
+			"BaseAttack"			"105"
+			"BaseDefense"			"75"
+			"BaseSpecialAttack"		"65"
+			"BaseSpecialDefense"	"100"
+			"BaseSpeed"				"50"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				//"1"					"pound"
+				//"5"					"poison_gas"
+				"4"					"harden"
+				//"7" 				"mud_slap"
+				//"12"				"disable"
+				//"15"				"sludge"
+				//"18"				"mud_bomb"
+				//"21"				"minimize"
+				//"29"				"sludge_bomb"
+				//"32"				"sludge_wave"
+				"37"				"screech"
+				//"40"				"gunk_shot"
+				//"46"				"acid_armor"
+			}
+			
+			"ExpYield"				"175"
+			"CatchRate"				"75"
 		}
 		"095"
 		{
@@ -1266,9 +2274,9 @@
 				//"0"				"mud_sport"
 				"1"					"tackle"
 				"2"					"harden"
-				"3"					"bind"
+				//"3"					"bind"
 				//"4"				"curse"
-				//"7" 				"rock_throw"
+				"7" 				"rock_throw"
 				"10"				"rock_tomb"
 				//"13"				"rage"
 				//"16"				"stealth_rock"
@@ -1277,7 +2285,7 @@
 				//"22"				"smack_down"
 				//"25"				"dragon_breath"
 				"28"				"slam"
-				//"31"				"screech"
+				"31"				"screech"
 				//"34"				"rock_slide"
 				//"37"				"sand_tomb"
 				//"40"				"iron_tail"
@@ -1289,6 +2297,318 @@
 			
 			"ExpYield"				"77"
 			"CatchRate"				"45"
+		}
+		"096"
+		{
+			"Name"					"drowzee"
+			
+			"Type1"					"PSYCHIC"
+			"Type2"					""
+			
+			"BaseHP"				"60"
+			"BaseAttack"			"48"
+			"BaseDefense"			"45"
+			"BaseSpecialAttack"		"43"
+			"BaseSpecialDefense"	"90"
+			"BaseSpeed"				"42"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"hypno"
+				"Level"				"26"
+			}
+			
+			"LearnSet"
+			{
+				//"1"					"pound"
+				//"2"				"hypnosis"
+				//"5"				"disable"
+				"9"					"confusion"
+				//"13"				"headbutt"
+				//"17"				"poison_gas"
+				//"25"				"psybeam"
+				//"29"				"headbutt"
+				//"41"				"zen_headbutt"
+				//"45"				"swagger"
+				//"49"				"psychic"
+				//"53"				"nasty_plot"
+				//"57"				"psyshock"
+				//"61"				"future_sight"
+			}
+			
+			"ExpYield"				"65"
+			"CatchRate"				"190"
+		}
+		"097"
+		{
+			"Name"					"hypno"
+			
+			"Type1"					"PSYCHIC"
+			"Type2"					""
+			
+			"BaseHP"				"85"
+			"BaseAttack"			"73"
+			"BaseDefense"			"70"
+			"BaseSpecialAttack"		"73"
+			"BaseSpecialDefense"	"115"
+			"BaseSpeed"				"67"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				//"1"					"pound"
+				//"2"				"hypnosis"
+				//"3"				"nasty_plot"
+				//"4"				"nightmare"
+				//"5"				"disable"
+				"9"					"confusion"
+				//"13"				"headbutt"
+				//"17"				"poison_gas"
+				//"25"				"psybeam"
+				//"29"				"headbutt"
+				//"41"				"zen_headbutt"
+				//"45"				"swagger"
+				//"49"				"psychic"
+				//"53"				"nasty_plot"
+				//"57"				"psyshock"
+				//"61"				"future_sight"
+			}
+			
+			"ExpYield"				"175"
+			"CatchRate"				"75"
+		}
+		"109"
+		{
+			"Name"					"koffing"
+			
+			"Type1"					"POISON"
+			"Type2"					""
+			
+			"BaseHP"				"40"
+			"BaseAttack"			"65"
+			"BaseDefense"			"95"
+			"BaseSpecialAttack"		"60"
+			"BaseSpecialDefense"	"45"
+			"BaseSpeed"				"35"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"weezing"
+				"Level"				"35"
+			}
+			
+			"LearnSet"
+			{
+				//"0"				"poison_gas"
+				"1"					"tackle"
+				//"4"					"smog"
+				"7" 				"smokescreen"
+				//"12"				"assurance"
+				//"15"				"clear_smog"
+				//"18"				"sludge"
+				//"23"				"self_destruct"
+				//"26"				"haze"
+				//"29"				"gyro_ball"
+				//"34"				"sludge_bomb"
+				//"37"				"explosion"
+				//"40"				"destiny_bond"
+				//"42"				"belch"
+				//"45"				"memento"
+			}
+			
+			"ExpYield"				"68"
+			"CatchRate"				"190"
+		}
+		"110"
+		{
+			"Name"					"weezing"
+			
+			"Type1"					"POISON"
+			"Type2"					""
+			
+			"BaseHP"				"65"
+			"BaseAttack"			"90"
+			"BaseDefense"			"120"
+			"BaseSpecialAttack"		"85"
+			"BaseSpecialDefense"	"70"
+			"BaseSpeed"				"60"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				//"0"				"poison_gas"
+				"1"					"tackle"
+				//"4"					"smog"
+				"7" 				"smokescreen"
+				//"12"				"assurance"
+				//"15"				"clear_smog"
+				//"18"				"sludge"
+				//"23"				"self_destruct"
+				//"26"				"haze"
+				//"29"				"double_hit"
+				//"34"				"sludge_bomb"
+				//"40"				"explosion"
+				//"46"				"destiny_bond"
+				//"51"				"belch"
+				//"57"				"memento"
+			}
+			
+			"ExpYield"				"172"
+			"CatchRate"				"60"
+		}
+		"118"
+		{
+			"Name"					"goldeen"
+			
+			"Type1"					"WATER"
+			"Type2"					""
+			
+			"BaseHP"				"45"
+			"BaseAttack"			"67"
+			"BaseDefense"			"60"
+			"BaseSpecialAttack"		"35"
+			"BaseSpecialDefense"	"50"
+			"BaseSpeed"				"63"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"seaking"
+				"Level"				"33"
+			}
+			
+			"LearnSet"
+			{
+				"0"					"peck"
+				"1"					"tail_whip"
+				"5"					"supersonic"
+				//"8" 				"horn_attack"
+				//"13"				"flail"
+				"16"				"water_pulse"
+				//"21"				"aqua_ring"
+				"24"				"fury_attack"
+				"29"				"agility"
+				//"32"				"waterfall"
+				//"37"				"horn_drill"
+				//"45"				"megahorn"
+			}
+			
+			"ExpYield"				"64"
+			"CatchRate"				"225"
+		}
+		"119"
+		{
+			"Name"					"seaking"
+			
+			"Type1"					"WATER"
+			"Type2"					""
+			
+			"BaseHP"				"80"
+			"BaseAttack"			"92"
+			"BaseDefense"			"65"
+			"BaseSpecialAttack"		"65"
+			"BaseSpecialDefense"	"80"
+			"BaseSpeed"				"68"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				"0"					"peck"
+				"1"					"tail_whip"
+				//"2"					"megahorn"
+				"5"					"supersonic"
+				//"8" 				"horn_attack"
+				//"13"				"flail"
+				"16"				"water_pulse"
+				//"21"				"aqua_ring"
+				"24"				"fury_attack"
+				"29"				"agility"
+				//"32"				"waterfall"
+				//"10"				"horn_drill"
+				//"54"				"megahorn"
+			}
+			
+			"ExpYield"				"158"
+			"CatchRate"				"60"
+		}
+		"120"
+		{
+			"Name"					"staryu"
+			
+			"Type1"					"WATER"
+			"Type2"					""
+			
+			"BaseHP"				"35"
+			"BaseAttack"			"45"
+			"BaseDefense"			"160"
+			"BaseSpecialAttack"		"30"
+			"BaseSpecialDefense"	"45"
+			"BaseSpeed"				"70"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"starmie"
+				"Item"				"moon_stone"
+			}
+			
+			"LearnSet"
+			{
+				"0"					"tackle"
+				"1"					"harden"
+				"4"					"water_gun"
+				"7" 				"rapid_spin"
+				"10"				"recover"
+				//"13"				"psywave"
+				"16"				"swift"
+				//"18"				"bubble_beam"
+				//"24"				"gyro_ball"
+				//"28"				"brine"
+				//"40"				"confuse_ray"
+				//"42"				"psychic"
+				//"53"				"hydro_pump"
+			}
+			
+			"ExpYield"				"68"
+			"CatchRate"				"225"
+		}
+		"121"
+		{
+			"Name"					"starmie"
+			
+			"Type1"					"WATER"
+			"Type2"					""
+			
+			"BaseHP"				"60"
+			"BaseAttack"			"75"
+			"BaseDefense"			"85"
+			"BaseSpecialAttack"		"100"
+			"BaseSpecialDefense"	"85"
+			"BaseSpeed"				"115"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				//"0"				"hydro_pump"
+				"1"					"water_gun"
+				"2"					"rapid_spin"
+				"3" 				"recover"
+				"4"					"swift"
+				//"40"				"confuse_ray"
+			}
+			
+			"ExpYield"				"182"
+			"CatchRate"				"60"
 		}
 	}
 }

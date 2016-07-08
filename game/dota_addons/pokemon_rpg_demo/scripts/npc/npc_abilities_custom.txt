@@ -21,7 +21,7 @@
 		"AbilityCastRange"				"600"
 		"AbilityCastPoint"				"0.3"
 		"AbilityManaCost"				"0"
-		"AbilityCooldown"				"8"
+		"AbilityCooldown"				"0"
 		
 		"precache"
 		{
@@ -131,8 +131,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"0"
 		"AbilityCastPoint"				"0"
-		"AbilityCooldown"				"8.0"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"2"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -210,8 +210,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"0"
 		"AbilityCastPoint"				"0"
-		"AbilityCooldown"				"8.0"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"3"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -254,8 +254,15 @@
 			
 			"RunScript"
 			{
-				"ScriptFile"	"scripts/vscripts/abilities/slam.lua"
-				"Function"		"Slam"
+				"ScriptFile"	"scripts/vscripts/abilities/tackle.lua"
+				"Function"		"Tackle"
+			}
+			"ApplyMotionController"
+			{
+				"Target" 		"CASTER"
+				"ScriptFile"    "scripts/vscripts/abilities/tackle.lua"
+				"HorizontalControlFunction" "TackleHorizonal"
+				"VerticalControlFunction" 	"TackleVertical"         
 			}
 		}
 	}
@@ -284,11 +291,11 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"8.0"
+		"AbilityCooldown"				"0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"4"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -336,8 +343,16 @@
 			
 			"RunScript"
 			{
-				"ScriptFile"	"scripts/vscripts/abilities/body_slam.lua"
-				"Function"		"BodySlam"
+				"ScriptFile"	"scripts/vscripts/abilities/tackle.lua"
+				"Function"		"Tackle"
+			}
+			"ApplyMotionController"
+			// For this: gfycat.com/BraveHideousGiantschnauzer -> check: bit.ly/1KWulqA
+			{
+				"Target" 		"CASTER"
+				"ScriptFile"    "scripts/vscripts/abilities/tackle.lua"
+				"HorizontalControlFunction" "TackleHorizonal"
+				"VerticalControlFunction" 	"TackleVertical"         
 			}
 		}
 	}
@@ -367,8 +382,8 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"10"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"2"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -454,8 +469,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_datadriven"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
-		"AbilityCooldown"				"15"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"2"
 		"AbilityCastAnimation"			"ACT_DOTA_TELEPORT"
 		"AbilityTextureName"            "medusa_mana_shield"
 		
@@ -544,8 +559,8 @@
 
 		"AbilityCastRange"				"500"
 		"AbilityCastPoint"				"0.3"
-		"AbilityCooldown"				"8"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"3"
 			
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -600,8 +615,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_datadriven"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
-		"AbilityCooldown"				"15"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"2"
 		"AbilityCastAnimation"			"ACT_DOTA_TELEPORT"
 		"AbilityTextureName"            "medusa_mana_shield"
 		
@@ -684,8 +699,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_datadriven"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
-		"AbilityCooldown"				"15"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"2"
 		"AbilityCastAnimation"			"ACT_DOTA_TELEPORT"
 		"AbilityTextureName"            "bristleback_bristleback"
 		
@@ -777,12 +792,12 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"8.0"
+		"AbilityCooldown"				"0"
 		"AbilityDuration"				"1"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"2"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -893,12 +908,12 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"8.0"
+		"AbilityCooldown"				"0"
 		"AbilityDuration"				"1"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"2"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -978,6 +993,112 @@
 			}
 		}
 	}
+
+	"rock_throw"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_DIRECTIONAL | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"MaxLevel"						"1"
+		"AbilityTextureName"			"earth_spirit_boulder_smash"
+
+		// Precache
+		//-------------------------------------------------------------------------------------------------------------
+		"precache"
+		{
+			"soundfile"		    "soundevents/game_sounds_heroes/game_sounds_earth_spirit.vsndevts"
+			"particle"			"particles/neutral_fx/mud_golem_hurl_boulder.vpcf"
+		}
+		
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.1"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"0"
+		"AbilityDuration"				"1"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"4"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"speed"				"700.0"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"width"				"115"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"range"				"800"
+			}
+			"04"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"vision"			"650"
+			}
+			"05"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"base_damage"		"50"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"LinearProjectile"
+			{
+				"Target"      	"POINT"
+				"EffectName"  	"particles/neutral_fx/mud_golem_hurl_boulder.vpcf"
+				"MoveSpeed"   	"%speed"
+				"StartRadius"   "%width"
+				"StartPosition" "attach_origin"
+				"EndRadius"     "%width"
+				"FixedDistance" "%range"
+				"TargetTeams"   "DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"TargetTypes"   "DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
+				"TargetFlags"   "DOTA_UNIT_TARGET_FLAG_NONE"
+				"HasFrontalCone"    "0"
+				"ProvidesVision"	"1"
+				"VisionRadius"	"%vision"
+			}
+
+			"FireSound"
+			{
+				"EffectName"			"Hero_EarthSpirit.BoulderSmash.Cast"
+				"Target"				"CASTER"
+			}
+		}
+
+		"OnProjectileHitUnit"
+		{
+			"RunScript"
+			{
+				"ScriptFile"			"scripts/vscripts/abilities/rock_throw.lua"
+				"Function"				"RockThrow"
+				"Target"				"TARGET"
+			}
+
+			"FireSound"
+			{
+				"EffectName"			"Hero_EarthSpirit.BoulderSmash.Damage"
+				"Target"				"TARGET"
+			}
+		}
+	}
 	
 	//based on the spelllibrary dismember
 	"bite"
@@ -1010,11 +1131,11 @@
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityChannelTime"			".95"
-		"AbilityCooldown"				"12"
+		"AbilityCooldown"				"0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"3"
 		
 		"AbilitySpecial"
 		{
@@ -1132,11 +1253,11 @@
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityChannelTime"			".95"
-		"AbilityCooldown"				"12"
+		"AbilityCooldown"				"0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"3"
 		
 		"AbilitySpecial"
 		{
@@ -1238,11 +1359,11 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"8"
+		"AbilityCooldown"				"0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"		
+		"AbilityManaCost"				"3"		
 		
 		// Cast Range
 		//-------------------------------------------------------------------------------------------------------------
@@ -1334,8 +1455,8 @@
 		
 		"AbilityCastRange"				"0"
 		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
-		"AbilityCooldown"				"8"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"2"
 
 		"AbilitySpecial"
 		{
@@ -1423,11 +1544,11 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"8"
+		"AbilityCooldown"				"0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"2"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -1543,11 +1664,11 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"20"
+		"AbilityCooldown"				"0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"6"
 
 		"OnSpellStart"
 		{			
@@ -1631,12 +1752,12 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"8.0"
+		"AbilityCooldown"				"0"
 		"AbilityDuration"				"1"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"2"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -1731,12 +1852,12 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"8.0"
+		"AbilityCooldown"				"0"
 		"AbilityDuration"				"1"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"2"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -1837,12 +1958,12 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"8.0"
+		"AbilityCooldown"				"0"
 		"AbilityDuration"				"1"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"6"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -1919,8 +2040,8 @@
 		"AbilityTextureName"			"witch_doctor_maledict"
 		"MaxLevel" 						"1"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"AbilityCooldown"				"14.0"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"2"
 		"AbilityCastPoint"				"0.4"
 		
 		"precache"
@@ -2013,8 +2134,8 @@
 		"AbilityTextureName"			"pudge_rot"
 		"MaxLevel" 						"1"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"AbilityCooldown"				"14.0"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"2"
 		"AbilityCastPoint"				"0.4"
 		
 		"precache"
@@ -2107,8 +2228,8 @@
 		"AbilityTextureName"			"riki_smoke_screen"
 		"MaxLevel" 						"1"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"AbilityCooldown"				"14.0"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"2"
 		"AbilityCastPoint"				"0.4"
 		
 		"precache"
@@ -2201,8 +2322,8 @@
 		"AbilityTextureName"			"riki_smoke_screen"
 		"MaxLevel" 						"1"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"AbilityCooldown"				"14.0"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"2"
 		
 		"precache"
 		{
@@ -2317,8 +2438,8 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
 		
 		"AbilityCastRange"				"100"
-		"AbilityCooldown"				"8.0"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"2"
 		
 		"precache"
 		{
@@ -2354,10 +2475,12 @@
 		"BaseClass"             		"ability_datadriven"
 		"AbilityTextureName"			"beastmaster_call_of_the_wild"
 		"MaxLevel" 						"1"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
-		"AbilityCooldown"				"8.0"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"2"
 		
 		"precache"
 		{
@@ -2387,16 +2510,58 @@
 			}
 		}
 	}
+
+	"drill_peck"
+	{
+		"BaseClass"             		"ability_datadriven"
+		"AbilityTextureName"			"beastmaster_call_of_the_wild"
+		"MaxLevel" 						"1"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"3"
+		
+		"precache"
+		{
+			"soundfile"				"soundevents/game_sounds_heroes/game_sounds_nyx_assassin.vsndevts"
+		}
+		
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"base_damage"		"80"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"damage_radius"		"100"
+			}
+		}
+		
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/peck.lua"
+				"Function"		"Peck"
+			}
+		}
+	}
 	
 	"fury_swipes"
 	{
 		"BaseClass"             		"ability_datadriven"
 		"AbilityTextureName"			"ursa_fury_swipes"
 		"MaxLevel" 						"1"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
-		"AbilityCooldown"				"8.0"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"4"
 		
 		"precache"
 		{
@@ -2432,10 +2597,11 @@
 		"BaseClass"             		"ability_datadriven"
 		"AbilityTextureName"			"ursa_fury_swipes"
 		"MaxLevel" 						"1"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
-		"AbilityCooldown"				"8.0"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"3"
 		
 		"precache"
 		{
@@ -2471,10 +2637,11 @@
 		"BaseClass"             		"ability_datadriven"
 		"AbilityTextureName"			"centaur_hoof_stomp"
 		"MaxLevel" 						"1"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
-		"AbilityCooldown"				"8.0"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"2"
 		
 		"precache"
 		{
@@ -2531,11 +2698,11 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"10"
+		"AbilityCooldown"				"0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"2"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -2691,11 +2858,11 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"10"
+		"AbilityCooldown"				"0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"2"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -2838,9 +3005,9 @@
 		
 		"AbilityCastRange"				"250"
 		"AbilityCastPoint"				"0.0"
-		"AbilityCooldown"				"8.0"
+		"AbilityCooldown"				"0"
 
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"3"
 		
 		"precache"
 		{
@@ -2986,11 +3153,11 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"8.0"
+		"AbilityCooldown"				"0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"4"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -3063,11 +3230,11 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"8.0"
+		"AbilityCooldown"				"0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"3"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -3131,9 +3298,9 @@
 		"AbilityCastRange"				"650"
 		"AbilityCastPoint"				"0.3"
 		
-		"AbilityCooldown"				"8"
+		"AbilityCooldown"				"0"
 		
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"2"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -3215,9 +3382,9 @@
 		"AbilityCastRange"				"650"
 		"AbilityCastPoint"				"0.3"
 		
-		"AbilityCooldown"				"8"
+		"AbilityCooldown"				"0"
 		
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"3"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -3301,11 +3468,11 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"8"
+		"AbilityCooldown"				"0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"3"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -3394,12 +3561,12 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"8.0"
+		"AbilityCooldown"				"0"
 		"AbilityDuration"				"1"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"3"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -3504,11 +3671,11 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"8.0"
+		"AbilityCooldown"				"0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"4"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -3563,8 +3730,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_datadriven"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
-		"AbilityCooldown"				"15"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"2"
 		"AbilityCastAnimation"			"ACT_DOTA_TELEPORT"
 		"AbilityTextureName"            "windrunner_windrun"
 		
@@ -3661,11 +3828,11 @@
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityChannelTime"			".95"
-		"AbilityCooldown"				"12"
+		"AbilityCooldown"				"0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"4"
 		
 		"AbilitySpecial"
 		{
@@ -3753,8 +3920,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_datadriven"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"AbilityCooldown"				"15"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"6"
 		"AbilityChannelTime"			"2"
 		"AbilityCastAnimation"			"ACT_DOTA_TELEPORT"
 		"AbilityTextureName"            "puck_phase_shift"
@@ -3839,12 +4006,12 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"8.0"
+		"AbilityCooldown"				"0"
 		"AbilityDuration"				"1"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"2"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -3945,12 +4112,12 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"8.0"
+		"AbilityCooldown"				"0"
 		"AbilityDuration"				"1"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"3"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -4046,12 +4213,12 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"8.0"
+		"AbilityCooldown"				"0"
 		"AbilityDuration"				"1"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"2"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -4141,7 +4308,7 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
 		"MaxLevel"						"1"
 		"AbilityTextureName"			"riki_blink_strike"
-		"AbilityCooldown"				"8.0"
+		"AbilityCooldown"				"0"
 		
 		"AbilityCastRange"				"400"
 		"AbilityCastPoint"				"0.3"
@@ -4187,7 +4354,7 @@
 		
 		"AbilityCastRange"				"400"
 		"AbilityCastPoint"				"0.3"
-		"AbilityCooldown"				"8.0"
+		"AbilityCooldown"				"0"
 		
 		"precache"
 		{
@@ -4229,7 +4396,7 @@
 		"AbilityTextureName"			"terrorblade_reflection"
 		
 		"AbilityCastPoint"				"0.3"
-		"AbilityCooldown"				"8.0"
+		"AbilityCooldown"				"0"
 		
 		"precache"
 		{
@@ -4303,9 +4470,9 @@
 		
 		"AbilityCastRange"				"0"
 		"AbilityDuration"				"5"
-		"AbilityCooldown"				"12"
+		"AbilityCooldown"				"0"
 		"AbilityCastPoint"				"0.2"
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"2"
 		
 		"precache"
 		{
@@ -4421,8 +4588,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_datadriven"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"AbilityCooldown"				"15"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"2"
 		"AbilityChannelTime"			"2"
 		"AbilityCastAnimation"			"ACT_DOTA_TELEPORT"
 		"AbilityTextureName"            "juggernaut_blade_dance"
@@ -4504,11 +4671,11 @@
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityChannelTime"			".95"
-		"AbilityCooldown"				"12"
+		"AbilityCooldown"				"0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"4"
 		
 		"AbilitySpecial"
 		{
@@ -4626,11 +4793,11 @@
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityChannelTime"			".95"
-		"AbilityCooldown"				"12"
+		"AbilityCooldown"				"0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"4"
 		
 
 		"OnSpellStart"
@@ -4700,8 +4867,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_datadriven"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"AbilityCooldown"				"15"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"5"
 		"AbilityChannelTime"			"2"
 		"AbilityCastAnimation"			"ACT_DOTA_TELEPORT"
 		"AbilityTextureName"            "enchantress_natures_attendants"
@@ -4770,8 +4937,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_datadriven"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"AbilityCooldown"				"15"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"5"
 		"AbilityChannelTime"			"2"
 		"AbilityCastAnimation"			"ACT_DOTA_TELEPORT"
 		"AbilityTextureName"            "enchantress_natures_attendants"
@@ -4849,8 +5016,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_datadriven"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"AbilityCooldown"				"15"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"2"
 		"AbilityChannelTime"			"2"
 		"AbilityCastAnimation"			"ACT_DOTA_TELEPORT"
 		"AbilityTextureName"            "shredder_reactive_armor"
@@ -4948,11 +5115,11 @@
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityChannelTime"			".95"
-		"AbilityCooldown"				"12"
+		"AbilityCooldown"				"0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"3"
 		
 		"AbilitySpecial"
 		{
@@ -5075,11 +5242,11 @@
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityChannelTime"			".95"
-		"AbilityCooldown"				"12"
+		"AbilityCooldown"				"0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"3"
 		
 		"AbilitySpecial"
 		{
@@ -5202,11 +5369,11 @@
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityChannelTime"			".95"
-		"AbilityCooldown"				"12"
+		"AbilityCooldown"				"0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"3"
 		
 		"AbilitySpecial"
 		{
@@ -5304,10 +5471,12 @@
 		"BaseClass"             		"ability_datadriven"
 		"AbilityTextureName"			"bloodseeker_bloodrage"
 		"MaxLevel" 						"1"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
-		"AbilityCooldown"				"8.0"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"3"
 		
 		"precache"
 		{
@@ -5343,10 +5512,12 @@
 		"BaseClass"             		"ability_datadriven"
 		"AbilityTextureName"			"magnataur_shockwave"
 		"MaxLevel" 						"1"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
-		"AbilityCooldown"				"8.0"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"3"
 		
 		"precache"
 		{
@@ -5402,8 +5573,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_datadriven"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"AbilityCooldown"				"15"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"2"
 		"AbilityChannelTime"			"2"
 		"AbilityCastAnimation"			"ACT_DOTA_TELEPORT"
 		"AbilityTextureName"            "tiny_grow"
@@ -5488,12 +5659,12 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"8.0"
+		"AbilityCooldown"				"0"
 		"AbilityDuration"				"1"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"2"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -5599,12 +5770,12 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"8.0"
+		"AbilityCooldown"				"0"
 		"AbilityDuration"				"1"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"4"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -5728,8 +5899,8 @@
 		"MaxLevel" 						"1"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_DIRECTIONAL | DOTA_ABILITY_BEHAVIOR_POINT"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
-		"AbilityCooldown"				"8.0"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"3"
 		
 		"precache"
 		{
@@ -5815,8 +5986,8 @@
 
 		"AbilityCastRange"				"500"
 		"AbilityCastPoint"				"0.3"
-		"AbilityCooldown"				"8"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"2"
 			
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -5848,7 +6019,63 @@
 			}
 		}
 	}
-	
+
+	"thunderbolt"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"AbilityTextureName"			"zuus_lightning_bolt"
+		"MaxLevel"						"1"
+
+		// Precache
+		//-------------------------------------------------------------------------------------------------------------
+		"precache"
+		{
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_zuus.vsndevts"
+			"particle"			"particles\units\heroes\hero_zuus\zuus_lightning_bolt.vpcf"
+		}
+
+		"AbilityCastRange"				"500"
+		"AbilityCastPoint"				"0.3"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"4"
+			
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"base_damage"			"90"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"debuff_chance"			"10"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"		"Hero_Zuus.LightningBolt"
+				"Target"			"TARGET"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/thunder_shock.lua"
+				"Function"		"ThunderShock"
+			}
+		}
+	}
+		
 	"thunder_wave"
 	{
 		// General
@@ -5866,12 +6093,13 @@
 		{
 			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_zuus.vsndevts"
 			"particle"			"particles\units\heroes\hero_zuus\zuus_lightning_bolt.vpcf"
+			"particle"			"particles/ui_mouseactions/range_display.vpcf"
 		}
 
 		"AbilityCastRange"				"500"
 		"AbilityCastPoint"				"0.3"
-		"AbilityCooldown"				"8"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"3"
 
 		"OnSpellStart"
 		{

@@ -44,7 +44,7 @@ require('events')
 
 require('pokemon')
 require('libraries/pokehelper')
-require( "rpg_example_spawning" )
+require('rpg_example_spawning')
 
 -- Perry said this works
 --LinkLuaModifier( "modifier_ignore_cast_angle", "LuaModifiers/modifier_ignore_cast_angle.lua", LUA_MODIFIER_MOTION_NONE )
@@ -91,7 +91,7 @@ function GameMode:OnHeroInGame(hero)
 	--look up this pokemon's metadata
 	local metadata = self.pokemon_table[starter]
 	local level = 6
-	--local abilityList = { "thunder_shock", "leech_seed", "whirlwind", "string_shot" }
+	--local abilityList = { "confusion", "harden", "rock_throw", "drill_peck" }
 	--item.pokemon = PokeHelper:CreatePokemonFromMetadata(metadata, level, false, abilityList)
 	item.pokemon = PokeHelper:CreatePokemonFromMetadata(metadata, level, false)
 	hero:AddItem(item)
@@ -108,9 +108,21 @@ function GameMode:OnHeroInGame(hero)
 	--you start in pallet_town
 	hero.location = "pallet_town"
 	hero.respawn = "pallet_town"
+	hero.money = 0	
 	
 	--initialize the party screen
 	CustomGameEventManager:Send_ServerToPlayer(hero:GetPlayerOwner(), "update_party_panel_response", PokeHelper:GetPartyData( hero ) )
+
+	--[[hero:AddAbility("antimage_blink")
+	local ability = hero:FindAbilityByName("antimage_blink")
+	ability:UpgradeAbility(true)
+
+	Timers:CreateTimer(5, 
+    function()
+		print(hero:GetAbsOrigin())
+      return 5
+    end)
+	]]
 	
 	-- level a pokemon up periodically
 	--[[
@@ -139,7 +151,7 @@ function GameMode:_ReadGameConfiguration()
 		return
 	end
 	for k,v in pairs( kvPokemon ) do
-		local pokemonMetaData = {
+		local pokemonMetadata = {
 			unitName = v.Name,
 			type1 = v.Type1,
 			type2 = v.Type2 or nil,
@@ -154,29 +166,50 @@ function GameMode:_ReadGameConfiguration()
 			expYield = v.ExpYield,
 			catchRate = v.CatchRate
 		}
-		self.pokemon_table[v.Name] = pokemonMetaData
+		self.pokemon_table[v.Name] = pokemonMetadata
 	end
 	
 	GameMode:SetupSpawners()
 end
 
-function GameMode:BattleEnded( pokemonAvatar, defeatedPokemon, attackers, numAttackers )
-	local pokemon = pokemonAvatar.pokemon
-	local experience = PokeHelper:CalculateExp( pokemon, defeatedPokemon )
-	local position = pokemonAvatar:GetAbsOrigin()
-	local trainer = pokemonAvatar.trainer
+--after a pokemon is defeated, calculate how much experience should be rewarded to each participating pokemon
+function GameMode:DistributeExp( defeatedPokemon, attackers, experienceTable )
+	if experienceTable == nil then
+		experienceTable = {}
+	end
+
+	local numAttackers = 0
+
+	if (attackers == nil) then
+		print("attackers is nil")
+		return {}
+	end
+
+	for k,v in pairs( attackers ) do
+		numAttackers = numAttackers + 1
+	end
+
+	for contributingPokemon,_ in pairs( attackers ) do
+		local experience = math.floor(PokeHelper:CalculateExp( contributingPokemon, defeatedPokemon ) / numAttackers)
+		if experienceTable[contributingPokemon] == nil then
+			experienceTable[contributingPokemon] = 0
+		end
+		experienceTable[contributingPokemon] = experienceTable[contributingPokemon] + experience
+	end 
+
+	return experienceTable
+end
+
+--give the experience in table to respective pokemon, deal with 
+function GameMode:RewardExp( trainer, experienceTable )
 	local team = trainer:GetTeam()
 	local player = trainer:GetPlayerID()
-	experience = math.floor(experience / numAttackers)
-	
-	PokeHelper:Withdraw( trainer )
-	
+	local position = PokeHelper:FindSpaceWithinRange( trainer:GetAbsOrigin(), 100, 200 )
+
 	trainer.state = "PostBattle"
-	Notifications:RPGTextBox(player, {text="Enemy " .. defeatedPokemon:GetName() .. " was defeated!", duration=2, buttons=false, code=100, dialogueTree=""})
-	
-	--assign exp split evenly between contributing pokemon
-	for contributingPokemon,_ in pairs( attackers ) do
-		--check to see if any pokemon leveled up
+	PokeHelper:Withdraw( trainer )
+
+	for contributingPokemon,experience in pairs( experienceTable ) do
 		Notifications:RPGTextBox(player, {text=contributingPokemon:GetName() .. " gained " .. experience .. " experience.", duration=2, buttons=false, code=100, dialogueTree=""})
 		local currentLevel = contributingPokemon:GetLevel()
 		if contributingPokemon:AddExperience( experience ) then
@@ -186,8 +219,6 @@ function GameMode:BattleEnded( pokemonAvatar, defeatedPokemon, attackers, numAtt
 			PokeHelper:Withdraw( trainer )
 		end
 	end
-	
-	PokeHelper:EndBattleState( trainer )
 end
 
 function GameMode:LevelUp( pokemonAvatar, previousLevel )

@@ -239,43 +239,43 @@ function GameMode:OnEntityKilled( keys )
 
   local damagebits = keys.damagebits -- This might always be 0 and therefore useless
   
-  --consider putting this code in pokeHelper OnPokemonAvatarKilled( keys )
+  ----------------------------
+  -- Pokemon code starts here (consider making this a function in PokeHelper)
+  ----------------------------
   local killedPokemon = killedUnit.pokemon
+
+  killedPokemon:SetMana(killedUnit:GetMana())
   
   --if the pokemon is really dead, it didn't just get withdrawn or deleted itself
   if killedPokemon:GetCurrentHP() < 1 then
     if killedPokemon:IsWild() then
-      GameMode:BattleEnded( killerEntity, killedPokemon, killedUnit.attackers, killedUnit.numAttackers )
-	else
-	  --if it was a trainer's pokemon, set its current pokemonAvatar to nil
-	  local trainer = killedUnit.trainer
-	  trainer.pokemonAvatar = nil
-	  --send out the next pokemon in line
-	  local pokemon = PokeHelper:GetNextUseablePokemon( trainer )
-	  if pokemon ~= nil then
-		local position = trainer:GetAbsOrigin() + RandomVector( RandomFloat( 50, 100 ) )
-		local pokemonAvatar = PokeHelper:CreatePokemonAtPosition( pokemon, position, trainer, trainer:GetTeam() )
-		local healthData = {
-			health = pokemon:GetCurrentHP(),
-			maxHealth = pokemon:GetMaxHP()
-		}
-		CustomGameEventManager:Send_ServerToPlayer(trainer:GetPlayerOwner(), "update_health", healthData )
-		Selection:NewSelection( pokemonAvatar )
-	  else
-	    --if there are no more useable pokemon, wipe out
-		PokeHelper:WipeOut( trainer )
-	  end
+      --if it was a wild pokemon, end the battle and award exp
+      PokeHelper:WildPokemonBattleEnded( killedPokemon, killedUnit.attackers, killerEntity.trainer )
+    else
+      --if it was a trainer's pokemon, attempt to send out their next pokemon
+      local trainer = killedUnit.trainer
+      PokeHelper:SendOutFirstPokemon( trainer )
+      trainer.experienceTable = GameMode:DistributeExp( killedPokemon, killedUnit.attackers, trainer.experienceTable )
     end
-  elseif killedPokemon:IsWild() then
-    --a wild pokemon deleted itself (it wasn't killed)
-	--trainer table is a list of trainers this pokemon is engaged in combat with, as defined in rpg_example_spawning.lua
-	--currently the trainer table only contains the initial trainer
-	trainer = killedUnit.trainerTable
-	--If the trainer was defeated, their state will be normal. Otherwise, they'll still be in battle
-	if trainer.state ~= "Normal" then
-		Notifications:RPGTextBox(trainer:GetPlayerID(), {text="Got away safely!", duration=2, buttons=false, code=0, dialogueTree=""})
-	end
-    PokeHelper:EndBattleState( trainer )
+  else
+    if killedPokemon:IsWild() then
+      --a wild pokemon deleted itself (it wasn't killed)
+      --this happens when (a) the trainer successfully escaped from the wild pokemon
+      -- or (b) the trainer lost a battle
+      --If the (a), the state will be normal. If (b) then state will be "Battle"
+    	--currently the trainer table only contains the initial trainer
+    	trainer = killedUnit.trainerTable --the trainer table is a list of trainers that were involved in the battle, originally designed with multiplayer in mind
+    	
+    	if trainer.state ~= "Normal" then
+    		Notifications:RPGTextBox(trainer:GetPlayerID(), {text="Got away safely!", duration=2, buttons=false, code=0, dialogueTree=""})
+    	end
+
+      PokeHelper:EndBattleState( trainer )
+    elseif killedUnit:GetTeam() == DOTA_TEAM_NEUTRALS then
+      --the player lost a trainer battle
+    end
+    --The other condition is that a trainer's pokemon deleted itself. This is the case when a pokemon is withdrawn.
+    --We don't need to do anything about that here.
   end
 end
 

@@ -3,7 +3,7 @@
 	"item_poke_ball"
 	{
 		"ID"           				"1836"
-		"AbilityBehavior"    	 	"DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityBehavior"    	 	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"Model"						"models/props_gameplay/red_box.vmdl"
 		"Effect"					"particles/generic_gameplay/dropped_item.vpcf"
 		"BaseClass"          		"item_datadriven"
@@ -26,7 +26,6 @@
 			{
 				"ScriptFile"			"scripts/vscripts/abilities/poke_balls/poke_ball.lua"
 				"Function"				"Activate"
-				"Target"				"POINT"
 			}
 		}
 		
@@ -158,13 +157,20 @@
 						"ModifierName"		"modifier_silenced_after_spell"
 						"Target"			"CASTER"
 					}
+
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/status.lua"
+						"Function"		"DisplayAbilityName"
+					}
 				}
 			}
 			
 			"modifier_silenced_after_spell"
 			{
-				"IsHidden"          "1"
-				"Duration"			"3"
+				"IsHidden"          "0"
+				"Duration"			"4"
+				"TextureName"		"drow_ranger_silence"
 				
 				"States"
 				{

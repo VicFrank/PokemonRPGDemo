@@ -1,4 +1,4 @@
---based on Leap from the spelllibrary
+--based on Leap from the spell library
 --[[Leap Author: Pizzalol]]
 --PP 35
 --Power 50
@@ -31,7 +31,13 @@ function TackleHorizonal( keys )
 	local ground_position = GetGroundPosition(caster:GetAbsOrigin() , caster)
 
 	if ability.tackle_traveled < ability.tackle_distance then
-		caster:SetAbsOrigin(caster:GetAbsOrigin() + ability.tackle_direction * ability.tackle_speed)
+		local nextPosition = caster:GetAbsOrigin() + ability.tackle_direction * ability.tackle_speed
+		--if we hit unpathable terrain, stop
+		if not GridNav:IsTraversable(GetGroundPosition(nextPosition,caster)) or GridNav:IsBlocked(GetGroundPosition(nextPosition,caster)) then
+			caster:InterruptMotionControllers(true)
+			return nil
+		end
+		caster:SetAbsOrigin(nextPosition)
 		ability.tackle_traveled = ability.tackle_traveled + ability.tackle_speed
 	else
 		caster:InterruptMotionControllers(true)

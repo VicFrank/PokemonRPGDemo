@@ -1,6 +1,5 @@
 function Burn( keys )
 	local target = keys.target
-	local ability = keys.ability
 	local pokemon = target.pokemon
 	local caster = keys.caster
 
@@ -25,7 +24,6 @@ end
 
 function Freeze( keys )
 	local target = keys.target
-	local ability = keys.ability
 
 	--20% chance of thawing out
 	if RandomFloat(0,1) < .2 then
@@ -35,7 +33,6 @@ end
 
 function Sleep( keys )
 	local target = keys.target
-	local ability = keys.ability
 	
 	--sleep lasts 1-3 rounds
 	if target.sleepCounter == nil then
@@ -70,5 +67,14 @@ function Confusion( keys )
 	--40% chance of losing confusion
 	if RandomFloat(0,1) < .2 then
 		target:RemoveModifierByName("modifier_confusion")
+	end
+end
+
+function DisplayAbilityName( keys )
+	local caster = keys.caster
+	local ability = caster:GetCurrentActiveAbility()
+
+	if (ability ~= nil) then
+		caster:AddSpeechBubble(1, ability:GetAbilityName(), 1, 0, 0)
 	end
 end
