@@ -7,6 +7,23 @@ function NewSelection ( args ) {
 	GameUI.SelectUnit(entIndex, false);
 }
 
+function UnitSelected ( ) {
+	var playerID = Game.GetLocalPlayerInfo().player_id;
+	var queryUnit = Players.GetQueryUnit(playerID);
+	var ability = Entities.GetAbility( queryUnit, 0 );
+	var abilityName = Abilities.GetAbilityName( ability );
+
+	//$.Msg( );
+
+	if(abilityName == "npc_dialogue"){
+		GameEvents.SendCustomGameEventToServer( "talkable_npc_selected", { "player_id" : Game.GetLocalPlayerInfo().player_id, "unit_entindex" : queryUnit } );
+	}
+}
+
+
 (function () {
 	GameEvents.Subscribe( "new_selection", NewSelection);
+
+	//dota events
+	GameEvents.Subscribe( "dota_player_update_query_unit", UnitSelected);
 })();

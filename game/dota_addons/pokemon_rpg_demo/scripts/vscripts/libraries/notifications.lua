@@ -12,7 +12,7 @@ function Notifications:RPGTextBox(player, table)
   if type(player) == "number" then
     player = PlayerResource:GetPlayer(player)
   end
-
+  
   if table.unit ~= nil then
     CustomGameEventManager:Send_ServerToPlayer(player, "rpg_textbox", {text=table.text, duration=table.duration, buttons=table.buttons, code=table.code, dialogueTree=table.dialogueTree, unit=table.unit} )
   else

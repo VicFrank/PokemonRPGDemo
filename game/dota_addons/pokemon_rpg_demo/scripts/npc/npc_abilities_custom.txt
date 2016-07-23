@@ -109,6 +109,132 @@
 			}
 		}
 	}
+
+	"npc_dialogue"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"				"ability_datadriven"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityTextureName"	"chen_holy_persuasion"
+		"MaxLevel"				"1"
+
+		"AbilityCooldown"		"5"
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"abilities/dialogue.lua"
+				"Function"		"Talk"
+			}
+		}
+	}
+
+	//from spell library furion teleport
+	//apparently 'teleport' is some sort of key word, so test_teleport is used instead
+	"test_teleport"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"				"ability_datadriven"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_NORMAL_WHEN_STOLEN | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		"AbilityTextureName"	"furion_teleportation"
+		"MaxLevel"				"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1000"
+		"AbilityCastPoint"				"1"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"2"
+
+		"precache"
+		{
+			"particle"  "particles/units/heroes/hero_furion/furion_teleport_end.vpcf"
+			"particle"  "particles/units/heroes/hero_furion/furion_teleport_end_team.vpcf"
+			"particle"  "particles/units/heroes/hero_furion/furion_teleport.vpcf"
+			"particle"  "particles/units/heroes/hero_furion/furion_teleport_e.vpcf"
+			"soundfile" "soundevents/game_sounds_heroes/game_sounds_furion.vsndevts"
+		}
+
+		"OnAbilityPhaseStart"
+		{
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_teleportation"
+				"Target" 		"CASTER"
+				"Duration"		"3"
+			}
+
+			"FireSound"
+			{
+				"EffectName"	"Hero_Furion.Teleport_Grow"
+				"Target" 		"CASTER"
+			}
+
+			"RunScript"
+			{
+				"ScriptFile"	"abilities/teleport.lua"
+				"Function"		"CreateTeleportParticles"
+				"Target"		"POINT"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"FireSound"
+			{
+				"EffectName"	"Hero_Furion.Teleport_Disappear"
+				"Target" 		"CASTER"
+			}
+
+			"RunScript"
+			{
+				"ScriptFile"	"abilities/teleport.lua"
+				"Function"		"Teleport"
+				"Target"		"POINT"
+			}
+
+			"FireSound"
+			{
+				"EffectName"	"Hero_Furion.Teleport_Appear"
+				"Target" 		"CASTER"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_teleportation"
+			{
+				"IsHidden"			"1"
+		
+				"EffectName"		"particles/units/heroes/hero_furion/furion_teleport.vpcf"
+				"EffectAttachType"	"follow_origin"
+
+				"OnOrder"
+				{
+					"FireSound"
+					{
+						"EffectName"	"Hero_Furion.Teleport_Disappear"
+						"Target" 		"CASTER"
+					}
+
+					"RunScript"
+					{
+						"ScriptFile"	"abilities/teleport.lua"
+						"Function"		"EndTeleport"
+					}
+
+					"RemoveModifier"
+					{
+						"ModifierName"	"modifier_teleportation"
+						"Target" 		"CASTER"
+					}
+				}
+			}
+		}
+	}
 	
 	"tackle"
 	{
@@ -287,7 +413,7 @@
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"0"
-		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
+		"AbilityCastPoint"				"0.1"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
@@ -384,6 +510,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"0"
 		"AbilityManaCost"				"2"
+		"AbilityCastPoint"				"0.1"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -557,7 +684,7 @@
 			"particle"			"particles/units/heroes/hero_shadowshaman/shadowshaman_base_attack.vpcf"
 		}
 
-		"AbilityCastRange"				"500"
+		"AbilityCastRange"				"550"
 		"AbilityCastPoint"				"0.3"
 		"AbilityCooldown"				"0"
 		"AbilityManaCost"				"3"
@@ -766,6 +893,112 @@
 			}
 		}
 	}
+
+	"absorb"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_DIRECTIONAL | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"						"1"
+		"AbilityTextureName"			"death_prophet_spirit_siphon"
+
+		// Precache
+		//-------------------------------------------------------------------------------------------------------------
+		"precache"
+		{
+			"soundfile"		    "soundevents/game_sounds_heroes/game_sounds_medusa.vsndevts"
+			"particle"			"particles/custom_particles/absorb.vpcf"
+		}
+		
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"600"
+		"AbilityCastPoint"				"0.1"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"0"
+		"AbilityDuration"				"1"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"3"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"speed"				"700.0"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"width"				"115"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"range"				"800"
+			}
+			"04"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"vision"			"650"
+			}
+			"05"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"base_damage"		"20"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"LinearProjectile"
+			{
+				"Target"      	"POINT"
+				"EffectName"  	"particles/custom_particles/absorb.vpcf"
+				"MoveSpeed"   	"%speed"
+				"StartRadius"   "%width"
+				"StartPosition" "attach_origin"
+				"EndRadius"     "%width"
+				"FixedDistance" "%range"
+				"TargetTeams"   "DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"TargetTypes"   "DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
+				"TargetFlags"   "DOTA_UNIT_TARGET_FLAG_NONE"
+				"HasFrontalCone"    "0"
+				"ProvidesVision"	"1"
+				"VisionRadius"	"%vision"
+			}
+
+			"FireSound"
+			{
+				"EffectName"			"Hero_Brewmaster.DrunkenHaze.Cast"
+				"Target"				"CASTER"
+			}
+		}
+
+		"OnProjectileHitUnit"
+		{
+			"RunScript"
+			{
+				"ScriptFile"			"scripts/vscripts/abilities/absorb.lua"
+				"Function"				"Absorb"
+				"Target"				"TARGET"
+			}
+
+			"FireSound"
+			{
+				"EffectName"			"Hero_Medusa.ManaShield.Proc"
+				"Target"				"TARGET"
+			}
+		}
+	}
 	
 	"bubble"
 	{
@@ -782,12 +1015,12 @@
 		"precache"
 		{
 			"soundfile"		    "soundevents/game_sounds_heroes/game_sounds_brewmaster.vsndevts"
-			"particle"			"particles/units/heroes/hero_mirana/mirana_spell_arrow.vpcf"
+			"particle"			"particles/custom_particles/bubble.vpcf"
 		}
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"800"
+		"AbilityCastRange"				"700"
 		"AbilityCastPoint"				"0.1"
 
 		// Time		
@@ -845,7 +1078,7 @@
 			"LinearProjectile"
 			{
 				"Target"      	"POINT"
-				"EffectName"  	"particles/units/heroes/hero_mirana/mirana_spell_arrow.vpcf"
+				"EffectName"  	"particles/custom_particles/bubble.vpcf"
 				"MoveSpeed"   	"%speed"
 				"StartRadius"   "%width"
 				"StartPosition" "attach_origin"
@@ -877,7 +1110,123 @@
 
 			"FireSound"
 			{
-				"EffectName"			"Hero_Mirana.ArrowImpact"
+				"EffectName"			"Hero_Brewmaster.DrunkenHaze.Target"
+				"Target"				"TARGET"
+			}
+		}
+	}
+
+	"bubble_beam"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_DIRECTIONAL | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"						"1"
+		"AbilityTextureName"			"kunkka_torrent"
+
+		// Precache
+		//-------------------------------------------------------------------------------------------------------------
+		"precache"
+		{
+			"soundfile"		    "soundevents/game_sounds_heroes/game_sounds_brewmaster.vsndevts"
+			"particle"			"particles/custom_particles/bubble_beam/bubble_beam.vpcf"
+		}
+		
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.1"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"0"
+		"AbilityDuration"				"1"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"3"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"speed"				"700.0"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"width"				"115"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"range"				"800"
+			}
+			"04"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"vision"			"650"
+			}
+			"05"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"base_damage"		"65"
+			}
+			"06"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"debuff"			"-1"
+			}
+			"07"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"debuff_chance"		"10"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"LinearProjectile"
+			{
+				"Target"      	"POINT"
+				"EffectName"  	"particles/custom_particles/bubble_beam/bubble_beam.vpcf"
+				"MoveSpeed"   	"%speed"
+				"StartRadius"   "%width"
+				"StartPosition" "attach_origin"
+				"EndRadius"     "%width"
+				"FixedDistance" "%range"
+				"TargetTeams"   "DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"TargetTypes"   "DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
+				"TargetFlags"   "DOTA_UNIT_TARGET_FLAG_NONE"
+				"HasFrontalCone"    "0"
+				"ProvidesVision"	"1"
+				"VisionRadius"	"%vision"
+			}
+
+			"FireSound"
+			{
+				"EffectName"			"Hero_Brewmaster.DrunkenHaze.Cast"
+				"Target"				"CASTER"
+			}
+		}
+
+		"OnProjectileHitUnit"
+		{
+			"RunScript"
+			{
+				"ScriptFile"			"scripts/vscripts/abilities/bubble_beam.lua"
+				"Function"				"BubbleBeam"
+				"Target"				"TARGET"
+			}
+
+			"FireSound"
+			{
+				"EffectName"			"Hero_Brewmaster.DrunkenHaze.Target"
 				"Target"				"TARGET"
 			}
 		}
@@ -897,13 +1246,13 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"precache"
 		{
-			"soundfile"		    "soundevents/game_sounds_heroes/game_sounds_brewmaster.vsndevts"
+			"soundfile"		    "soundevents/game_sounds_heroes/game_sounds_morphling.vsndevts"
 			"particle"			"particles/units/heroes/hero_mirana/mirana_spell_arrow.vpcf"
 		}
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"800"
+		"AbilityCastRange"				"750"
 		"AbilityCastPoint"				"0.1"
 
 		// Time		
@@ -972,7 +1321,7 @@
 
 			"FireSound"
 			{
-				"EffectName"			"Hero_Brewmaster.DrunkenHaze.Cast"
+				"EffectName"			"Hero_Morphling.AdaptiveStrike.Cast"
 				"Target"				"CASTER"
 			}
 		}
@@ -988,7 +1337,7 @@
 
 			"FireSound"
 			{
-				"EffectName"			"Hero_Mirana.ArrowImpact"
+				"EffectName"			"Hero_Morphling.AdaptiveStrike"
 				"Target"				"TARGET"
 			}
 		}
@@ -1009,12 +1358,12 @@
 		"precache"
 		{
 			"soundfile"		    "soundevents/game_sounds_heroes/game_sounds_earth_spirit.vsndevts"
-			"particle"			"particles/neutral_fx/mud_golem_hurl_boulder.vpcf"
+			"particle"			"particles/custom_particles/rock_throw/rock_throw.vpcf"
 		}
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"800"
+		"AbilityCastRange"				"700"
 		"AbilityCastPoint"				"0.1"
 
 		// Time		
@@ -1062,7 +1411,7 @@
 			"LinearProjectile"
 			{
 				"Target"      	"POINT"
-				"EffectName"  	"particles/neutral_fx/mud_golem_hurl_boulder.vpcf"
+				"EffectName"  	"particles/custom_particles/rock_throw/rock_throw.vpcf"
 				"MoveSpeed"   	"%speed"
 				"StartRadius"   "%width"
 				"StartPosition" "attach_origin"
@@ -1454,7 +1803,7 @@
 		}
 		
 		"AbilityCastRange"				"0"
-		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
+		"AbilityCastPoint"				"0.1"
 		"AbilityCooldown"				"0"
 		"AbilityManaCost"				"2"
 
@@ -1923,7 +2272,7 @@
 
 		"OnProjectileHitUnit"
 		{
-			"DeleteOnHit"	"0"
+			"DeleteOnHit"	"1"
 			"RunScript"
 			{
 				"ScriptFile"			"scripts/vscripts/abilities/ember.lua"
@@ -2469,6 +2818,49 @@
 			}
 		}
 	}
+
+	"pound"
+	{
+		"BaseClass"             		"ability_datadriven"
+		"AbilityTextureName"			"dragon_knight_dragon_tail"
+		"MaxLevel" 						"1"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		
+		"AbilityCastRange"				"100"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"2"
+		
+		"precache"
+		{
+			"soundfile"				"soundevents/game_sounds_heroes/game_sounds_dragon_knight.vsndevts"
+		}
+		
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"base_damage"		"40"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"damage_radius"		"100"
+			}
+		}
+		
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities/pound.lua"
+				"Function"		"Pound"
+			}
+		}
+	}
 	
 	"peck"
 	{
@@ -2481,6 +2873,8 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
 		"AbilityCooldown"				"0"
 		"AbilityManaCost"				"2"
+
+		"AbilityCastRange"				"100"
 		
 		"precache"
 		{
@@ -2522,6 +2916,8 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
 		"AbilityCooldown"				"0"
 		"AbilityManaCost"				"3"
+
+		"AbilityCastRange"				"100"
 		
 		"precache"
 		{
@@ -2557,11 +2953,16 @@
 		"BaseClass"             		"ability_datadriven"
 		"AbilityTextureName"			"ursa_fury_swipes"
 		"MaxLevel" 						"1"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		
+		"AbilityCastRange"				"100"
 		"AbilityCooldown"				"0"
 		"AbilityManaCost"				"4"
+
+		"AbilityCastRange"				"100"
 		
 		"precache"
 		{
@@ -2597,11 +2998,16 @@
 		"BaseClass"             		"ability_datadriven"
 		"AbilityTextureName"			"ursa_fury_swipes"
 		"MaxLevel" 						"1"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		
+		"AbilityCastRange"				"100"
 		"AbilityCooldown"				"0"
 		"AbilityManaCost"				"3"
+
+		"AbilityCastRange"				"100"
 		
 		"precache"
 		{
@@ -2637,11 +3043,16 @@
 		"BaseClass"             		"ability_datadriven"
 		"AbilityTextureName"			"centaur_hoof_stomp"
 		"MaxLevel" 						"1"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		
+		"AbilityCastRange"				"100"
 		"AbilityCooldown"				"0"
 		"AbilityManaCost"				"2"
+
+		"AbilityCastRange"				"100"
 		
 		"precache"
 		{
@@ -3004,7 +3415,7 @@
 		"MaxLevel"				"1"
 		
 		"AbilityCastRange"				"250"
-		"AbilityCastPoint"				"0.0"
+		"AbilityCastPoint"				"0.1"
 		"AbilityCooldown"				"0"
 
 		"AbilityManaCost"				"3"
@@ -3296,7 +3707,7 @@
 		"AOERadius"						"%radius"
 
 		"AbilityCastRange"				"650"
-		"AbilityCastPoint"				"0.3"
+		"AbilityCastPoint"				"0.2"
 		
 		"AbilityCooldown"				"0"
 		
@@ -3309,7 +3720,7 @@
 			"01"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"radius"			"100"
+				"radius"			"150"
 			}
 			"02"
 			{
@@ -3323,7 +3734,7 @@
 		"precache"
 		{
 			"soundfile"				"soundevents/game_sounds_heroes/game_sounds_crystalmaiden.vsndevts"
-			"particle"				"particles/units/heroes/hero_crystalmaiden/maiden_crystal_nova.vpcf"
+			"particle"				"particles/custom_particles/vine_whip/vine_whip.vpcf"
 		}
 		
 		"OnSpellStart"
@@ -3331,7 +3742,7 @@
 			"FireEffect"
 			{
 				"TargetPoint"			"POINT"
-				"EffectName"			"particles/units/heroes/hero_crystalmaiden/maiden_crystal_nova.vpcf"
+				"EffectName"			"particles/custom_particles/vine_whip/vine_whip.vpcf"
 				"EffectAttachType"		"world_origin"
 				"ControlPoints"
 				{
@@ -3486,7 +3897,7 @@
 			"02"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"distance"			"400"
+				"distance"			"300"
 			}
 			"03"
 			{
@@ -3531,7 +3942,7 @@
 			"RunScript"
 			{
 				"ScriptFile"			"abilities/supersonic.lua"
-				"Function"				"supersonic"
+				"Function"				"Supersonic"
 			}
 		}
 	}
@@ -4517,12 +4928,6 @@
 				"ModifierName"			"modifier_sand_storm_debuff_datadriven"
 				"Target"				"CASTER"
 			}
-			
-			"ApplyModifier"
-			{
-				"ModifierName"			"modifier_sand_storm_vfx_datadriven"
-				"Target"				"CASTER"
-			}
 		}
 		
 		"OnChannelFinish"
@@ -4541,7 +4946,7 @@
 				"Duration"				"%AbilityDuration"
 				"IsHidden"				"0"
 				"IsPurgable"			"1"
-				"Aura"					"modifier_sand_attack_slow"
+				"Aura"					"modifier_sand_move_slow"
 				"Aura_Radius"			"%sand_storm_radius"
 				"Aura_Teams"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 				"Aura_Types"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -4569,14 +4974,14 @@
 				}
 			}
 			
-			"modifier_sand_attack_slow"
+			"modifier_sand_move_slow"
 			{
 				"IsDebuff"				"1"
 				"IsPurgable"			"1"
 				"Duration"    			"1"
 				"Properties"
 				{
-					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"      "-30"
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"      "-35"
 				}
 			}
 		}	
@@ -4938,7 +5343,7 @@
 		"BaseClass"						"ability_datadriven"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityCooldown"				"0"
-		"AbilityManaCost"				"5"
+		"AbilityManaCost"				"8"
 		"AbilityChannelTime"			"2"
 		"AbilityCastAnimation"			"ACT_DOTA_TELEPORT"
 		"AbilityTextureName"            "enchantress_natures_attendants"
@@ -4970,6 +5375,7 @@
 		{			
 			"modifier_synthesis"
 			{
+				"Hidden"				"1"
 				"Duration" 				"%duration"
 				"OverrideAnimation"     "ACT_DOTA_CHANNEL_ABILITY_1"
 				
@@ -4999,6 +5405,86 @@
 					{
 						"ScriptFile"	"scripts/vscripts/abilities/synthesis.lua"
 						"Function"		"Synthesis"
+					}
+				}
+				
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED" 		"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+	}
+
+	"recover"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"6"
+		"AbilityChannelTime"			"2"
+		"AbilityCastAnimation"			"ACT_DOTA_TELEPORT"
+		"AbilityTextureName"            "enchantress_natures_attendants"
+		
+		"precache"
+		{
+			"particle"			"particles/units/heroes/hero_enchantress/enchantress_natures_attendants_lvl4.vpcf"
+		}
+		
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"		"FIELD_INTEGER"
+				"duration"		"3"
+			}
+		}
+		
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"Target"		"CASTER"
+				"ModifierName"	"modifier_synthesis"
+			}
+		}
+		
+		"Modifiers"
+		{			
+			"modifier_synthesis"
+			{
+				"Hidden"				"1"
+				"Duration" 				"%duration"
+				"OverrideAnimation"     "ACT_DOTA_CHANNEL_ABILITY_1"
+				
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_enchantress/enchantress_natures_attendants_lvl4.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"ControlPoints"
+						{
+							"0"		"1 1 1"
+							"3"		"1 1 1"
+							"4"		"1 1 1"
+							"5"		"1 1 1"
+							"6"		"1 1 1"
+							"7"		"1 1 1"
+							"8"		"1 1 1"
+							"9"		"1 1 1"
+							"10"	"1 1 1"
+							"11"	"1 1 1"
+						}
+						"Target"			"CASTER"
+					}
+					
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities/recover.lua"
+						"Function"		"Recover"
 					}
 				}
 				
@@ -5630,6 +6116,112 @@
 						"Function"		"GrowthEnd"
 					}
 				}
+			}
+		}
+	}
+
+	"leech_life"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_DIRECTIONAL | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"MaxLevel"						"1"
+		"AbilityTextureName"			"enchantress_impetus"
+
+		// Precache
+		//-------------------------------------------------------------------------------------------------------------
+		"precache"
+		{
+			"soundfile"		    "soundevents/game_sounds_heroes/game_sounds_enchantress.vsndevts"
+			"particle"			"particles/custom_particles/leech_lifepoison_sting.vpcf"
+		}
+		
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"600"
+		"AbilityCastPoint"				"0.1"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"0"
+		"AbilityDuration"				"1"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"4"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"speed"				"750.0"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"width"				"95"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"range"				"600"
+			}
+			"04"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"vision"			"150"
+			}
+			"05"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"base_damage"		"20"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"LinearProjectile"
+			{
+				"Target"      	"POINT"
+				"EffectName"  	"particles/custom_particles/leech_lifepoison_sting.vpcf"
+				"MoveSpeed"   	"%speed"
+				"StartRadius"   "%width"
+				"StartPosition" "attach_origin"
+				"EndRadius"     "%width"
+				"FixedDistance" "%range"
+				"TargetTeams"   "DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"TargetTypes"   "DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
+				"TargetFlags"   "DOTA_UNIT_TARGET_FLAG_NONE"
+				"HasFrontalCone"    "0"
+				"ProvidesVision"	"1"
+				"VisionRadius"	"%vision"
+			}
+
+			"FireSound"
+			{
+				"EffectName"			"Hero_Enchantress.Impetus"
+				"Target"				"CASTER"
+			}
+		}
+
+		"OnProjectileHitUnit"
+		{
+			"RunScript"
+			{
+				"ScriptFile"			"scripts/vscripts/abilities/leech_life.lua"
+				"Function"				"LeechLife"
+				"Target"				"TARGET"
+			}
+
+			"FireSound"
+			{
+				"EffectName"			"Hero_Enchantress.ImpetusDamage"
+				"Target"				"TARGET"
 			}
 		}
 	}

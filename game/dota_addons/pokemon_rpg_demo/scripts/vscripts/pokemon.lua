@@ -33,13 +33,16 @@ function Pokemon.new(name, unitName, type1, type2, baseAttack, baseDefense, base
 	
 	self.isWild = isWild
 	
-	self.abilityList = abilityList or {}
+	self.abilityList = abilityList
 
 	return self
 end
 
 --new pokemon has new stats, but retains the same name, abilities and experience
 function Pokemon:Evolve(unitName, type1, type2, baseAttack, baseDefense, baseSpecialAttack, baseSpecialDefense, baseSpeed, baseHP, baseExpYield, catchRate)
+	if string.upper(self.name) == string.upper(self.unitName) then
+		self.name = string.upper(unitName)
+	end
 	self.unitName = unitName
 	self.type1 = type1
 	self.type2 = type2

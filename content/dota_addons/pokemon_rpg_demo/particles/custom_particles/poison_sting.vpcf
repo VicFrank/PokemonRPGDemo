@@ -4,7 +4,7 @@
 	m_bShouldHitboxesFallbackToRenderBounds = false
 	m_nMaxParticles = 1
 	m_bShouldSort = false
-	m_Operators =
+	m_Operators = 
 	[
 		{
 			_class = "C_OP_BasicMovement"
@@ -30,30 +30,30 @@
 		},
 		{
 			_class = "C_OP_InterpolateRadius"
-			m_flStartScale = 0.000000
+			m_flStartScale = 0.0
 		},
 		{
 			_class = "C_OP_RampScalarLinear"
-			m_RateMax = 8.000000
-			m_RateMin = -8.000000
+			m_RateMax = 8.0
+			m_RateMin = -8.0
 			m_nField = 4
 		},
 		{
 			_class = "C_OP_RotateVector"
-			m_flRotRateMin = 0.000000
+			m_flRotRateMin = 0.0
 		},
 	]
-	m_Initializers =
+	m_Initializers = 
 	[
 		{
 			_class = "C_INIT_RandomRadius"
-			m_flRadiusMax = 0.900000
-			m_flRadiusMin = 0.900000
+			m_flRadiusMax = 0.9
+			m_flRadiusMin = 0.9
 		},
 		{
 			_class = "C_INIT_RandomLifeTime"
-			m_fLifetimeMin = 0.200000
-			m_fLifetimeMax = 0.200000
+			m_fLifetimeMin = 0.2
+			m_fLifetimeMax = 0.2
 		},
 		{
 			_class = "C_INIT_CreateWithinSphere"
@@ -63,14 +63,14 @@
 			m_nControlPoint = 1
 		},
 	]
-	m_Emitters =
+	m_Emitters = 
 	[
 		{
 			_class = "C_OP_InstantaneousEmitter"
 			m_nParticlesToEmit = 1
 		},
 	]
-	m_Children =
+	m_Children = 
 	[
 		{
 			m_ChildRef = resource:"particles/custom_particles/enchantress_impetus_glow.vpcf"

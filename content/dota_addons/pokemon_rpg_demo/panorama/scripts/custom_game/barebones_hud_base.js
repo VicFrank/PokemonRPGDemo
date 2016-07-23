@@ -79,7 +79,6 @@ function ButtonPressed( button ){
 	if(currentTextBox.code == 106){
 		var ability = Entities.GetAbility( currentTextBox.unit, 4 );
 		var abilityName = Abilities.GetAbilityName( ability );
-		$.Msg ( abilityName );
 		GameEvents.SendCustomGameEventToServer( "delete_ability", { "player_id" : Game.GetLocalPlayerInfo().player_id, "ability_to_delete" : abilityName } );
 	}
 }

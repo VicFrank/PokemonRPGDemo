@@ -232,7 +232,7 @@
 				"21"				"scary_face"
 				"28"				"fire_fang"
 				//"32"				"flame_burst"
-				"36"				"wing_attack"
+				//"36"				"wing_attack"
 				"41"				"slash"
 				"47"				"flamethrower"
 				"56"				"fire_spin"
@@ -446,7 +446,7 @@
 				"0"					"confusion"
 				"10"				"confusion"
 				"12"				"poison_powder"
-				"13"				"stun_powder"
+				"13"				"stun_spore"
 				"14"				"sleep_powder"
 				"16"				"gust"
 				"18"				"supersonic"
@@ -588,10 +588,10 @@
 				"9"					"gust"
 				"13"				"quick_attack"
 				"17"				"whirlwind"
-				"21"				"twister"
+				//"21"				"twister"
 				//"25"				"feather_dance"
 				"29"				"agility"
-				"33"				"wing_attack"
+				//"33"				"wing_attack"
 				"37"				"roost"
 				//"41"				"tailwind"
 				//"45"				"mirror_move"
@@ -629,10 +629,10 @@
 				"9"					"gust"
 				"13"				"quick_attack"
 				"17"				"whirlwind"
-				"22"				"twister"
+				//"22"				"twister"
 				//"27"				"feather_dance"
 				"32"				"agility"
-				"37"				"wing_attack"
+				//"37"				"wing_attack"
 				"42"				"roost"
 				//"47"				"tailwind"
 				//"52"				"mirror_move"
@@ -668,10 +668,10 @@
 				"9"					"gust"
 				"13"				"quick_attack"
 				"17"				"whirlwind"
-				"21"				"twister"
+				//"21"				"twister"
 				//"25"				"feather_dance"
 				"32"				"agility"
-				"38"				"wing_attack"
+				//"38"				"wing_attack"
 				"44"				"roost"
 				//"50"				"tailwind"
 				//"56"				"mirror_move"
@@ -938,7 +938,7 @@
 				"10"				"quick_attack"
 				"13"				"thunder_wave"
 				//"18"				"electro_ball"
-				"21"				"double_team"
+				//"21"				"double_team"
 				//"23"				"nuzzle"
 				"26"				"slam"
 				"29"				"thunderbolt"
@@ -1169,7 +1169,7 @@
 			
 			"LearnSet"
 			{
-				"0"					"superpower"
+				//"0"					"superpower"
 				"1"					"scratch"
 				"2"					"tail_whip"
 				"3" 				"double_kick"
@@ -1285,7 +1285,7 @@
 			
 			"LearnSet"
 			{
-				"0"					"megahorn"
+				//"0"					"megahorn"
 				"1"					"peck"
 				"2"					"focus_energy"
 				"3" 				"double_kick"
@@ -1322,8 +1322,9 @@
 			
 			"LearnSet"
 			{
+				"1"					"pound"
 				//"1"				"disarming_voice"
-				//"5"				"pound"
+				"5"					"pound"
 				"8"					"growl"
 				//"13"				"sing"
 				//"18"				"double_slap"
@@ -1354,6 +1355,7 @@
 			
 			"LearnSet"
 			{
+				"1"					"tackle" //temp
 				//"0"				"sing"
 				//"1"				"metronome"
 				//"2"				"disarming_voice"
@@ -1423,10 +1425,10 @@
 			
 			"LearnSet"
 			{
-				//"0"				"imprison"
+				"0"					"quick_attack"
 				//"1"				"nasty_plot"
 				//"2"				"flamethrower"
-				//"3" 				"quick_attack"
+				//"3" 				"imprison"
 				//"4"				"confuse_ray"
 			}
 			
@@ -1456,9 +1458,9 @@
 			"LearnSet"
 			{
 				//"0"				"sing"
-				"0"					"tackle"
+				"0"					"pound"//temp
 				"3"					"defense_curl"
-				//"5"				"pound"
+				"5"					"pound"
 				//"11" 				"disarming_voice"
 				//"15"				"disable"
 				//"18"				"double_slap"
@@ -1528,10 +1530,11 @@
 			"LearnSet"
 			{
 				//"0"					"leech_life"
+				"1"					"poison_sting" //temp
 				"4"					"supersonic"
 				//"8"					"astonish"
 				"12" 				"bite"
-				"15"				"wing_attack"
+				//"15"				"wing_attack"
 				//"19"				"confuse_ray"
 				//"26"				"air_cutter"
 				"23"				"swift"
@@ -1570,7 +1573,7 @@
 				"4"					"supersonic"
 				//"8"					"astonish"
 				"12" 				"bite"
-				"15"				"wing_attack"
+				//"15"				"wing_attack"
 				//"19"				"confuse_ray"
 				"24"				"swift"
 				//"28"				"air_cutter"
@@ -1606,6 +1609,7 @@
 			
 			"LearnSet"
 			{
+				"0"				"razor_leaf" //temp
 				//"1"				"absorb"
 				//"5"				"sweet_scent"
 				//"9"				"acid"
@@ -1681,9 +1685,9 @@
 			
 			"LearnSet"
 			{
-				//"0"				"mega_drain"
+				"0"					"poison_powder"				
 				//"1"					"aromatherapy"
-				"2"					"poison_powder"
+				//"2"				"mega_drain"
 				//"3"				"stun_spore"
 				//"49"				"petal_blizzard"
 				//"59"				"petal_dance"
@@ -1764,6 +1768,594 @@
 			
 			"ExpYield"				"142"
 			"CatchRate"				"75"
+		}
+		"050"
+		{
+			"Name"					"diglett"
+			
+			"Type1"					"GROUND"
+			"Type2"					""
+			
+			"BaseHP"				"10"
+			"BaseAttack"			"55"
+			"BaseDefense"			"25"
+			"BaseSpecialAttack"		"35"
+			"BaseSpecialDefense"	"45"
+			"BaseSpeed"				"95"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"dugtrio"
+				"Level"				"26"
+			}
+			
+			"LearnSet"
+			{
+				"1"					"scratch"
+				"2"					"sand_attack"
+				"4"					"growl"
+				//"7"					"astonish"
+				//"17"				"mud_slap"
+				//"15"				"magnitude"
+				//"18"				"bulldoze"
+				"23"				"sucker_punch"
+				//"26"				"mud_bomb"
+				//"29"				"earth_power"
+				//"34"				"dig"
+				//"37"				"slash"
+				//"40"				"earthquake"
+				//"45"				"fissure"
+			}
+			
+			"ExpYield"				"53"
+			"CatchRate"				"255"
+		}
+		"051"
+		{
+			"Name"					"dugtrio"
+			
+			"Type1"					"GROUND"
+			"Type2"					""
+			
+			"BaseHP"				"35"
+			"BaseAttack"			"80"
+			"BaseDefense"			"50"
+			"BaseSpecialAttack"		"50"
+			"BaseSpecialDefense"	"70"
+			"BaseSpeed"				"120"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				"1"					"scratch"
+				"2"					"sand_attack"
+				"4"					"growl"
+				//"7"					"astonish"
+				//"17"				"mud_slap"
+				//"15"				"magnitude"
+				//"18"				"bulldoze"
+				"23"				"sucker_punch"
+				//"26"				"sand_tomb"
+				//"28"				"mud_bomb"
+				//"33"				"earth_power"
+				//"40"				"dig"
+				//"45"				"slash"
+				//"50"				"earthquake"
+				//"57"				"fissure"
+			}
+			
+			"ExpYield"				"142"
+			"CatchRate"				"50"
+		}
+		"056"
+		{
+			"Name"					"mankey"
+			
+			"Type1"					"FIGHTING"
+			"Type2"					""
+			
+			"BaseHP"				"40"
+			"BaseAttack"			"80"
+			"BaseDefense"			"35"
+			"BaseSpecialAttack"		"35"
+			"BaseSpecialDefense"	"45"
+			"BaseSpeed"				"70"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"primeape"
+				"Level"				"28"
+			}
+			
+			"LearnSet"
+			{
+				"1"					"scratch"
+				//"2"					"low_kick"
+				"3"					"leer"
+				"4"					"focus_energy"
+				//"13" 				"karate_chop"
+				//"17"				"seismic_toss"
+				//"21"				"screech"
+				//"25"				"assurance"
+				//"33"				"swagger"
+				//"37"				"cross_chop"
+				//"41"				"thrash"
+				//"45"				"punishment"
+				//"49"				"close_combat"
+				//"53"				"final_gambit"
+			}
+			
+			"ExpYield"				"61"
+			"CatchRate"				"190"
+		}
+		"057"
+		{
+			"Name"					"primeape"
+			
+			"Type1"					"FIGHTING"
+			"Type2"					""
+			
+			"BaseHP"				"65"
+			"BaseAttack"			"105"
+			"BaseDefense"			"60"
+			"BaseSpecialAttack"		"60"
+			"BaseSpecialDefense"	"70"
+			"BaseSpeed"				"95"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				"1"					"scratch"
+				//"2"					"low_kick"
+				"3"					"leer"
+				"4"					"focus_energy"
+				//"13" 				"karate_chop"
+				//"17"				"seismic_toss"
+				//"21"				"screech"
+				//"25"				"assurance"
+				//"28"				"rage"
+				//"35"				"swagger"
+				//"41"				"cross_chop"
+				//"47"				"thrash"
+				//"53"				"punishment"
+				//"59"				"close_combat"
+				//"63"				"final_gambit"
+			}
+			
+			"ExpYield"				"159"
+			"CatchRate"				"75"
+		}
+		"058"
+		{
+			"Name"					"growlithe"
+			
+			"Type1"					"FIRE"
+			"Type2"					""
+			
+			"BaseHP"				"55"
+			"BaseAttack"			"70"
+			"BaseDefense"			"45"
+			"BaseSpecialAttack"		"70"
+			"BaseSpecialDefense"	"50"
+			"BaseSpeed"				"60"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"arcanine"
+				"Item"				"fire_stone"
+			}
+			
+			"LearnSet"
+			{
+				"1"					"bite"
+				"2"					"roar"
+				"6"					"ember"
+				"8"					"leer"
+				//"10" 				"odor_sleuth"
+				//"12"				"helping_hand"
+				//"17"				"flame_wheel"
+				//"19"				"reversal"
+				"21"				"fire_fang"
+				//"28"				"flame_burst"
+				"30"				"agility"
+				//"32"				"retaliate"
+				//"34"				"flamethrower"
+				"39"				"crunch"
+				//"41"				"heat_wave"
+				//"43"				"outrage"
+				//"45"				"flare_blitz"
+			}
+			
+			"ExpYield"				"70"
+			"CatchRate"				"190"
+		}
+		"059"
+		{
+			"Name"					"arcanine"
+			
+			"Type1"					"FIRE"
+			"Type2"					""
+			
+			"BaseHP"				"90"
+			"BaseAttack"			"110"
+			"BaseDefense"			"80"
+			"BaseSpecialAttack"		"100"
+			"BaseSpecialDefense"	"80"
+			"BaseSpeed"				"95"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				"1"					"thunder_fang"
+				"2"					"bite"
+				"3"					"roar"
+				//"4"					"odor_sleuth"
+				"5"					"fire_fang"
+				//"34"				"extreme_speed"
+			}
+			
+			"ExpYield"				"194"
+			"CatchRate"				"75"
+		}
+		"060"
+		{
+			"Name"					"poliwag"
+			
+			"Type1"					"WATER"
+			"Type2"					""
+			
+			"BaseHP"				"40"
+			"BaseAttack"			"50"
+			"BaseDefense"			"40"
+			"BaseSpecialAttack"		"40"
+			"BaseSpecialDefense"	"40"
+			"BaseSpeed"				"90"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"poliwhirl"
+				"Level"				"25"
+			}
+			
+			"LearnSet"
+			{
+				//"1"					"water_sport"
+				"5"					"water_gun"
+				//"8"					"hypnosis"
+				"11"					"bubble"
+				//"15" 				"double_slap"
+				//"18"				"rain_dance"
+				"21"				"body_slam"
+				"25"				"bubble_beam"
+				//"28"				"mud_shot"
+				//"31"				"belly_drum"
+				//"35"				"wake_up_slap"
+				//"38"				"hydro_pump"
+				//"41"				"mud_bomb"
+			}
+			
+			"ExpYield"				"60"
+			"CatchRate"				"255"
+		}
+		"061"
+		{
+			"Name"					"poliwhirl"
+			
+			"Type1"					"WATER"
+			"Type2"					""
+			
+			"BaseHP"				"65"
+			"BaseAttack"			"65"
+			"BaseDefense"			"65"
+			"BaseSpecialAttack"		"50"
+			"BaseSpecialDefense"	"50"
+			"BaseSpeed"				"90"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"poliwrath"
+				"Item"				"water_stone"
+			}
+			
+			"LearnSet"
+			{
+				//"1"					"water_sport"
+				"5"					"water_gun"
+				//"8"					"hypnosis"
+				"11"					"bubble"
+				//"15" 				"double_slap"
+				//"18"				"rain_dance"
+				"21"				"body_slam"
+				"27"				"bubble_beam"
+				//"32"				"mud_shot"
+				//"37"				"belly_drum"
+				//"43"				"wake_up_slap"
+				//"48"				"hydro_pump"
+				//"53"				"mud_bomb"
+			}
+			
+			"ExpYield"				"135"
+			"CatchRate"				"120"
+		}
+		"062"
+		{
+			"Name"					"poliwrath"
+			
+			"Type1"					"WATER"
+			"Type2"					"FIGHTING"
+			
+			"BaseHP"				"90"
+			"BaseAttack"			"95"
+			"BaseDefense"			"95"
+			"BaseSpecialAttack"		"70"
+			"BaseSpecialDefense"	"90"
+			"BaseSpeed"				"70"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				//"1"					"circle_throw"
+				"2"					"bubble_beam"
+				//"3"					"hypnosis"
+				//"5"					"submission"
+				//"4" 				"double_slap"
+				//"32"				"dynamic_punch"
+				//"43"				"mind_reader"
+				//"53"				"circle_throw"
+			}
+			
+			"ExpYield"				"225"
+			"CatchRate"				"45"
+		}
+		"063"
+		{
+			"Name"					"abra"
+			
+			"Type1"					"PSYCHIC"
+			"Type2"					""
+			
+			"BaseHP"				"25"
+			"BaseAttack"			"20"
+			"BaseDefense"			"15"
+			"BaseSpecialAttack"		"105"
+			"BaseSpecialDefense"	"55"
+			"BaseSpeed"				"90"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"kadabra"
+				"Level"				"16"
+			}
+			
+			"LearnSet"
+			{
+				"1"					"test_teleport"
+			}
+			
+			"ExpYield"				"68"
+			"CatchRate"				"200"
+		}
+		"064"
+		{
+			"Name"					"kadabra"
+			
+			"Type1"					"PSYCHIC"
+			"Type2"					""
+			
+			"BaseHP"				"40"
+			"BaseAttack"			"35"
+			"BaseDefense"			"30"
+			"BaseSpecialAttack"		"120"
+			"BaseSpecialDefense"	"70"
+			"BaseSpeed"				"105"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"alakazam"
+				"Level"				"32"
+			}
+			
+			"LearnSet"
+			{
+				"1"					"test_teleport"
+				//"2"					"kinesis"
+				"3"					"confusion"
+				"16" 				"confusion"
+				//"18"				"disable"
+				//"21"				"psybeam"
+				//"23"				"miracle_eye"
+				//"26"				"reflect"
+				//"28"				"psycho_cut"
+				"31"				"recover"
+				//"33"				"telekinesis"
+				//"36"				"ally_switch"
+				//"38"				"psychic"
+				//"43"				"future_sight"
+			}
+			
+			"ExpYield"				"140"
+			"CatchRate"				"100"
+		}
+		"065"
+		{
+			"Name"					"alakazam"
+			
+			"Type1"					"PSYCHIC"
+			"Type2"					""
+			
+			"BaseHP"				"55"
+			"BaseAttack"			"50"
+			"BaseDefense"			"45"
+			"BaseSpecialAttack"		"135"
+			"BaseSpecialDefense"	"95"
+			"BaseSpeed"				"120"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				"1"					"test_teleport"
+				//"2"					"kinesis"
+				"3"					"confusion"
+				"16" 				"confusion"
+				//"18"				"disable"
+				//"21"				"psybeam"
+				//"23"				"miracle_eye"
+				//"26"				"reflect"
+				//"28"				"psycho_cut"
+				"31"				"recover"
+				//"33"				"telekinesis"
+				//"36"				"ally_switch"
+				//"38"				"psychic"
+				//"43"				"future_sight"
+			}
+			
+			"ExpYield"				"221"
+			"CatchRate"				"75"
+		}
+		"066"
+		{
+			"Name"					"machop"
+			
+			"Type1"					"FIGHTING"
+			"Type2"					""
+			
+			"BaseHP"				"70"
+			"BaseAttack"			"80"
+			"BaseDefense"			"50"
+			"BaseSpecialAttack"		"35"
+			"BaseSpecialDefense"	"35"
+			"BaseSpeed"				"35"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"machoke"
+				"Level"				"28"
+			}
+			
+			"LearnSet"
+			{
+				"1"					"scratch"
+				//"2"					"low_kick"
+				"4"					"focus_energy"
+				//"7" 				"karate_chop"
+				//"9"				"foresight"
+				//"13"				"low_sweep"
+				//"15"				"seismic_toss"
+				//"19"				"revenge"
+				//"21"				"knock_off"
+				//"25"				"vital_throw"
+				//"27"				"wake_up_slap"
+				//"31"				"dual_chop"
+				//"33"				"submission"
+				//"37"				"bulk_up"
+				//"39"				"cross_chop"
+				//"43"				"scary_face"
+				//"45"				"dynamic_punch"
+			}
+			
+			"ExpYield"				"61"
+			"CatchRate"				"180"
+		}
+		"067"
+		{
+			"Name"					"machoke"
+			
+			"Type1"					"FIGHTING"
+			"Type2"					""
+			
+			"BaseHP"				"80"
+			"BaseAttack"			"100"
+			"BaseDefense"			"70"
+			"BaseSpecialAttack"		"50"
+			"BaseSpecialDefense"	"60"
+			"BaseSpeed"				"45"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"machamp"
+				"Level"				"40"
+			}
+			
+			"LearnSet"
+			{
+				"1"					"scratch"
+				//"2"					"low_kick"
+				"4"					"focus_energy"
+				//"7" 				"karate_chop"
+				//"9"				"foresight"
+				//"13"				"low_sweep"
+				//"15"				"seismic_toss"
+				//"19"				"revenge"
+				//"21"				"knock_off"
+				//"25"				"vital_throw"
+				//"27"				"wake_up_slap"
+				//"33"				"dual_chop"
+				//"37"				"submission"
+				//"43"				"bulk_up"
+				//"47"				"cross_chop"
+				//"53"				"scary_face"
+				//"57"				"dynamic_punch"
+			}
+			
+			"ExpYield"				"142"
+			"CatchRate"				"90"
+		}
+		"068"
+		{
+			"Name"					"machamp"
+			
+			"Type1"					"FIGHTING"
+			"Type2"					""
+			
+			"BaseHP"				"90"
+			"BaseAttack"			"130"
+			"BaseDefense"			"80"
+			"BaseSpecialAttack"		"65"
+			"BaseSpecialDefense"	"85"
+			"BaseSpeed"				"55"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				"1"					"scratch"
+				//"2"					"low_kick"
+				"4"					"focus_energy"
+				//"7" 				"karate_chop"
+				//"9"				"foresight"
+				//"13"				"low_sweep"
+				//"15"				"seismic_toss"
+				//"19"				"revenge"
+				//"21"				"knock_off"
+				//"25"				"vital_throw"
+				//"27"				"wake_up_slap"
+				//"33"				"dual_chop"
+				//"37"				"submission"
+				//"43"				"bulk_up"
+				//"47"				"cross_chop"
+				//"53"				"scary_face"
+				//"57"				"dynamic_punch"
+			}
+			
+			"ExpYield"				"227"
+			"CatchRate"				"45"
 		}
 		"069"
 		{
@@ -1900,14 +2492,14 @@
 			"LearnSet"
 			{
 				"1"					"poison_sting"
-				//"4" 				"supersonic"
+				"4" 				"supersonic"
 				//"7"					"constrict"
 				//"10"				"acid"
 				//"13"				"toxic_spikes"
 				"16"				"water_pulse"
 				//"19"				"wrap"
 				//"22"				"acid_spray"
-				//"25"				"bubble_beam"
+				"25"				"bubble_beam"
 				//"28"				"barrier"
 				//"31"				"poison_jab"
 				//"34"				"brine"
@@ -1941,17 +2533,17 @@
 			
 			"LearnSet"
 			{
-				//"0"				"supersonic"
+				"0"				"supersonic"
 				"1"					"poison_sting"
 				"2"					"acid"
-				//"4" 				"supersonic"
+				"4" 				"supersonic"
 				//"7"					"constrict"
 				//"10"				"acid"
 				//"13"				"toxic_spikes"
 				"16"				"water_pulse"
 				//"19"				"wrap"
 				//"22"				"acid_spray"
-				//"25"				"bubble_beam"
+				"25"				"bubble_beam"
 				//"28"				"barrier"
 				//"32"				"poison_jab"
 				//"36"				"brine"
@@ -2024,7 +2616,7 @@
 			"Evolution"
 			{
 				"NextEvolution"		"golem"
-				"Type"				"Trade"
+				"Level"				"40"
 			}
 			
 			"LearnSet"
@@ -2087,6 +2679,174 @@
 			
 			"ExpYield"				"218"
 			"CatchRate"				"45"
+		}
+		"077"
+		{
+			"Name"					"ponyta"
+			
+			"Type1"					"FIRE"
+			"Type2"					""
+			
+			"BaseHP"				"50"
+			"BaseAttack"			"85"
+			"BaseDefense"			"55"
+			"BaseSpecialAttack"		"65"
+			"BaseSpecialDefense"	"65"
+			"BaseSpeed"				"90"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"rapidash"
+				"Level"				"40"
+			}
+			
+			"LearnSet"
+			{
+				"0"					"growl"
+				"1"					"tackle"
+				"4"					"tail_whip"
+				"9"					"ember"
+				//"13" 				"flame_wheel"
+				//"17"				"stomp"
+				//"21"				"flame_charge"
+				//"25"				"fire_spin"
+				"29"				"take_down"
+				//"33"				"inferno"
+				"37"				"agility"
+				//"41"				"fire_blast"
+				//"45"				"bounce"
+				//"49"				"flare_blitz"
+			}
+			
+			"ExpYield"				"82"
+			"CatchRate"				"190"
+		}
+		"078"
+		{
+			"Name"					"rapidash"
+			
+			"Type1"					"FIRE"
+			"Type2"					""
+			
+			"BaseHP"				"65"
+			"BaseAttack"			"100"
+			"BaseDefense"			"70"
+			"BaseSpecialAttack"		"80"
+			"BaseSpecialDefense"	"80"
+			"BaseSpeed"				"105"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				"0"					"growl"
+				"1"					"tackle"
+				//"2"				"megahorn"
+				"3"					"quick_attack"
+				"4"					"tail_whip"
+				"9"					"ember"
+				//"13" 				"flame_wheel"
+				//"17"				"stomp"
+				//"21"				"flame_charge"
+				//"25"				"fire_spin"
+				"29"				"take_down"
+				//"33"				"inferno"
+				"37"				"agility"
+				"40"				"fury_attack"
+				//"41"				"fire_blast"
+				//"45"				"bounce"
+				//"49"				"flare_blitz"
+			}
+			
+			"ExpYield"				"175"
+			"CatchRate"				"60"
+		}
+		"079"
+		{
+			"Name"					"slowpoke"
+			
+			"Type1"					"WATER"
+			"Type2"					"PSYCHIC"
+			
+			"BaseHP"				"90"
+			"BaseAttack"			"65"
+			"BaseDefense"			"65"
+			"BaseSpecialAttack"		"40"
+			"BaseSpecialDefense"	"40"
+			"BaseSpeed"				"15"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"slowbro"
+				"Level"				"37"
+			}
+			
+			"LearnSet"
+			{
+				//"0"				"curse"
+				"1"					"tackle"
+				//"2"				"yawn"
+				"5"					"growl"
+				"9"					"water_gun"
+				"14" 				"confusion"
+				//"19"				"disable"
+				//"23"				"headbutt"
+				"28"				"water_pulse"
+				//"32"				"zen_headbutt"
+				//"36"				"slack_off"
+				//"41"				"amnesia"
+				//"45"				"psychic"
+				//"49"				"rain_dance"
+				//"54"				"psych_up"
+				//"58"				"heal_pulse"
+			}
+			
+			"ExpYield"				"65"
+			"CatchRate"				"190"
+		}
+		"080"
+		{
+			"Name"					"slowbro"
+			
+			"Type1"					"WATER"
+			"Type2"					"PSYCHIC"
+			
+			"BaseHP"				"95"
+			"BaseAttack"			"75"
+			"BaseDefense"			"110"
+			"BaseSpecialAttack"		"100"
+			"BaseSpecialDefense"	"80"
+			"BaseSpeed"				"30"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				//"0"				"curse"
+				"1"					"tackle"
+				//"2"				"yawn"
+				"5"					"growl"
+				"9"					"water_gun"
+				"14" 				"confusion"
+				//"19"				"disable"
+				//"23"				"headbutt"
+				"28"				"water_pulse"
+				//"32"				"zen_headbutt"
+				//"36"				"slack_off"
+				//"37"				"withdraw"
+				//"43"				"amnesia"
+				//"49"				"psychic"
+				//"55"				"rain_dance"
+				//"62"				"psych_up"
+				//"68"				"heal_pulse"
+			}
+			
+			"ExpYield"				"172"
+			"CatchRate"				"75"
 		}
 		"081"
 		{
@@ -2195,7 +2955,8 @@
 			
 			"LearnSet"
 			{
-				//"1"					"pound"
+				"0"					"tackle" //temp
+				"1"					"pound"
 				//"5"					"poison_gas"
 				"4"					"harden"
 				//"7" 				"mud_slap"
@@ -2233,7 +2994,7 @@
 			
 			"LearnSet"
 			{
-				//"1"					"pound"
+				"1"					"pound"
 				//"5"					"poison_gas"
 				"4"					"harden"
 				//"7" 				"mud_slap"
@@ -2250,6 +3011,84 @@
 			
 			"ExpYield"				"175"
 			"CatchRate"				"75"
+		}
+		"090"
+		{
+			"Name"					"shellder"
+			
+			"Type1"					"WATER"
+			"Type2"					""
+			
+			"BaseHP"				"30"
+			"BaseAttack"			"65"
+			"BaseDefense"			"100"
+			"BaseSpecialAttack"		"45"
+			"BaseSpecialDefense"	"25"
+			"BaseSpeed"				"40"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"cloyster"
+				"Item"				"water_stone"
+			}
+			
+			"LearnSet"
+			{
+				"1"					"tackle"
+				"4"					"withdraw"
+				"8"					"supersonic"
+				//"13" 				"icicle_spear"
+				"16"				"protect"
+				"20"				"leer"
+				//"25"				"clamp"
+				//"28"				"ice_shard"
+				//"32"				"razor_shell"
+				//"37"				"aurora_beam"
+				//"40"				"whirlpool"
+				//"44"				"brine"
+				//"49"				"iron_defense"
+				//"52"				"ice_beam"
+				//"56"				"shell_smash"
+				//"61"				"hydro_pump"
+			}
+			
+			"ExpYield"				"61"
+			"CatchRate"				"190"
+		}
+		"091"
+		{
+			"Name"					"cloyster"
+			
+			"Type1"					"WATER"
+			"Type2"					""
+			
+			"BaseHP"				"50"
+			"BaseAttack"			"95"
+			"BaseDefense"			"180"
+			"BaseSpecialAttack"		"85"
+			"BaseSpecialDefense"	"45"
+			"BaseSpeed"				"70"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				"0" 				"withdraw"				
+				//"1"					"shell_smash"
+				//"2"					"toxic_spikes"
+				//"3"					"hydro_pump"				
+				"4"					"supersonic"
+				"5"					"protect"
+				//"6"				"aurora_beam"
+				//"13"				"spike_cannon"
+				//"28"				"spikes"
+				//"50"				"icicle_crash"
+			}
+			
+			"ExpYield"				"184"
+			"CatchRate"				"60"
 		}
 		"095"
 		{
@@ -2277,7 +3116,7 @@
 				//"3"					"bind"
 				//"4"				"curse"
 				"7" 				"rock_throw"
-				"10"				"rock_tomb"
+				//"10"				"rock_tomb"
 				//"13"				"rage"
 				//"16"				"stealth_rock"
 				//"19"				"rock_polish"
@@ -2320,7 +3159,7 @@
 			
 			"LearnSet"
 			{
-				//"1"					"pound"
+				"1"					"pound"
 				//"2"				"hypnosis"
 				//"5"				"disable"
 				"9"					"confusion"
@@ -2359,7 +3198,7 @@
 			
 			"LearnSet"
 			{
-				//"1"					"pound"
+				"1"					"pound"
 				//"2"				"hypnosis"
 				//"3"				"nasty_plot"
 				//"4"				"nightmare"
@@ -2379,6 +3218,94 @@
 			
 			"ExpYield"				"175"
 			"CatchRate"				"75"
+		}
+		"100"
+		{
+			"Name"					"voltorb"
+			
+			"Type1"					"ELECTRIC"
+			"Type2"					""
+			
+			"BaseHP"				"40"
+			"BaseAttack"			"30"
+			"BaseDefense"			"50"
+			"BaseSpecialAttack"		"55"
+			"BaseSpecialDefense"	"55"
+			"BaseSpeed"				"100"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"Electrode"
+				"Level"				"30"
+			}
+			
+			"LearnSet"
+			{
+				"0"					"tackle"
+				//"1"					"charge"
+				//"4"				"sonic_boom"
+				//"6"				"eerie_impulse"
+				//"9"					"spark"
+				//"11"				"rollout"
+				"13"				"screech"
+				//"16"				"charge_beam"
+				"20"				"swift"
+				//"22"				"electro_ball"
+				//"26"				"self_destruct"
+				//"29"				"light_screen"
+				//"34"				"magnet_rise"
+				//"37"				"discharge"
+				//"41"				"explosion"
+				//"46"				"gyro_ball"
+				//"48"				"mirror_coat"
+			}
+			
+			"ExpYield"				"66"
+			"CatchRate"				"190"
+		}
+		"101"
+		{
+			"Name"					"electrode"
+			
+			"Type1"					"ELECTRIC"
+			"Type2"					""
+			
+			"BaseHP"				"60"
+			"BaseAttack"			"50"
+			"BaseDefense"			"70"
+			"BaseSpecialAttack"		"80"
+			"BaseSpecialDefense"	"80"
+			"BaseSpeed"				"140"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				"0"					"tackle"
+				//"1"					"charge"
+				//"2"				"spark"
+				//"3"				"sonic_boom"
+				//"4"				"sonic_boom"
+				//"6"				"eerie_impulse"
+				//"9"					"spark"
+				//"11"				"rollout"
+				"13"				"screech"
+				//"16"				"charge_beam"
+				"20"				"swift"
+				//"22"				"electro_ball"
+				//"26"				"self_destruct"
+				//"29"				"light_screen"
+				//"36"				"magnet_rise"
+				//"41"				"discharge"
+				//"47"				"explosion"
+				//"54"				"gyro_ball"
+				//"58"				"mirror_coat"
+			}
+			
+			"ExpYield"				"168"
+			"CatchRate"				"60"
 		}
 		"109"
 		{
@@ -2461,6 +3388,83 @@
 			
 			"ExpYield"				"172"
 			"CatchRate"				"60"
+		}
+		"116"
+		{
+			"Name"					"horsea"
+			
+			"Type1"					"WATER"
+			"Type2"					""
+			
+			"BaseHP"				"30"
+			"BaseAttack"			"40"
+			"BaseDefense"			"70"
+			"BaseSpecialAttack"		"70"
+			"BaseSpecialDefense"	"25"
+			"BaseSpeed"				"60"
+			
+			"Evolution"
+			{
+				"NextEvolution"		"seadra"
+				"Level"				"32"
+			}
+			
+			"LearnSet"
+			{
+				"1"					"bubble"
+				"5"					"smokescreen"
+				"9" 				"leer"
+				"13"				"water_gun"
+				//"17"				"twister"
+				"21"				"bubble_beam"
+				"26"				"focus_energy"
+				//"31"				"brine"
+				"36"				"agility"
+				//"41"				"dragon_pulse"
+				//"46"				"dragon_dance"
+				//"52"				"hydro_pump"
+			}
+			
+			"ExpYield"				"59"
+			"CatchRate"				"225"
+		}
+		"117"
+		{
+			"Name"					"seadra"
+			
+			"Type1"					"WATER"
+			"Type2"					""
+			
+			"BaseHP"				"55"
+			"BaseAttack"			"65"
+			"BaseDefense"			"95"
+			"BaseSpecialAttack"		"95"
+			"BaseSpecialDefense"	"45"
+			"BaseSpeed"				"85"
+			
+			"Evolution"
+			{
+			}
+			
+			"LearnSet"
+			{
+				//"0"					"hydro_pump"
+				"1"					"bubble"
+				"5"					"smokescreen"
+				"9" 				"leer"
+				"13"				"water_gun"
+				//"17"				"twister"
+				"21"				"bubble_beam"
+				"26"				"focus_energy"
+				//"31"				"brine"
+				"38"				"agility"
+				//"45"				"dragon_pulse"
+				//"52"				"dragon_dance"
+				//"60"				"hydro_pump"
+			}
+			
+			"ExpYield"				"154"
+			"CatchRate"				"75"
 		}
 		"118"
 		{
@@ -2568,7 +3572,7 @@
 				"10"				"recover"
 				//"13"				"psywave"
 				"16"				"swift"
-				//"18"				"bubble_beam"
+				"18"				"bubble_beam"
 				//"24"				"gyro_ball"
 				//"28"				"brine"
 				//"40"				"confuse_ray"

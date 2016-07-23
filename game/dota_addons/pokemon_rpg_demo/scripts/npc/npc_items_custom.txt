@@ -182,7 +182,7 @@
 			"modifier_burned"
 			{
 				"IsDebuff"			"1"
-				"ThinkInterval"		"4.0"
+				"ThinkInterval"		"5.0"
 				"TextureName"		"dragon_knight_breathe_fire"
 				
 				"StatusEffectName"     "particles/status_fx/status_effect_burn.vpcf"
@@ -196,13 +196,10 @@
 						"Function"		"Burn"
 					}
 					
-					"OnCreated"
+					"FireSound"
 					{
-						"FireSound"
-						{
-							"EffectName"			"Hero_Huskar.Burning_Spear.Cast"
-							"Target"				"TARGET"
-						}
+						"EffectName"			"Hero_Huskar.Burning_Spear.Cast"
+						"Target"				"TARGET"
 					}
 				}
 			}
@@ -210,7 +207,7 @@
 			"modifier_paralysis"
 			{
 				"IsDebuff"			"1"
-				"ThinkInterval"		"3.0"
+				"ThinkInterval"		"4.0"
 				"TextureName"		"zuus_arc_lightning"
 				
 				"StatusEffectName"     "particles\status_fx\status_effect_electrical.vpcf"
@@ -229,7 +226,7 @@
 			"modifier_paralyzed"
 			{
 				"IsDebuff"			"1"
-				"Duration"			"2"
+				"Duration"			"3.5"
 				"TextureName"		"zuus_arc_lightning"
 				
 				"EffectName"		"particles/econ/items/zeus/arcana_chariot/zeus_arcana_electricimage_ring.vpcf"
@@ -283,7 +280,7 @@
 			"modifier_sleep"
 			{
 				"IsDebuff"			"1"
-				"ThinkInterval"		"3.0"
+				"ThinkInterval"		"4.0"
 				"TextureName"		"bane_nightmare"
 				
 				"EffectName"		"particles/generic_gameplay/generic_sleep.vpcf"
@@ -307,7 +304,7 @@
 			"modifier_poisoned"
 			{
 				"IsDebuff"			"1"
-				"ThinkInterval"		"4.0"
+				"ThinkInterval"		"5.0"
 				"TextureName"		"venomancer_poison_sting"
 				
 				"StatusEffectName"     "particles/status_fx/status_effect_poison_viper.vpcf"
@@ -328,15 +325,14 @@
 			"modifier_confusion"
 			{
 				"IsDebuff"			"1"
-				"ThinkInterval"		"4.0"
 				"TextureName"		"templar_assassin_trap"
-				
-				"OnIntervalThink"
+
+				"OnCreated"
 				{
 					"RunScript"
 					{
 						"ScriptFile"	"scripts/vscripts/abilities/status.lua"
-						"Function"		"Confusion"
+						"Function"		"ConfusionStart"
 					}
 				}
 			}

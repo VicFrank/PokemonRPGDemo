@@ -43,16 +43,11 @@ function Leech( keys )
 		end
 		
 		PokeHelper:DealDamage( target, damage, caster )
-		
-		PokeHelper:AddKillCredit(target, casterPokemon)
-		
+
 		--don't revive dead pokemon
 		if casterPokemon:GetCurrentHP() > 0 then
 			casterPokemon:SetCurrentHP(casterPokemon:GetCurrentHP() + heal)
 			caster:Heal(heal,caster)
-			print("leech seed heal")
-			print(caster:GetPlayerOwner())
-			CustomGameEventManager:Send_ServerToPlayer(caster:GetPlayerOwner(), "update_health", healthData )
 		end
 	end
 end

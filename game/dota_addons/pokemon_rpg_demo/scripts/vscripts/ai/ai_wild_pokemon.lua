@@ -10,15 +10,10 @@ EXPORTS.Init = function( self )
 		nWalkingMoveSpeed = 160,
 		nAggroMoveSpeed = 300,
 		nLeashRange = 2000,
-		silenced = true
+		silenced = false
 	}
-	--don't attack for the first second after spawning
-	Timers:CreateTimer(1,
-	function()
-	  self.aiState.silenced = false
-	end)
 	self:SetContextThink( "init_think", function() 
-		self.aiThink = aiThink
+		self.WildPokemonThink = WildPokemonThink
 		self.FindAggro = FindAggro
 		self.OutOfRange = OutOfRange
 		self.MoveToAggroTarget = MoveToAggroTarget
@@ -27,6 +22,8 @@ EXPORTS.Init = function( self )
 		self.EvasiveManeuvers = EvasiveManeuvers
 		self.isCastingAbility = isCastingAbility
 		self.Leash = Leash
+		self.tPlayerTrainers = FindUnitsInRadius(DOTA_TEAM_NEUTRALS, self:GetAbsOrigin(), nil, 2000, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_INVULNERABLE, 0, false)
+		self.attackers = {}
 		
 		--find the unit's abilities
 		self.aiState.abilityList = {}
@@ -49,12 +46,12 @@ EXPORTS.Init = function( self )
 	    	end
 	    end
 	    self.aiState.tWaypoints = tWaypoints
-	    self:SetContextThink( "ai_base_creature.aiThink", Dynamic_Wrap( self, "aiThink" ), 0 )
+	    self:SetContextThink( "ai_base_creature.WildPokemonThink", Dynamic_Wrap( self, "WildPokemonThink" ), 0 )
 	end, 0 )
 end
 
 
-function aiThink( self )
+function WildPokemonThink( self )
     if not self:IsAlive() then
     	return
     end
@@ -68,13 +65,16 @@ function aiThink( self )
 	if self:FindAggro() then
 		if self.aiState.silenced then
 			return self:EvasiveManeuvers()
+		elseif self:FindModifierByName("modifier_silenced_after_spell") ~= nil then
+			self:MoveToAggroTarget()
+			return .1
 		else
 			self:MoveToAggroTarget()
 			--this timer is to give time for the unit to point towards the target, useful for notarget abilities like pounce
 			Timers:CreateTimer(0.2,
 				function()
-					if self:IsAlive() and not self:CastSpellOnTarget() then
-						self:EvasiveManeuvers()
+					if self:IsAlive() and (self:FindModifierByName("modifier_silenced_after_spell") == nil) then
+						self:CastSpellOnTarget()
 					end
 				end)
 			return .3
@@ -122,6 +122,7 @@ end
 function FindAggro( self )
 	local aggroTargets = FindUnitsInRadius(self:GetTeam(), self:GetAbsOrigin(), nil, self.aiState.flAcquisitionRange, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_CREEP, 0, 0, false)
 	for _,v in pairs(aggroTargets) do
+		self.attackers[v.pokemon] = true
 		if v.pokemon ~= nil then
 			self.aiState.hAggroTarget = v
 			self:SetBaseMoveSpeed( self.aiState.nAggroMoveSpeed )
@@ -178,7 +179,7 @@ function CastSpellOnTarget( self )
 		--DOTA_ABILITY_BEHAVIOR_AOE
 		self:CastAbilityOnPosition(target:GetAbsOrigin(), ability, -1)
 	end
-	
+
 	--don't cast a spell for another 3 seconds to simulate being silenced
 	self.aiState.silenced = true
 	Timers:CreateTimer(3,
@@ -224,6 +225,10 @@ end
 
 function isCastingAbility( self )
 	local abilityList = self.aiState.abilityList
+
+	if (self:GetCurrentActiveAbility()) ~= nil then
+		return true
+	end
 	
 	for i=1,#abilityList do
 		if abilityList[i]:IsInAbilityPhase() then

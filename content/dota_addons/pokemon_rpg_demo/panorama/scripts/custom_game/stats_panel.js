@@ -1,5 +1,3 @@
-//code taken from dotacraft https://github.com/MNoya/DotaCraft/blob/98a4fc34212c7afd2b46769f4fcd317d681c23e3/content/dota_addons/dotacraft/panorama/scripts/unit_selection.js
-
 "use strict";
 
 var party = {name1:"",name2:"",name3:"",name4:"",name5:"",name6:"",

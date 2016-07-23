@@ -10,10 +10,8 @@ function Spawn( entityKeyValues )
 		end
 		if pokemon:IsWild() then
 			wild_pokemon_ai.Init( thisEntity )
-			print("init wild ai")
 		elseif thisEntity:GetTeam() == DOTA_TEAM_NEUTRALS then
 			trainer_pokemon_ai.Init( thisEntity )
-			print("init trainer ai")
 		end
     end)
 end

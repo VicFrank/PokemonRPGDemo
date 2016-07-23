@@ -1,25 +1,29 @@
-wild_pokemon_spawner_tables = require( "wild_pokemon_spawner_tables" )
-trainer_spawner_tables = require( "trainer_spawner_tables" )
+wild_pokemon_spawner_tables = require( "npc_tables/wild_pokemon_spawner_tables" )
+trainer_spawner_tables = require( "npc_tables/trainer_spawner_tables" )
+special_trainer_tables = require( "npc_tables/special_trainer_tables" )
+npc_tables = require( "npc_tables/npc_tables" )
+
 
 --------------------------------------------------------------------------------
 -- SetupSpawners
 --------------------------------------------------------------------------------
 function GameMode:SetupSpawners()
 	local searchRadius = 700
-	local spawnChance = .15
-
-	print(wild_pokemon_spawner_tables)
-	print(trainer_spawner_tables)
+	local baseSpawnChance = 0.03221
+	local currentSpawnChance = 0.03221
 
 	--Wild Pokemon spawners
-	self.tSPAWNERS_ALL = {}
 	for name, unitTable in pairs( wild_pokemon_spawner_tables ) do
 		for _, hSpawner in pairs( Entities:FindAllByName( name ) ) do
 			hSpawner.unitTable = unitTable
 			--make a timer for this spawner that will constantly search to see if there is a nearby trainer
-			rangeParticle = ParticleManager:CreateParticle("particles/ui_mouseactions/range_display.vpcf", PATTACH_CUSTOMORIGIN, nil)
-		    ParticleManager:SetParticleControl(rangeParticle, 0, hSpawner:GetAbsOrigin())
-		    ParticleManager:SetParticleControl(rangeParticle, 1, Vector(searchRadius, 0, 0))
+			--[[Timers:CreateTimer(5,
+				function()
+			local dummy = CreateUnitByName("npc_dummy_unit", hSpawner:GetAbsOrigin(), true, nil, nil, DOTA_TEAM_NEUTRALS)
+			local rangeParticle = ParticleManager:CreateParticle("particles/ui_mouseactions/range_display.vpcf", PATTACH_ABSORIGIN, dummy)
+			    ParticleManager:SetParticleControl(rangeParticle, 0, dummy:GetAbsOrigin())
+			    ParticleManager:SetParticleControl(rangeParticle, 1, Vector(searchRadius, 0, 0))
+			    end)]]
 			Timers:CreateTimer(0,
 				function()
 					--see if there is a trainer nearby, and if there is, chance to spawn a pokemon
@@ -27,7 +31,9 @@ function GameMode:SetupSpawners()
 					for _,trainer in pairs(foundTrainers) do
 						--if the trainer is not already in battle, there's a chance to spawn a pokemon
 						if trainer.state == "Normal" then
-							if RandomFloat(0,1) < spawnChance then
+							currentSpawnChance = currentSpawnChance + baseSpawnChance
+							if RandomFloat(0,1) < currentSpawnChance then
+								currentSpawnChance = baseSpawnChance
 								GameMode:StartWildPokemonBattle( trainer, hSpawner )
 							end
 						end
@@ -40,55 +46,55 @@ function GameMode:SetupSpawners()
 
 	--Trainer spawners
 	for name,trainerBattleTable in pairs( trainer_spawner_tables ) do
-		local testSpawner = trainerBattleTable.location
-		local enemyTrainer = CreateUnitByName(trainerBattleTable.class, testSpawner, true, nil, nil, DOTA_TEAM_NEUTRALS)
-		enemyTrainer:SetAngles(0, RandomInt(0, 360), 0)
-		Timers:CreateTimer(0,
-			function()
-				if enemyTrainer.defeated == true then
-					return
-				end
-				--see if there is a trainer nearby, and if there is, start the battle
-				local foundTrainers = FindUnitsInRadius(DOTA_TEAM_NEUTRALS, testSpawner, nil, 900, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, 0, 0, false)
-				for _,trainer in pairs(foundTrainers) do
-					if trainer:CanEntityBeSeenByMyTeam(enemyTrainer) == true then
-						if trainer.state == "Normal" then
-							PokeHelper:StartBattle( trainer )
-							GameMode:StartTrainerBattle( trainer, trainerBattleTable, enemyTrainer )
-						end
-					end
-				end
-				
-				return RandomFloat( .4, .6 )
-			end)
+		local spawnLocation = Entities:FindByName(nil, name):GetAbsOrigin()
+		GameMode:InitializeAITrainer( trainerBattleTable, spawnLocation )		
+	end
+
+	--Talkable NPC spawners
+	for name,npcTable in pairs( npc_tables ) do
+		local spawnLocation = Entities:FindByName(nil, name):GetAbsOrigin()
+		GameMode:InitializeNPC( npcTable.unit_name, npcTable.dialogue, spawnLocation )
 	end
 end
 
---------------------------------------------------------------------------------
--- StartTrainerBattle
--- Begins a trainer battle with identified trainer. Battle continues until one
--- trainer runs out of useable pokemon.
---------------------------------------------------------------------------------
-function GameMode:StartTrainerBattle( trainer, trainerBattleTable, enemyTrainer )
-	local battleRadius = 1000
+function GameMode:InitializeNPC( unitName, dialogueTable, spawnLocation)
+	local npc = CreateUnitByName(unitName, spawnLocation, true, nil, nil, DOTA_TEAM_NEUTRALS)
+	
+	npc:SetAngles(0, RandomInt(0, 360), 0)
+	npc.dialogueTable = dialogueTable
+end
+
+function GameMode:InitializeRivalBattles( starter )
+	--these battles are different depending on your starter
+	local numRivalBattles = 4
+	local rival_battle_tables = special_trainer_tables[starter]
+
+	for i=1,numRivalBattles do
+		local spawnLocation = Entities:FindByName(nil, "rival" .. i):GetAbsOrigin()
+		local trainerBattleTable = rival_battle_tables["rival" .. i]
+
+		GameMode:InitializeAITrainer( trainerBattleTable, spawnLocation )
+	end
+end
+
+function GameMode:InitializeAITrainer( trainerBattleTable, spawnLocation )
 	local class = trainerBattleTable.class
-	local name = trainerBattleTable.name
 	local pokemonTable = trainerBattleTable.pokemon
+	local reward = trainerBattleTable.reward
 	local preBattleTable = trainerBattleTable.preBattle
 	local postBattleTable = trainerBattleTable.postBattle
-	local reward = trainerBattleTable.reward
 
-	enemyTrainer:SetForwardVector((trainer:GetAbsOrigin() - enemyTrainer:GetAbsOrigin()):Normalized())
-	
-	rangeParticle = ParticleManager:CreateParticle("particles/ui_mouseactions/range_display.vpcf", PATTACH_ABSORIGIN, enemyTrainer)
-	    ParticleManager:SetParticleControl(rangeParticle, 0, enemyTrainer:GetAbsOrigin())
-	    ParticleManager:SetParticleControl(rangeParticle, 1, Vector(battleRadius, 0, 0))
+	local enemyTrainer = CreateUnitByName(trainerBattleTable.class, spawnLocation, true, nil, nil, DOTA_TEAM_NEUTRALS)
 
-	enemyTrainer.target = trainer
-	enemyTrainer.particle = rangeParticle
+	--turn the class into something human readable (bug_catcher -> Bug Catcher)
+	class = class:gsub("_", " ")
+	class = class:gsub("^%l", string.upper)
+
+	enemyTrainer:SetAngles(0, RandomInt(0, 360), 0)
 	enemyTrainer.postBattleTable = postBattleTable
 	enemyTrainer.reward = reward
-	enemyTrainer.name = class .. " " .. name
+	enemyTrainer.name = class .. " " .. trainerBattleTable.name
+	enemyTrainer:AddNewModifier(enemyTrainer,nil,"modifier_invulnerable",{})
 
 	--give the trainer pokeballs for each of their pokemon
 	for i=1,#pokemonTable do
@@ -106,7 +112,49 @@ function GameMode:StartTrainerBattle( trainer, trainerBattleTable, enemyTrainer 
 		enemyTrainer:AddItem(item)
 	end
 
-	Notifications:RPGTextBox(trainer:GetPlayerID(), {text=class .. " " .. name .. " wants to battle!", duration=3, buttons=false, code=0, dialogueTree=""})
+	--see if there is a trainer nearby, and if there is, start the battle
+	Timers:CreateTimer(0,
+	function()
+		if enemyTrainer.defeated == true then
+			return
+		end
+		
+		local foundTrainers = FindUnitsInRadius(DOTA_TEAM_NEUTRALS, spawnLocation, nil, 900, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, 0, 0, false)
+		for _,trainer in pairs(foundTrainers) do
+			if trainer:CanEntityBeSeenByMyTeam(enemyTrainer) == true then
+				if trainer.state == "Normal" then
+					PokeHelper:StartBattle( trainer )
+					GameMode:StartTrainerBattle( trainer, trainerBattleTable, enemyTrainer )
+				end
+			end
+		end
+		
+		return RandomFloat( .4, .6 )
+	end)
+end
+
+--------------------------------------------------------------------------------
+-- StartTrainerBattle
+-- Begins a trainer battle with identified trainer. Battle continues until one
+-- trainer runs out of useable pokemon.
+--------------------------------------------------------------------------------
+function GameMode:StartTrainerBattle( trainer, trainerBattleTable, enemyTrainer )
+	local battleRadius = 900
+	local pokemonTable = trainerBattleTable.pokemon
+	local preBattleTable = trainerBattleTable.preBattle
+	local postBattleTable = trainerBattleTable.postBattle
+	local reward = trainerBattleTable.reward
+
+	enemyTrainer:SetForwardVector((trainer:GetAbsOrigin() - enemyTrainer:GetAbsOrigin()):Normalized())
+	
+	local rangeParticle = ParticleManager:CreateParticle("particles/ui_mouseactions/range_display.vpcf", PATTACH_ABSORIGIN, enemyTrainer)
+	    ParticleManager:SetParticleControl(rangeParticle, 0, enemyTrainer:GetAbsOrigin())
+	    ParticleManager:SetParticleControl(rangeParticle, 1, Vector(battleRadius, 0, 0))
+
+	enemyTrainer.target = trainer
+	enemyTrainer.particle = rangeParticle
+
+	Notifications:RPGTextBox(trainer:GetPlayerID(), {text=enemyTrainer.name .. " wants to battle!", duration=2, buttons=false, code=0, dialogueTree=""})
 	for i=1,#preBattleTable do
 		Notifications:RPGTextBox(trainer:GetPlayerID(), {text=preBattleTable[i], duration=2, buttons=false, code=0, dialogueTree=""})
 	end
@@ -116,8 +164,8 @@ function GameMode:StartTrainerBattle( trainer, trainerBattleTable, enemyTrainer 
 	local fightDelay = 2+2*#preBattleTable
 
 	Timers:CreateTimer(fightDelay,function()
-		PokeHelper:SendOutFirstPokemon( enemyTrainer )
-		PokeHelper:SendOutFirstPokemon( trainer )
+		PokeHelper:SendOutNextPokemon( enemyTrainer )
+		PokeHelper:SendOutNextPokemon( trainer )
 	end)
 
 end
@@ -139,7 +187,7 @@ function GameMode:StartWildPokemonBattle( trainer, hSpawner )
 	pokemonAvatar.trainerTable = trainer
 
 	PokeHelper:StartBattle( trainer )
-	PokeHelper:SendOutFirstPokemon( trainer )
+	PokeHelper:SendOutNextPokemon( trainer )
 
 	Notifications:RPGTextBox(trainer:GetPlayerID(), {text="A wild " .. pokemon:GetName() .. " appeared!", duration=2, buttons=false, code=0, dialogueTree=""})
 end

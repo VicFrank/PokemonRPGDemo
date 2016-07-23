@@ -6,10 +6,10 @@ function BeginCapture( keys )
 
 	if targetPokemon == nil then
 		print("Poke Balls only work on Pokemon!")
-		EndCapture( keys )
+		target:RemoveModifierByName("in_pokeball")
 	elseif not targetPokemon:IsWild() then
 		print("You can only capture wild pokemon!")
-		EndCapture( keys )
+		target:RemoveModifierByName("in_pokeball")
 	else
 		--put the pokemon in its ball
 		if target.target_model == nil then
@@ -47,7 +47,7 @@ function BeginCapture( keys )
 					else
 						--we caught the pokemon!
 						Notifications:RPGTextBox(0, {text=targetPokemon:GetName() .. " was caught!", duration=2, buttons=false, code=200, dialogueTree=""})
-						Notifications:RPGTextBox(0, {text="Give " .. targetPokemon:GetName() .. " a nickname?", duration=2, buttons=true, code=200, dialogueTree=""})
+						--Notifications:RPGTextBox(0, {text="Give " .. targetPokemon:GetName() .. " a nickname?", duration=2, buttons=true, code=200, dialogueTree=""})
 						
 						PokeHelper:EndBattleState( caster )
 						

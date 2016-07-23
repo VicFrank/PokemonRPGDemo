@@ -63,6 +63,13 @@ function GameMode:OnItemPickedUp(keys)
   local itemEntity = EntIndexToHScript(keys.ItemEntityIndex)
   local player = PlayerResource:GetPlayer(keys.PlayerID)
   local itemname = keys.itemname
+
+  --the first time they pick a starter, teleport them to their rival battle
+  if heroEntity.starter == nil then
+    heroEntity.starter = itemEntity.pokemon
+    PokeHelper:Teleport( heroEntity, "oak_lab_teleport" )
+    GameMode:InitializeRivalBattles( itemEntity.pokemon:GetUnitName() )
+  end
 end
 
 -- A player has reconnected to the game.  This function can be used to repaint Player-based particles or change
@@ -250,12 +257,14 @@ function GameMode:OnEntityKilled( keys )
   if killedPokemon:GetCurrentHP() < 1 then
     if killedPokemon:IsWild() then
       --if it was a wild pokemon, end the battle and award exp
-      PokeHelper:WildPokemonBattleEnded( killedPokemon, killedUnit.attackers, killerEntity.trainer )
+      for _,trainer in pairs( killedUnit.tPlayerTrainers ) do
+        PokeHelper:WildPokemonBattleEnded( killedPokemon, killedUnit.attackers, trainer )
+      end
     else
       --if it was a trainer's pokemon, attempt to send out their next pokemon
       local trainer = killedUnit.trainer
-      PokeHelper:SendOutFirstPokemon( trainer )
       trainer.experienceTable = GameMode:DistributeExp( killedPokemon, killedUnit.attackers, trainer.experienceTable )
+      PokeHelper:SendOutNextPokemon( trainer )
     end
   else
     if killedPokemon:IsWild() then
@@ -271,8 +280,12 @@ function GameMode:OnEntityKilled( keys )
     	end
 
       PokeHelper:EndBattleState( trainer )
-    elseif killedUnit:GetTeam() == DOTA_TEAM_NEUTRALS then
-      --the player lost a trainer battle
+    elseif killedUnit.trainer ~= nil and killedUnit:GetTeam() == DOTA_TEAM_NEUTRALS then
+      --the player lost a trainer battle, restore the ai trainer's pokemon
+      PokeHelper:PokemonCenterHeal( killedUnit.trainer )
+      --if the player goes too far away during battle, the ai trainer pokemon will despawn, this is temporary
+      --until the battle mechanics have been refined. In the meantime, you need to end the player's battle state
+      PokeHelper:EndBattleState( killedUnit.trainer.target )
     end
     --The other condition is that a trainer's pokemon deleted itself. This is the case when a pokemon is withdrawn.
     --We don't need to do anything about that here.

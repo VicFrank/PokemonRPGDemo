@@ -37,7 +37,6 @@ function Activate(keys)
 						PokeHelper:Withdraw( caster )
 						local pokemonAvatar = PokeHelper:CreatePokemonAtPosition( pokemon, position, caster, caster:GetTeam() )
 						Selection:NewSelection( pokemonAvatar )
-						ability:ApplyDataDrivenModifier(caster, pokemonAvatar, "summoning_sickness", {})
 					end
 				end)
 		else
